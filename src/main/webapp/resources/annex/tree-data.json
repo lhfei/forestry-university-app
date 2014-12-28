@@ -1,0 +1,48 @@
+[{
+	text: "待辦任務",
+	iconCls: "tree-trunk",
+    expanded: true,
+    children: [{
+    	id: "workStation.do",
+    	text: "任務工作台",
+    	iconCls: "tree-leaf",
+    	url: "workStation.do",
+    	leaf: true
+    },{
+    	id: "phoenixtv/taskList.do",
+    	text: "任務列表",
+    	iconCls: "tree-leaf",
+    	url: "phoenixtv/taskList.do",
+    	leaf: true
+    }]
+},{
+	text: "已辦任務",
+	iconCls: "tree-trunk",
+    expanded: true,
+    children: [{
+        id: 'processManager/history.do',
+        text: '任務列表',
+        iconCls: "tree-leaf",
+        url: "processManager/history.do",
+        leaf: true
+    },{
+        id: 'ifeng/videoList.do',
+        text: '视频列表',
+        iconCls: "tree-leaf",
+        url: "ifeng/videoList.do",
+        leaf: true
+    }]
+},{
+	text: "流程管理",
+	iconCls: "tree-trunk",
+    expanded: true,
+    children: [{
+        id: 'processManager/deploy.do',
+        text: '流程發布',
+        iconCls: "tree-leaf",
+        url: "processManager/deploy.do",
+        leaf: true
+    }]
+}]
+
+

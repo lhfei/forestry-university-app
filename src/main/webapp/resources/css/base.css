@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+#login-win .x-window-mc {
+	background:#FFFFFF none repeat scroll 0%;
+	border:1px solid #EEEEEE;
+}
+#login-logo .x-plain-body {
+	background:#F9F9F9 url(../images/head_r.png) no-repeat scroll center;
+}
+#login-form .x-plain-body {
+	background:#F9F9F9 none repeat scroll 0%;
+	color:#222222;
+	padding: 1px 160px;
+}
+#login-win .x-window-body {
+	background:#FFFFFF none repeat scroll 0% 50%;
+	border:1px solid #99BBE8;
+}
+.x-check-group-alt {
+	background:#D1DDEF;
+	border-top:1px dotted #B5B8C8;
+	border-bottom:1px dotted #B5B8C8;
+}
+
+/* FormPanel title*/
+.x-panel-header-text{
+	font-size:13px;
+	font-weight:normal;
+	font-family:Verdana, Geneva, sans-serif;
+}
+.x-tab-strip-top .x-tab-strip-active .x-tab-right span.x-tab-strip-text{
+	font-size:13px;
+	font-weight:normal;
+	color:#09C;
+	font-family:Verdana, Geneva, sans-serif;
+}
+.x-fieldset-header-text{
+	font-size:13px;
+	font-weight:normal;
+	color:#09C;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+/* GridPanel */
+.x-grid3-cell-inner, .x-grid3-hd-inner {
+	font-size:13px;
+	font-weight:normal;
+	color:#09C;
+	font-family:Verdana, Geneva, sans-serif;
+	text-align: center;
+}
+.x-portlet .x-panel-body {
+	background:none repeat scroll 0 0 white;
+	font-size:13px;
+	font-weight:normal;
+}
+

@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+.silk-add{
+	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
+}
+.silk-delete{
+	background-image:url(../../resources/ext4/shared/icons/fam/delete.gif) !important
+}
+.icon-user-add {
+	background-image:url(../../resources/ext4/shared/icons/fam/user_add.gif) !important
+}
+.icon-user-delete {
+	background-image:url(../../resources/ext4/shared/icons/fam/user_delete.gif) !important
+}
+.icon-grid{
+	background-image:url(../../resources/ext4/shared/icons/fam/grid.png) !important
+}
+.icon-summary{
+	background-image:url(../../resources/ext4/shared/icons/fam/information.png) !important
+}
+
+.icon-save{
+	background-image:url(../../resources/ext4/shared/icons/save.gif) !important
+}
+.icon-cancel{
+	background-image:url(../../resources/ext4/shared/icons/fam/table_refresh.png) !important
+}
+.icon-logon{
+	background-image:url(../../resources/images/icons/right-btn.gif) !important
+}
+
+.icon-formItem{
+	background:#D1DDEF;
+	border-top:1px dotted #B5B8C8;
+	border-bottom:1px dotted #B5B8C8;
+}
+.icon-home{
+	background-image:url(../../resources/images/icons/home.gif) !important
+}
+.icon-commTab{
+	background-image:url(../images/default/grid/group-by.gif) !important
+}
+.icon-email{
+	background-image:url(../../resources/images/icons/email_go.png) !important
+}
+.icon-add{
+	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
+}
+.icon-option{
+	background-image:url(../../resources/ext4/shared/icons/fam/plugin.gif) !important
+}
+.icon-delete {
+    background-image:url(../../resources/ext4/shared/icons/fam/delete.gif) !important;
+}
+.icon-start{
+	background-image:url(../../resources/images/icons/control_play.png) !important
+}
+.icon-refresh{
+	background-image:url(../../resources/images/icons/refresh.gif) !important
+}
+.icon-back{
+	background-image:url(../../resources/images/icons/arrow_undo.png) !important
+}
+.icon-processform{
+	background-image:url(../../resources/images/icons/processforms.png) !important
+}
+.icon-process{
+	background-image:url(../../resources/ext4/shared/icons/fam/user_edit.png) !important
+}
+
+
+
