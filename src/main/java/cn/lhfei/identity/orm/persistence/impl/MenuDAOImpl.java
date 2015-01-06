@@ -20,8 +20,6 @@ import org.springframework.stereotype.Repository;
 import cn.lhfei.identity.orm.domain.Menu;
 import cn.lhfei.identity.orm.persistence.MenuDAO;
 
-import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
-
 /**
  * @version 1.0.0
  *
@@ -29,6 +27,6 @@ import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
  *
  * @since Nov 27, 2014
  */
-@Repository("menuDAOImpl")
+@Repository("menuDAO")
 public class MenuDAOImpl extends AbstractBaseDAO<Menu,Integer> implements MenuDAO {
 }

@@ -18,7 +18,13 @@ package cn.lhfei.identity.orm.domain;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * @version 1.0.0
@@ -28,24 +34,62 @@ import javax.persistence.MappedSuperclass;
  * @since Nov 28, 2014
  */
 @SuppressWarnings("serial")
-@MappedSuperclass
+@Entity
+@Table(name = "SYS_USER")
 public class User extends AbstractDomain {
 
-	@Column(name="BIRTHDAY")
+	@Id
+	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	private int id;
+
+	@Column(name = "USER_ID")
+	private String userId; // 学生、教师编号
+
+	@Column(name = "BIRTHDAY")
 	private Date birthday;
-	
-	@Column(name="NAME")
-	private String name;
-	
-	@Column(name="GENDER")
+
+	@Column(name = "USER_NAME")
+	private String userName;
+
+	@Column(name = "GENDER")
 	private int gender;
-	
-	@Column(name="SIGN_TIME")
-	private Date signTime;		//登录日趋
-	
-	@Column(name="")
-	private String aliasName;	//别名
-	
+
+	@Column(name = "SIGN_TIME")
+	private Date signTime; // 登录日趋
+
+	@Column(name = "ALIAS_NAME")
+	private String aliasName; // 别名
+
+	@Column(name = "PASS_WORD")
+	private String passWord;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false)
+	private Role role;
+
+	@Column(name = "USER_TYPE")
+	private String userType;
+
+	@Column(name = "EMAIL")
+	private String email;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -54,12 +98,12 @@ public class User extends AbstractDomain {
 		this.birthday = birthday;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getGender() {
@@ -85,4 +129,37 @@ public class User extends AbstractDomain {
 	public void setAliasName(String aliasName) {
 		this.aliasName = aliasName;
 	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

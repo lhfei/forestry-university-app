@@ -37,7 +37,7 @@ import com.googlecode.genericdao.search.SearchResult;
  *
  * @since Nov 27, 2014
  */
-@Service("roleServiceImpl")
+@Service("roleService")
 @Transactional
 public class RoleServiceImpl implements RoleService {
 

@@ -41,7 +41,7 @@ public class ThesisArchive extends AbstractEntity {
 	@Column(name="STUDENT_BASE_ID")
 	private Integer studentBaseId;	//学生主键ID
 	
-	@Column(name = "STEDENT_ID")
+	@Column(name = "STUDENT_ID")
 	private String studentId; // '学生编号',
 	
 	@Column(name = "THESIS_BASE_ID")

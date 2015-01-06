@@ -17,6 +17,8 @@ package cn.lhfei.identity.orm.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +33,11 @@ import javax.persistence.Table;
 //@Cache(usage=CacheConcurrencyStrategy.READ_ONLY,region="SYS_MENU")
 public class Menu extends AbstractDomain {
 	private static final long serialVersionUID = 2675598634806655044L;
+	
+	@Id
+	@javax.persistence.GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="MENU_ID")
+	private int menuId;
 
 	@Column(name="M_NAME")
 	private String mName;
@@ -49,6 +56,14 @@ public class Menu extends AbstractDomain {
 	
 	@Column(name="M_STATUS")
 	private String mStatus;
+
+	public int getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
+	}
 
 	public String getmName() {
 		return mName;

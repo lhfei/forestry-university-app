@@ -1,10 +1,10 @@
 [{
-	text: "待辦任務",
+	text: "我是老师",
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{
     	id: "workStation.do",
-    	text: "任務工作台",
+    	text: "作业列表",
     	iconCls: "tree-leaf",
     	url: "workStation.do",
     	leaf: true
@@ -16,24 +16,24 @@
     	leaf: true
     }]
 },{
-	text: "已辦任務",
+	text: "我是学生",
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{
-        id: 'processManager/history.do',
-        text: '任務列表',
+        id: '../homework/index.do',
+        text: '作业列表',
         iconCls: "tree-leaf",
         url: "processManager/history.do",
         leaf: true
     },{
         id: 'ifeng/videoList.do',
-        text: '视频列表',
+        text: '论文列表',
         iconCls: "tree-leaf",
         url: "ifeng/videoList.do",
         leaf: true
     }]
 },{
-	text: "流程管理",
+	text: "我是管理员",
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+
+	<bean id="studentBase" class="cn.lhfei.fu.orm.domain.StudentBase" scope="prototype" />
+	
+	<!-- 
+		==========================================================
+		|****   BATCH INSERT DATA TO TABLE STUDENT_BASE   ****   |
+		==========================================================
+	-->
+	<batch:job id="importStudentJob">
+		<batch:step id="step1">
+			<batch:tasklet>
+				<batch:chunk reader="studentFileItemReader" writer="studentItemWriter"
+					commit-interval="2">
+				</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+	
+	<bean id="studentFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<!-- Read a csv file -->
+		<property name="resource" value="classpath:data/student.csv" />
+		<property name="linesToSkip" value="1"/>
+		<property name="encoding" value="GBK" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<!-- split it -->
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="studentId, name, className, majorName, majorCode, aliasName,  email, birthday, gender" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<!-- map to an object -->
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="studentBase" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="studentItemWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sql">
+			<value>
+            <![CDATA[        
+            	INSERT INTO STUDENT_BASE(STUDENT_ID, NAME, CLASS_NAME, MAJOR_NAME, MAJOR_CODE, ALIAS_NAME,  EMAIL, BIRTHDAY, GENDER) 
+				VALUES (:studentId, :name, :className, :majorName, :majorCode, :aliasName, :email, :birthday, :gender)
+            ]]>
+			</value>
+		</property>
+		<property name="itemSqlParameterSourceProvider">
+			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
+		</property>
+	</bean>
+	
+</beans>

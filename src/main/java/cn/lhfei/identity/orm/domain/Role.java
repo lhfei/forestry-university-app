@@ -17,6 +17,8 @@ package cn.lhfei.identity.orm.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -34,6 +36,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public class Role extends AbstractDomain {
 	private static final long serialVersionUID = 8794388271048266413L;
 	
+	@Id
+	@javax.persistence.GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ROLE_ID")
+	private int roleId;
+	
 	@Column(name="R_NAME")
 	private String name;
 	
@@ -48,6 +55,14 @@ public class Role extends AbstractDomain {
 	
 	@Column(name="R_STATUS")
 	private String status;
+	
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 
 	public String getName() {
 		return name;

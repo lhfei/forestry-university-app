@@ -35,7 +35,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "STUDENT_BASE")
 public class StudentBase extends AbstractEntity {
-
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "STUDENT_BASE_ID")
@@ -50,21 +49,25 @@ public class StudentBase extends AbstractEntity {
 	@Column(name = "GENDER")
 	private int gender; // '性别， 枚举值包括[男（0）女（1）]
 
-	@Column(name = "STEDENT_ID")
+	@Column(name = "STUDENT_ID")
 	private String studentId; // '学生编号',
 
 	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "ALIAS_NAME")
-	private String aliasName;
 
 	@Column(name = "MAJOR_CODE")
 	private String majorCode; // '专业代码',
 
 	@Column(name = "MAJOR_NAME")
-	private String major_name; // '专业名称'
+	private String majorName; // '专业名称'
+	
+	@Column(name = "CLASS_NAME")
+	private String className; // '班级名称'
 
+	@Column(name = "ALIAS_NAME")
+	private String aliasName;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -139,12 +142,20 @@ public class StudentBase extends AbstractEntity {
 		this.majorCode = majorCode;
 	}
 
-	public String getMajor_name() {
-		return major_name;
+	public String getMajorName() {
+		return majorName;
 	}
 
-	public void setMajor_name(String major_name) {
-		this.major_name = major_name;
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 	
 }

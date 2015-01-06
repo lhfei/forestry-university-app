@@ -19,8 +19,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import cn.lhfei.identity.web.convert.JsonDateSerializer;
@@ -39,11 +37,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @MappedSuperclass
 @JsonAutoDetect
 public abstract class AbstractDomain implements Serializable {
-
-	@Id
-	@javax.persistence.GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
-	private int id;
 	
 	@Column(name="CREATE_TIME")
 	private Date createTime;
@@ -60,14 +53,6 @@ public abstract class AbstractDomain implements Serializable {
 	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date getCreateTime() {
 		return createTime;
-	}
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setCreateTime(Date createTime) {

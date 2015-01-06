@@ -63,7 +63,7 @@ public class HomeworkController extends AbstractController {
 	
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public ModelAndView index(HttpSession session) {
-		ModelAndView view = new ModelAndView("student/hw/list");
+		ModelAndView view = new ModelAndView("student/hwork/list");
 		
 		List<ApproveStatus> list = comboboxService.getApproveStatus();
 		List<Combobox> xnList = comboboxService.getCombobo(XN);
@@ -81,6 +81,50 @@ public class HomeworkController extends AbstractController {
 	//// 系统角色管理			
 	//// Process step  	... 											
 	/////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="/read", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> read(
+			@RequestParam("academicYear")String academicYear,
+			@RequestParam("semester")String semester,
+			@RequestParam("courseName")String courseName,
+			//@RequestParam("className")String className,
+			@RequestParam("name")String name,
+			@RequestParam("start")int start,
+			@RequestParam("page")int page,
+			@RequestParam("limit")int limit, HttpSession session) {
+		
+		String className = (String)session.getAttribute(CLASS_NAME);
+		
+		if(null != name && name.trim().length() > 0){
+			name = "%" +name+ "%";
+		} 
+		
+		HomeworkBaseModel homework = new HomeworkBaseModel();
+		homework.setAcademicYear(academicYear);
+		homework.setSemester(semester);
+		homework.setCourseName(courseName);
+		homework.setName(name);
+		homework.setPageNum(start);
+		homework.setPageSize(limit);
+		
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
+		
+		json.setResult(true);
+		
+		homework.setClassName(className);	//filter by student's class name.
+		
+		/*SearchResult<HomeworkBase> result = homeworkBaseService.search(homework);
+		json.setRows(result.getResult());
+		json.setTotal(result.getTotalCount());*/
+		
+		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByStudent(homework);
+		int total = homeworkBaseService.countHomeworkByStudent(homework);
+		
+		json.setTotal(total);
+		json.setRows(result);
+		
+		return json;
+	}
+	
 	@RequestMapping(value="/homeworkRead", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
 	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(@RequestBody HomeworkBaseModel homework,HttpSession session) {
@@ -160,7 +204,7 @@ public class HomeworkController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateHomework", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody String updateHomework(
+	public @ResponseBody Map<String, Object> updateHomework(
 			@ModelAttribute("uploadForm") HomeworkBaseModel uploadForm,
 			HttpSession session) {
 		
@@ -173,9 +217,8 @@ public class HomeworkController extends AbstractController {
 		
 		homeworkBaseService.update(uploadForm);
 
-		//return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+		return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
 		
-		return SUCCESS;
 	}
 	
 	/**

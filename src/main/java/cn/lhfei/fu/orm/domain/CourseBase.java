@@ -49,6 +49,12 @@ public class CourseBase {
 
 	@Column(name = "COURSE_NAME")
 	private String courseName; // '课程名称',
+	
+	@Column(name = "ACADEMIC_YEAR")
+	private String academicYear; // '学年 academic year'
+	
+	@Column(name = "SEMESTER")
+	private String semester; // '学期(semester)'
 
 	public Integer getId() {
 		return id;
@@ -81,5 +87,23 @@ public class CourseBase {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
+
+	public String getAcademicYear() {
+		return academicYear;
+	}
+
+	public void setAcademicYear(String academicYear) {
+		this.academicYear = academicYear;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+	
+	
 
 }

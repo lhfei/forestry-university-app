@@ -51,7 +51,7 @@ public class TeacherBase extends AbstractEntity {
 	private int gender; // '性别， 枚举值包括[男（0）女（1）]
 
 	@Column(name = "TEACHER_ID")
-	private String teacherID; // '教师编号',
+	private String teacherId; // '教师编号',
 
 	@Column(name = "EMAIL")
 	private String email;
@@ -91,12 +91,12 @@ public class TeacherBase extends AbstractEntity {
 		this.gender = gender;
 	}
 
-	public String getTeacherID() {
-		return teacherID;
+	public String getTeacherId() {
+		return teacherId;
 	}
 
-	public void setTeacherID(String teacherID) {
-		this.teacherID = teacherID;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
 
 	public String getEmail() {

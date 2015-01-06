@@ -16,16 +16,12 @@
 package cn.lhfei.identity.orm.persistence.impl;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import cn.lhfei.identity.orm.domain.AbstractDomain;
 import cn.lhfei.identity.orm.persistence.IdentityDAO;
-
-import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 
 /**
  * @version 1.0.0
@@ -34,7 +30,7 @@ import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
  *
  * @since Nov 27, 2014
  */
-@Repository("identityDAOImpl")
+@Repository("identityDAO")
 public class IdentityDAOImpl extends AbstractBaseDAO<AbstractDomain, Integer>
 		implements IdentityDAO {
 

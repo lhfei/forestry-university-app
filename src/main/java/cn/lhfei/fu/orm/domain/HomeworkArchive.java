@@ -40,7 +40,7 @@ public class HomeworkArchive extends AbstractEntity {
 	@Column(name="STUDENT_BASE_ID")
 	private Integer studentBaseId;
 	
-	@Column(name = "STEDENT_ID")
+	@Column(name = "STUDENT_ID")
 	private String studentId; // '学生编号',
 	
 	@Column(name="homework_base_id")

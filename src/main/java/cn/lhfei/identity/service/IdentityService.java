@@ -15,9 +15,8 @@
  */
 package cn.lhfei.identity.service;
 
-import java.util.List;
-
 import cn.lhfei.identity.orm.domain.AbstractDomain;
+import cn.lhfei.identity.orm.domain.User;
 
 /**
  * @version 1.0.0
@@ -30,5 +29,8 @@ import cn.lhfei.identity.orm.domain.AbstractDomain;
 public interface IdentityService {
 
 	boolean save(AbstractDomain entity);
-	
+
+	User login(String userId, String passWord);
+
+	void restPassword(User user);
 }

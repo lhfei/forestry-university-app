@@ -35,7 +35,7 @@ import com.googlecode.genericdao.search.Search;
  *
  * @since Nov 27, 2014
  */
-@Service("menuServiceImpl")
+@Service("menuService")
 @Transactional
 public class MenuServiceImpl implements MenuService {
 

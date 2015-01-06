@@ -15,13 +15,22 @@
  */
 package cn.lhfei.identity.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.lhfei.identity.common.util.SecurityUtils;
 import cn.lhfei.identity.orm.domain.AbstractDomain;
+import cn.lhfei.identity.orm.domain.User;
 import cn.lhfei.identity.orm.persistence.IdentityDAO;
 import cn.lhfei.identity.service.IdentityService;
+import cn.lhfei.identity.service.MenuService;
+import cn.lhfei.identity.service.RoleService;
+import cn.lhfei.identity.service.UserService;
+import cn.lhfei.identity.web.model.UserModel;
 
 /**
  * @version 1.0.0
@@ -30,15 +39,48 @@ import cn.lhfei.identity.service.IdentityService;
  *
  * @since Nov 27, 2014
  */
-@Service("identityServiceImpl")
+@Service("identityService")
 @Transactional
 public class IdentityServiceImpl implements IdentityService {
 
+	@Override
 	public boolean save(AbstractDomain entity) {
-		return identityDAOImpl.save(entity);
+		return identityDAO.save(entity);
+	}
+	
+	
+	@Override
+	public User login(String userId, String passWord) {
+		User user = null;
+		
+		UserModel userModel = new UserModel();
+		userModel.setUserId(userId);
+		userModel.setPassWord(SecurityUtils.toMd5(passWord));
+		
+		List<User> list = userService.search(userModel);
+		
+		if(list != null && list.size() == 1){
+			user = list.get(0);
+		}
+		
+		return user;
+	}
+	
+	@Override
+	public void restPassword(User user) {
+		userService.saveOrUpdate(user);
 	}
 	
 
-
-	private IdentityDAO identityDAOImpl;
+	@Autowired
+	private IdentityDAO identityDAO;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private MenuService menuService;
 }

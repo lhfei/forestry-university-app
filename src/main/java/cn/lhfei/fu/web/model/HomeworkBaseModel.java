@@ -141,10 +141,10 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 	private Integer id; // 作业ID
 	private Integer studentBaseId; // 学生主键ID
 	private String studentId; // 学生编号		
-	private String homeworkArahiveId;// 作业附件主键ID
+	private Integer homeworkArahiveId;// 作业附件主键ID
 
 	private String studentName; //学生姓名
-	private String name; // 作业名称
+	private String name; 		// 学生姓名
 	private String academicYear; // '学年 academic year'
 	private String semester; // '学期(semester)'
 	private Date operationTime;
@@ -215,11 +215,11 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 		this.studentId = studentId;
 	}
 
-	public String getHomeworkArahiveId() {
+	public Integer getHomeworkArahiveId() {
 		return homeworkArahiveId;
 	}
 
-	public void setHomeworkArahiveId(String homeworkArahiveId) {
+	public void setHomeworkArahiveId(Integer homeworkArahiveId) {
 		this.homeworkArahiveId = homeworkArahiveId;
 	}
 

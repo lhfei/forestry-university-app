@@ -28,6 +28,6 @@ import com.googlecode.genericdao.dao.hibernate.GenericDAO;
  *
  * @since Nov 27, 2014
  */
-public interface RoleDAO extends GenericDAO<Role, Integer>  {
+public interface RoleDAO extends GenericDAO<Role, Integer> {
 
 }

@@ -1,4 +1,74 @@
 @CHARSET "UTF-8";
+.icon-logon{
+	background-image:url(../../resources/images/icons/right-btn.gif) !important
+}
+
+.icon-formItem{
+	background: #D1DDEF;
+	border-top: 1px dotted #B5B8C8;
+	border-bottom: 1px dotted #B5B8C8;
+}
+.icon-home{
+	background-image:url(../../resources/images/icons/home.gif) !important
+}
+.icon-download {
+	background-image:url(../../resources/images/icons/cloud-download-white-icon-64.png) !important
+}
+.icon-upload{
+	background-image:url(../../resources/images/icons/cloud-upload-white-icon-64.png) !important
+}
+
+.search-icon{
+	background-image:url(../../resources/images/icons/search-icon.png) !important
+}
+.icon-commTab{
+	background-image:url(../images/default/grid/group-by.gif) !important
+}
+.icon-email{
+	background-image:url(../../resources/images/icons/email_go.png) !important
+}
+.icon-start{
+	background-image:url(../../resources/images/icons/control_play.png) !important
+}
+.icon-refresh{
+	background-image:url(../../resources/images/icons/refresh.gif) !important
+}
+.icon-back{
+	background-image:url(../../resources/images/icons/arrow_undo.png) !important
+}
+.icon-processform{
+	background-image:url(../../resources/images/icons/processforms.png) !important
+}
+
+.upload-icon {
+    background: url('../../resources/ext4/shared/icons/fam/image_add.png') no-repeat 0 0 !important;
+}
+#fi-button-msg {
+    border: 2px solid #ccc;
+    padding: 5px 10px;
+    background: #eee;
+    margin: 5px;
+    float: left;
+}
+.x-debug .x-form-file-wrap .x-form-file-input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0.6);
+    opacity: 0.6;
+    background-color: gray;
+}
+
+.image-add{
+	background-image:url(../../resources/ext4/shared/icons/fam/image_add.gif) !important
+}
+
+.icon-add{
+	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
+}
+.icon-option{
+	background-image:url(../../resources/ext4/shared/icons/fam/plugin.gif) !important
+}
+.icon-delete {
+    background-image:url(../../resources/ext4/shared/icons/fam/delete.gif) !important;
+}
 .silk-add{
 	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
 }
@@ -24,48 +94,10 @@
 .icon-cancel{
 	background-image:url(../../resources/ext4/shared/icons/fam/table_refresh.png) !important
 }
-.icon-logon{
-	background-image:url(../../resources/images/icons/right-btn.gif) !important
-}
-
-.icon-formItem{
-	background:#D1DDEF;
-	border-top:1px dotted #B5B8C8;
-	border-bottom:1px dotted #B5B8C8;
-}
-.icon-home{
-	background-image:url(../../resources/images/icons/home.gif) !important
-}
-.icon-commTab{
-	background-image:url(../images/default/grid/group-by.gif) !important
-}
-.icon-email{
-	background-image:url(../../resources/images/icons/email_go.png) !important
-}
-.icon-add{
-	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
-}
-.icon-option{
-	background-image:url(../../resources/ext4/shared/icons/fam/plugin.gif) !important
-}
-.icon-delete {
-    background-image:url(../../resources/ext4/shared/icons/fam/delete.gif) !important;
-}
-.icon-start{
-	background-image:url(../../resources/images/icons/control_play.png) !important
-}
-.icon-refresh{
-	background-image:url(../../resources/images/icons/refresh.gif) !important
-}
-.icon-back{
-	background-image:url(../../resources/images/icons/arrow_undo.png) !important
-}
-.icon-processform{
-	background-image:url(../../resources/images/icons/processforms.png) !important
-}
 .icon-process{
 	background-image:url(../../resources/ext4/shared/icons/fam/user_edit.png) !important
 }
+
 
 
 

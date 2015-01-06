@@ -80,7 +80,7 @@ public class FilePathBuilder implements IFilePathBuilder {
 		sb.append(className);
 		sb.append(studentName);
 		
-		sb.append("。");
+		sb.append(".");
 		
 		// section 2： {学年学期}
 		sb.append(academicYear);
@@ -91,7 +91,7 @@ public class FilePathBuilder implements IFilePathBuilder {
 		// section 3: {课程}
 		sb.append(courseName);
 		
-		sb.append("。");
+		sb.append(".");
 		
 		// section 4: {作业名称}
 		sb.append(name);

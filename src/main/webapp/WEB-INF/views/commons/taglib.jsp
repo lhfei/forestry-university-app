@@ -6,17 +6,4 @@
 	request.setAttribute("basePath", basePath);
 	request.setAttribute("extRoot", extRoot);
 %>
-
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-
-	<!-- GC -->
-	
-	<script type="text/javascript" src="${extRoot}/shared/include-ext.js?theme=neptune"></script>
-    
-	<script type="text/javascript" src="${extRoot}/shared/options-toolbar.js"></script>
-	
-    <script type="text/javascript" src="${extRoot}/locale/ext-lang-zh_CN.js"></script>
-	
-
-	<!-- Common Styles for the examples -->
 	

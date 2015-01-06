@@ -29,7 +29,7 @@ import cn.lhfei.identity.orm.persistence.RoleDAO;
  *
  * @since Nov 27, 2014
  */
-@Repository("roleDAOImpl")
+@Repository("roleDAO")
 public class RoleDAOImpl extends AbstractBaseDAO<Role,Integer> implements RoleDAO {
 
 

@@ -33,15 +33,15 @@ Ext.require([
 		items: [{
 			id: 'userId',
 	 		fieldLabel: '用户名',
-	 		name: 'userId',
-	 		value: 'admin'
+	 		name: 'user.userId',
+	 		value: 'student'
 	 		
 			},{
-			id: 'passwd',
+			id: 'passWord',
 				fieldLabel: '密码',
 	 		inputType: 'password',
-	 		name: 'passwd',
-	 		value: 'admin'
+	 		name: 'user.passWord',
+	 		value: '123456'
 		}],
 	keys: {
 		key: Ext.EventObject.ENTER,
@@ -56,21 +56,21 @@ Ext.require([
 	function Logon(){
 		if(formPanel.getForm().isValid()){
 			var userId = Ext.getCmp('userId').getValue();
-			var passwd = Ext.getCmp('passwd').getValue();
+			var passWord = Ext.getCmp('passWord').getValue();
 			//Ext.Msg.alert(name,pword);
 			Ext.Ajax.request({
-				url: 'login.do',
+				url: 'system/login.do',
 				waitMsg: 'Loading ...',
 				method: 'post',
 				headers: { 'Content-Type': 'application/json' },
 				success: function (response){
 					var result = Ext.decode(response.responseText); 
 					if(result.success && result.message == '0'){
-						document.location.href = 'index.do';
-					}else if(result.message == '1')
+						document.location.href = 'system/main.do';
+					}else if(!result.success)
 						Ext.MessageBox.show({
 							title: 'System Message',
-							msg: 'Your enter name or password invalid.'
+							msg: result.message
 					});
 				},
 				failure: function(){
@@ -82,7 +82,7 @@ Ext.require([
 				params: {},
 				jsonData: {
 					userId: userId,
-					userName: passwd
+					passWord: passWord
 				}/*,
 				scope: this*/
 			});

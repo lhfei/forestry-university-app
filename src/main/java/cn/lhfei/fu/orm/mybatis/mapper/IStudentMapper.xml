@@ -28,14 +28,24 @@
 			<if test="studentBaseId != null">
 				ha.student_base_id = #{studentBaseId} OR ha.student_base_id IS NULL
 			</if>
-			<if test="academicYear != null and academicYear != ''">
+			
+			<if test="academicYear != null and academicYear != '-1'">
 				AND hb.academic_year = #{academicYear}
 			</if>
-			<if test="className != null and className != ''">
+			
+			<if test="semester != null and semester != '-1'">
+				AND hb.semester = #{semester}
+			</if>	
+					
+			<if test="courseName != null and courseName != '-1'">
+				AND hb.course_name = #{courseName}
+			</if>			
+			
+			<if test="className != null and className != '-1'">
 				AND hb.class_name = #{className}
 			</if>
 			<if test="name != null and name != ''">
-				AND hb.hw_name like  '%$name$%'
+				AND hb.hw_name like  #{name}
 			</if>
 		</trim>
 		ORDER BY hb.academic_year DESC, hb.semester DESC
@@ -58,15 +68,24 @@
 			<if test="studentBaseId != null">
 				ha.student_base_id = #{studentBaseId} OR ha.student_base_id IS NULL
 			</if>
-	
-			<if test="academicYear != null and academicYear != ''">
+			
+			<if test="academicYear != null and academicYear != '-1'">
 				AND hb.academic_year = #{academicYear}
 			</if>
-			<if test="className != null and className != ''">
+			
+			<if test="semester != null and semester != '-1'">
+				AND hb.semester = #{semester}
+			</if>	
+					
+			<if test="courseName != null and courseName != '-1'">
+				AND hb.course_name = #{courseName}
+			</if>			
+			
+			<if test="className != null and className != '-1'">
 				AND hb.class_name = #{className}
 			</if>
 			<if test="name != null and name != ''">
-				AND hb.hw_name like  '%$name$%'
+				AND hb.hw_name like  #{name}
 			</if>
 		</trim>	
 	

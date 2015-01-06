@@ -15,8 +15,6 @@
  */
 package cn.lhfei.identity.orm.domain;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 
 /**
@@ -30,14 +28,14 @@ import javax.persistence.Column;
 public class Student extends User {
 
 	@Column(name="STUDENT_ID")
-	private String studentID;
-
-	public String getStudentID() {
-		return studentID;
+	private String studentId;
+	
+	public String getStudentId() {
+		return studentId;
 	}
 
-	public void setStudentID(String studentID) {
-		this.studentID = studentID;
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
-
+	
 }

@@ -28,13 +28,14 @@ import javax.persistence.Column;
 public class Teacher extends User{
 
 	@Column(name="TEACHER_ID")
-	private String teacher_ID;
+	private String teacherId;
 
-	public String getTeacher_ID() {
-		return teacher_ID;
+	public String getTeacherId() {
+		return teacherId;
 	}
 
-	public void setTeacher_ID(String teacher_ID) {
-		this.teacher_ID = teacher_ID;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
+	
 }
