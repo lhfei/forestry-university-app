@@ -16,7 +16,7 @@ Ext.define('Ifeng.store.MenuStore', {
 	
 	proxy: {
 		type: 'ajax',
-        url: '../resources/annex/tree-data.json',
+        url: '../resources/annex/tree-data-admin.json',
         reader: {
         	type: 'json',
         	root: ''

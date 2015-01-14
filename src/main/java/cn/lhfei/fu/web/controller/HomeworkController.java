@@ -208,14 +208,14 @@ public class HomeworkController extends AbstractController {
 			@ModelAttribute("uploadForm") HomeworkBaseModel uploadForm,
 			HttpSession session) {
 		
+		String userType = (String)session.getAttribute(USER_TYPE);
+		
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		
 		uploadForm.setStudentId(userSession.getUser().getUserId());
 		uploadForm.setStudentName(userSession.getUser().getUserName());
 		
-		log.info(uploadForm.toString());
-		
-		homeworkBaseService.update(uploadForm);
+		homeworkBaseService.update(uploadForm, userType);
 
 		return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
 		

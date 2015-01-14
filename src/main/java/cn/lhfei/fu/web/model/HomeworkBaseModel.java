@@ -39,7 +39,7 @@ import com.googlecode.genericdao.search.Search;
  * @since Dec 2, 2014
  */
 
-public class HomeworkBaseModel extends AbstractPaginationModel implements Serializable{
+public class HomeworkBaseModel extends AbstractPaginationModel implements Serializable {
 	private static final long serialVersionUID = 1991267055753135353L;
 
 	@Override

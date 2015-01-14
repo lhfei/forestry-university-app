@@ -40,6 +40,10 @@
 	background-image:url(../../resources/images/icons/processforms.png) !important
 }
 
+.icon-logout{
+	background-image:url(../../resources/images/icons/logout.png) !important
+}
+
 .upload-icon {
     background: url('../../resources/ext4/shared/icons/fam/image_add.png') no-repeat 0 0 !important;
 }
@@ -59,7 +63,9 @@
 .image-add{
 	background-image:url(../../resources/ext4/shared/icons/fam/image_add.gif) !important
 }
-
+.icon-user{
+	background-image:url(../../resources/ext4/shared/icons/fam/user.gif) !important
+}
 .icon-add{
 	background-image:url(../../resources/ext4/shared/icons/fam/add.gif) !important
 }

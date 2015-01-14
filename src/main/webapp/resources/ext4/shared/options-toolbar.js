@@ -99,8 +99,8 @@
                 items: [{
                     xtype: 'combo',
                     rtl: false,
-                    width: 170,
-                    labelWidth: 45,
+                    width: 150,
+                    labelWidth: 35,
                     fieldLabel: 'Theme',
                     displayField: 'name',
                     valueField: 'value',
@@ -153,14 +153,14 @@
                 }],
 
                 // Extra constraint margins within default constrain region of parentNode
-                constraintInsets: '0 -' + (Ext.getScrollbarSize().width + 4) + ' 0 0'
+                constraintInsets: '0 -' + (Ext.getScrollbarSize().width + 1) + ' 0 0'
             });
             toolbar.show();
             toolbar.alignTo(
                 document.body,
                 Ext.optionsToolbarAlign || 'tr-tr',
                 [
-                    (Ext.getScrollbarSize().width + 4) * (Ext.rootHierarchyState.rtl ? 1 : -1),
+                    (Ext.getScrollbarSize().width + 1) * (Ext.rootHierarchyState.rtl ? 1 : -1),
                     -(document.body.scrollTop || document.documentElement.scrollTop)
                 ]
             );

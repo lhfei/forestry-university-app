@@ -54,6 +54,9 @@ public abstract class AbstractEntity {
 	}
 
 	public void setCreateTime(Date createTime) {
+		if(null == createTime){
+			createTime = new Date();
+		}
 		this.createTime = createTime;
 	}
 
@@ -63,6 +66,9 @@ public abstract class AbstractEntity {
 	}
 
 	public void setModifyTime(Date modifyTime) {
+		if(null == modifyTime){
+			modifyTime = new Date();
+		}
 		this.modifyTime = modifyTime;
 	}
 

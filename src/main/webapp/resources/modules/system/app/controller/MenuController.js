@@ -15,12 +15,14 @@ Ext.define('Ifeng.controller.MenuController', {
 	
 	models: ['TreeModel'],
 	stores: ['MenuStore'],
-	views: ['MenuView', 'MainPanel'],
+	views: ['MenuView', 'MainPanel', 'HeadPanel'],
 	
 	refs: [{
 		ref: 'menuView', selector: 'menuView'
 	},{
 		ref: 'mainPanel', selector: 'mainPanel'
+	},{
+		ref: 'headPanel', selector: 'headPanel'
 	}],
 	
 	init: function(){
@@ -32,12 +34,17 @@ Ext.define('Ifeng.controller.MenuController', {
 			},
 			'viewport > #_west': { // menu item onclick event listener
 				itemclick: this.onMenuItemClick
-			} 
+			}, 
+			
+			'headPanel button[action=logout]': {
+				click: this.logout
+			}
 		});
 	},
 	
 	onLaunch: function() {
-		
+		var userName = '欢迎您: ' +document.getElementById('_userName').value;
+		var menu = this.getMenuView().setTitle(userName);
 	},
 	
 	
@@ -84,8 +91,25 @@ Ext.define('Ifeng.controller.MenuController', {
         }
 		
 		tabPanel.setActiveTab(tab);
+	},
+	
+	
+	logout: function(){
+		Ext.MessageBox.show({
+			icon: 'warning',
+            title: '系统提示',
+            msg: '您确认要退出当前登录吗?',
+            buttons: Ext.MessageBox.YESNO,
+            buttonText:{ 
+                yes: "是", 
+                no: "否" 
+            },
+            fn: function(btn){
+            	if(btn == 'yes'){
+            		document.location.href = "logout.do";
+            	}
+            }
+        });
 	}
-	
-	
 	
 });

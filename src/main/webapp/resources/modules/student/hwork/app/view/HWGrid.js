@@ -15,15 +15,40 @@ Ext.define('hwork.view.HWGrid', {
 	//selType: 'checkboxmodel',
 
     columns: [
-        Ext.create('Ext.grid.RowNumberer'),
+        {header: '序号', xtype: 'rownumberer', width: 40, sortable: false, locked: true }, 
         {header: 'ID',  dataIndex: 'id',  flex: 1, align: 'center', hidden: true},
         {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center'},
         {header: '学期', dataIndex: 'semester', flex: 1, align: 'center'},
         {header: '课程名称', dataIndex: 'courseName', flex: 1, align: 'center'},
         {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
         {header: '作业名称', dataIndex: 'name', flex: 1, align: 'center'},
-        {header: '作业状态', dataIndex: 'status', flex: 1, align: 'center'},
         {
+        	header: '作业状态', 
+        	dataIndex: 'status', 
+        	flex: 1, 
+        	align: 'center',
+        	renderer: function(val) {
+        		switch(val) {
+        		
+        		case 0:
+        			return '<span style="color:green;">未提交</span>';
+        			break;
+        			
+        		case 1: 
+        			return '<span style="color:green;">待审核 </span>';
+        			break;
+
+        		case 2:
+        			return '<span style="color:green;">已审核</span>';
+        			break;
+        			
+        		case 3: 
+        			return '<span style="color:green;">未通过</span>';
+        			break;
+        		}
+        	}
+        	
+        },{
             xtype: 'actioncolumn',
             id: 'ctrlCell',
             flex: 1,

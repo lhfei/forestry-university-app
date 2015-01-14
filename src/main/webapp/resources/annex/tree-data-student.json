@@ -1,0 +1,31 @@
+[{
+	text: "我是学生",
+	iconCls: "tree-trunk",
+    expanded: true,
+    children: [{
+        id: '../homework/index.do',
+        text: '作业列表',
+        iconCls: "tree-leaf",
+        url: "../homework/index.do",
+        leaf: true
+    },{
+        id: 'ifeng/videoList.do',
+        text: '论文列表',
+        iconCls: "tree-leaf",
+        url: "ifeng/videoList.do",
+        leaf: true
+    }]
+},{
+	text: "个人设置",
+	iconCls: "tree-trunk",
+    expanded: true,
+    children: [{
+        id: 'processManager/deploy.do',
+        text: '修改密码',
+        iconCls: "tree-leaf",
+        url: "processManager/deploy.do",
+        leaf: true
+    }]
+}]
+
+

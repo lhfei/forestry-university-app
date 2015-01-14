@@ -1,21 +1,4 @@
 [{
-	text: "我是老师",
-	iconCls: "tree-trunk",
-    expanded: true,
-    children: [{
-    	id: "workStation.do",
-    	text: "作业列表",
-    	iconCls: "tree-leaf",
-    	url: "workStation.do",
-    	leaf: true
-    },{
-    	id: "phoenixtv/taskList.do",
-    	text: "任務列表",
-    	iconCls: "tree-leaf",
-    	url: "phoenixtv/taskList.do",
-    	leaf: true
-    }]
-},{
 	text: "我是学生",
 	iconCls: "tree-trunk",
     expanded: true,
@@ -23,7 +6,7 @@
         id: '../homework/index.do',
         text: '作业列表',
         iconCls: "tree-leaf",
-        url: "processManager/history.do",
+        url: "../homework/index.do",
         leaf: true
     },{
         id: 'ifeng/videoList.do',
@@ -33,12 +16,12 @@
         leaf: true
     }]
 },{
-	text: "我是管理员",
+	text: "个人设置",
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{
         id: 'processManager/deploy.do',
-        text: '流程發布',
+        text: '修改密码',
         iconCls: "tree-leaf",
         url: "processManager/deploy.do",
         leaf: true

@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cn.lhfei.fu.orm.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +38,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.lhfei.fu.orm.domain.ApproveStatus;
+import cn.lhfei.fu.orm.domain.ClassBase;
+import cn.lhfei.fu.orm.domain.Combobox;
+import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.domain.HomeworkArchive;
+import cn.lhfei.fu.orm.domain.HomeworkBase;
 import cn.lhfei.fu.service.ComboboxService;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 import cn.lhfei.fu.service.HomeworkBaseService;
@@ -47,8 +52,6 @@ import cn.lhfei.identity.util.JSONReturn;
 import cn.lhfei.identity.web.model.IdsModel;
 import cn.lhfei.identity.web.model.JsonReturnModel;
 import cn.lhfei.identity.web.model.UserSession;
-
-import com.googlecode.genericdao.search.SearchResult;
 
 /**
  * @version 1.0.0
@@ -63,7 +66,7 @@ public class TeacherController extends AbstractController {
 
 	@RequestMapping(value="homeworkIndex", method=RequestMethod.GET)
 	public ModelAndView homeworkIndex(HttpSession session) {
-		ModelAndView view = new ModelAndView("teacher/hw/list");
+		ModelAndView view = new ModelAndView("teacher/hwork/list");
 		List<ApproveStatus> list = comboboxService.getApproveStatus();
 		List<Combobox> xnList = comboboxService.getCombobo(XN);
 		List<Combobox> xqList = comboboxService.getCombobo(XQ);
@@ -86,25 +89,50 @@ public class TeacherController extends AbstractController {
 	//// 作业管理管理
 	//// Process step  	... 											
 	/////////////////////////////////////////////////////////////////////////////////
-	@RequestMapping(value="/homeworkRead", method = RequestMethod.POST, 
-			consumes = "application/json", produces = "application/json")
-	public @ResponseBody JsonReturnModel<HomeworkBase> homeworkRead(@RequestBody HomeworkBaseModel homework,HttpSession session) {
+	@RequestMapping(value="/homeworkRead", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> read(
+			@RequestParam("academicYear")String academicYear,
+			@RequestParam("semester")String semester,
+			@RequestParam("courseName")String courseName,
+			//@RequestParam("className")String className,
+			@RequestParam("name")String name,
+			@RequestParam("start")int start,
+			@RequestParam("page")int page,
+			@RequestParam("limit")int limit, HttpSession session) {
+		
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		
-		homework.setTeacherId(userSession.getUser().getUserId());	//filter by teacher
+		if(null != name && name.trim().length() > 0){
+			name = "%" +name+ "%";
+		} 
 		
-		JsonReturnModel<HomeworkBase> json = new JsonReturnModel<HomeworkBase>();
+		HomeworkBaseModel homework = new HomeworkBaseModel();
+		homework.setAcademicYear(academicYear);
+		homework.setSemester(semester);
+		homework.setCourseName(courseName);
+		homework.setName(name);
+		homework.setPageNum(start);
+		homework.setPageSize(limit);
+		
+		homework.setTeacherId(userSession.getUser().getUserId());
+		
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
 		
 		json.setResult(true);
 		
-		//List<Role> list = homeworkBaseService.findAll(role);
-		SearchResult<HomeworkBase> result = homeworkBaseService.search(homework);
-		
+		/*SearchResult<HomeworkBase> result = homeworkBaseService.search(homework);
 		json.setRows(result.getResult());
-		json.setTotal(result.getTotalCount());
+		json.setTotal(result.getTotalCount());*/
 		
-		return json;
-	}	
+		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByTeacher(homework);
+		int total = homeworkBaseService.countHomeworkByTeachert(homework);
+		
+		json.setTotal(total);
+		json.setRows(result);
+		
+		return json;	
+		
+	}
 
 	@RequestMapping(value="/createHomework", method=RequestMethod.POST,
 			consumes = "application/json", produces = "application/json")
@@ -131,14 +159,14 @@ public class TeacherController extends AbstractController {
 			@ModelAttribute("uploadForm") HomeworkBaseModel uploadForm,
 			HttpSession session) {
 		
+		String userType = (String)session.getAttribute(USER_TYPE);
+		
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		
 		uploadForm.setStudentId(userSession.getUser().getUserId());
 		uploadForm.setStudentName(userSession.getUser().getUserName());
 		
-		log.info(uploadForm.toString());
-		
-		homeworkBaseService.update(uploadForm);
+		homeworkBaseService.update(uploadForm, userType);
 
 		return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
 	}

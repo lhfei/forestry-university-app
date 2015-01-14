@@ -29,7 +29,9 @@ import cn.lhfei.fu.web.model.HomeworkBaseModel;
 
 public interface ITeacherMapper {
 
-	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
+	List<HomeworkBaseModel> getHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
+	
+	int countHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
 	
 	
 	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);

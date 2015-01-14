@@ -23,6 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import cn.lhfei.fu.common.constant.UserTypeEnum;
+
 /**
  * 学生基本信息</p>
  * 
@@ -67,6 +69,9 @@ public class StudentBase extends AbstractEntity {
 
 	@Column(name = "ALIAS_NAME")
 	private String aliasName;
+	
+	@Column(name = "USER_TYPE")
+	private String userType = UserTypeEnum.STUDENT.getCode();
 	
 	public Integer getId() {
 		return id;
@@ -156,6 +161,14 @@ public class StudentBase extends AbstractEntity {
 
 	public void setClassName(String className) {
 		this.className = className;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 }

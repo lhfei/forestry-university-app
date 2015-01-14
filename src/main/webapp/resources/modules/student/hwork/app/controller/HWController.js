@@ -187,7 +187,7 @@ Ext.define('hwork.controller.HWController', {
                 				titlePosition: 2,
                 				titleAlign: 'center'
                 			},
-                			maximizable: false,
+                			maximizable: true,
                 			modal: true,
                 			closeAction: 'hide',
                 			width: 400,

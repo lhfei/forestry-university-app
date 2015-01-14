@@ -33,8 +33,19 @@ import com.googlecode.genericdao.search.ISearch;
 
 public abstract class AbstractPaginationModel {
 	
+	/**
+	 * @deprecated
+	 * @return
+	 */
 	public abstract List<Filter> getFilters();
+	
 	public abstract ISearch buildSearch();
+	
+	
+	/**
+	 * @deprecated
+	 * @return
+	 */
 	public abstract List<SimpleExpression> wrapperFilter();
 
 	/**
@@ -99,9 +110,22 @@ public abstract class AbstractPaginationModel {
 	public void setExtend1(String extend1) {
 		this.extend1 = extend1;
 	}
+	
+	public int getEnd() {
+		end = pageNum + pageSize;
+		
+		return end;
+	}
 
-	private int pageNum; // 当前页码
-	private int pageSize; // 每页显示条目数
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	private int pageNum = 0; // 当前页码
+	private int pageSize = Integer.MAX_VALUE; // 每页显示条目数
+	
+	private int end;
+	
 	private Date createTime;
 	private Date modifyTime;
 	private String extend;

@@ -3,7 +3,7 @@ Ext.define('hwork.store.HWStore', {
     alias: 'widget.hwStore',
     model: 'hwork.model.HWModel',
     autoLoad: true,
-    pageSize: 3,
+    pageSize: 10,
     proxy: {
         type: 'ajax',
         api: {

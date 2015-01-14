@@ -45,24 +45,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since Jan 4, 2015
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:spring/application-context.xml")
+@ContextConfiguration(locations = "classpath:spring/application-context.xml")
 public class BatchTest {
 
 	private static final Logger log = LoggerFactory.getLogger(BatchTest.class);
-	
-	
+
 	@Test
 	public void importUser() {
-		Map<String,JobParameter> jobParameters = new HashMap<String,JobParameter>();
+		Map<String, JobParameter> jobParameters = new HashMap<String, JobParameter>();
 		jobParameters.put("inputFile", new JobParameter("data/log-data.json"));
-		
-		//JobExecution execution = jobLauncher.run(logDataFormatJob, new JobParameters(jobParameters));
-		
+
+		// JobExecution execution = jobLauncher.run(logDataFormatJob, new
+		// JobParameters(jobParameters));
+
 		try {
-			JobExecution execution = jobLauncher.run(importUserJob, new JobParameters());
-			
+			JobExecution execution = jobLauncher.run(importUserJob,
+					new JobParameters());
+
 			Assert.assertEquals(BatchStatus.COMPLETED, execution.getStatus());
-			
+
 		} catch (JobExecutionAlreadyRunningException e) {
 			e.printStackTrace();
 		} catch (JobRestartException e) {
@@ -73,8 +74,8 @@ public class BatchTest {
 			e.printStackTrace();
 		}
 	}
+
 	
-	@Test
 	public void importStudent() {
 		try {
 			JobExecution execution = jobLauncher.run(importStudentJob,
@@ -90,10 +91,26 @@ public class BatchTest {
 			log.error(e.getMessage(), e);
 		}
 	}
-	@Test
+
 	public void importTeacher() {
 		try {
 			JobExecution execution = jobLauncher.run(importTeacherJob,
+					new JobParameters());
+
+			Assert.assertEquals(BatchStatus.COMPLETED, execution.getStatus());
+
+		} catch (JobExecutionAlreadyRunningException | JobRestartException
+				| JobInstanceAlreadyCompleteException
+				| JobParametersInvalidException e) {
+
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
+		}
+	}
+	
+	public void importHomeworkJob() {
+		try {
+			JobExecution execution = jobLauncher.run(importHomeworkJob,
 					new JobParameters());
 			
 			Assert.assertEquals(BatchStatus.COMPLETED, execution.getStatus());
@@ -107,15 +124,38 @@ public class BatchTest {
 		}
 	}
 	
+	
+	public void importCourseJob() {
+		try {
+			JobExecution execution = jobLauncher.run(importCourseJob,
+					new JobParameters());
+			
+			Assert.assertEquals(BatchStatus.COMPLETED, execution.getStatus());
+			
+		} catch (JobExecutionAlreadyRunningException | JobRestartException
+				| JobInstanceAlreadyCompleteException
+				| JobParametersInvalidException e) {
+			
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
+		}
+	}
+
 	@Autowired
 	private JobLauncher jobLauncher;
-	
+
 	@Autowired
 	private Job importUserJob;
-	
+
 	@Autowired
 	private Job importStudentJob;
-	
+
 	@Autowired
 	private Job importTeacherJob;
+
+	@Autowired
+	private Job importHomeworkJob;
+	
+	@Autowired
+	private Job importCourseJob;
 }

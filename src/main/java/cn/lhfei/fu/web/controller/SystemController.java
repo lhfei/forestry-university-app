@@ -16,6 +16,7 @@
 
 package cn.lhfei.fu.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.lhfei.fu.common.constant.UserTypeEnum;
+import cn.lhfei.fu.orm.domain.StudentBase;
+import cn.lhfei.fu.service.StudentService;
+import cn.lhfei.fu.web.model.StudentBaseModel;
 import cn.lhfei.identity.orm.domain.User;
 import cn.lhfei.identity.service.IdentityService;
 import cn.lhfei.identity.util.JSONReturn;
@@ -46,25 +51,57 @@ import cn.lhfei.identity.web.model.UserSession;
 @Controller
 @RequestMapping("system")
 public class SystemController extends AbstractController {
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login() {
+		ModelAndView view = new ModelAndView("system/index");
+		
+		return view;
+	}
+	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main(HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		String userId = userSession.getUser().getUserId();
+		String userType = userSession.getUser().getUserType();
 
 		log.debug(marker, "User: {}", userId);
-
-		if (userId.equals("admin")) {
-
+		
+		if (userType.equals(UserTypeEnum.ADMIN.getCode())) {
+			session.setAttribute(USER_TYPE, UserTypeEnum.ADMIN.getCode());
+			
 			view.setViewName("system/main");
-
-		} else if (userId.equals("teacher")) {
-			view.setViewName("teacher/main");
-		} else {
-			session.setAttribute(CLASS_NAME, "园林建筑设计一班");	//check current student' class name.
-			view.setViewName("student/main");
 		}
 
+		else if (userType.equals(UserTypeEnum.TEACHER.getCode())) {
+			session.setAttribute(USER_TYPE, UserTypeEnum.TEACHER.getCode());
+			
+			view.setViewName("teacher/main");
+		}
+
+		else if (userType.equals(UserTypeEnum.STUDENT.getCode())) {
+			session.setAttribute(USER_TYPE, UserTypeEnum.STUDENT.getCode());
+			
+			StudentBase student = null;
+			StudentBaseModel model = new StudentBaseModel();
+			model.setStudentId(userId);
+			model.setName(userSession.getUser().getUserName());
+			
+			List<StudentBase> list = studentService.search(model);
+			
+			if (list != null && list.size() > 0) {
+				student = list.get(0);
+				session.setAttribute(CLASS_NAME, student.getClassName());	//check current student' class name.
+				
+				log.debug("Student class name is: ", student.getClassName());
+			}
+			
+			view.setViewName("student/main");
+		}
+		
+		view.addObject("userName", userSession.getUser().getUserName());
+		
 		return view;
 	}
 	
@@ -108,6 +145,16 @@ public class SystemController extends AbstractController {
 		}
 	}
 	
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect: login.do";
+	}
+	
 	@Autowired
 	private IdentityService identityService;
+	
+	@Autowired
+	private StudentService studentService;
 }

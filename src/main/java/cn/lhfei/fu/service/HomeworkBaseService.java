@@ -43,13 +43,40 @@ public interface HomeworkBaseService {
 
 	SearchResult<HomeworkBase> search(HomeworkBaseModel homeworkModel);
 
-	boolean update(HomeworkBaseModel model) throws NullPointerException;
+	boolean update(HomeworkBaseModel model, String userType) throws NullPointerException;
 
 	boolean approve(Integer[] ids);
 
 	SearchAndCountModel<HomeworkBase> getPageAndCount(HomeworkBaseModel homeworkModel);
 
+	
+	/**
+	 * 学生作业列表
+	 * @param homeworkBaseModel
+	 * @return
+	 */
 	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
 	
+	/**
+	 * 统计学上作业
+	 * @param homeworkBaseModel
+	 * @return
+	 */
 	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
+	
+	/**
+	 * 教师作业列表
+	 * 
+	 * @param homeworkBaseModel
+	 * @return
+	 */
+	List<HomeworkBaseModel> getHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
+	
+	/**
+	 * 统计教师作业
+	 * 
+	 * @param homeworkBaseModel
+	 * @return
+	 */
+	int countHomeworkByTeachert(HomeworkBaseModel homeworkBaseModel);
 }

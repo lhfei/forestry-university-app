@@ -34,9 +34,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.common.constant.OperationTypeEnum;
+import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
 import cn.lhfei.fu.orm.domain.HomeworkBase;
 import cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper;
+import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.HomeworkArchiveDAO;
 import cn.lhfei.fu.orm.persistence.HomeworkBaseDAO;
 import cn.lhfei.fu.service.HomeworkBaseService;
@@ -115,7 +117,7 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	 * @see cn.lhfei.fu.service.HomeworkBaseService#update(cn.lhfei.fu.web.model.HomeworkBaseModel)
 	 */
 	@Override
-	public boolean update(HomeworkBaseModel model) throws NullPointerException {
+	public boolean update(HomeworkBaseModel model, String userType) throws NullPointerException {
 		OutputStream out = null;
 		Date currentTime = new Date();
 
@@ -123,26 +125,9 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 		try {
 			HomeworkBase base = homeworkBaseDAO.find(model.getId());
 
-			/*
-			 * base.setAcademicYear(model.getAcademicYear());
-			 * base.setClassName(model.getClassName());
-			 * base.setCourseCode(model.getCourseCode());
-			 * base.setCourseName(model.getCourseName());
-			 * base.setCreateTime(model.getCreateTime());
-			 * base.setDesc(model.getDesc()); base.setExtend(model.getExtend());
-			 * base.setExtend1(model.getExtend1()); base.setId(model.getId());
-			 * //id must be assigned base.setMajorCode(model.getMajorCode());
-			 * base.setMajorName(model.getMajorName());
-			 * base.setName(model.getName());
-			 * base.setSemester(model.getSemester());
-			 * base.setTeacherId(model.getTeacherId());
-			 * base.setTeacherName(model.getTeacherName());
-			 */
-
 			base.setModifyTime(currentTime);
 			base.setActionType("" + OperationTypeEnum.SC.getCode());
 			base.setOperationTime(currentTime);
-//			base.setStatus("" + ApproveStatusEnum.DSH.getCode()); // 更新作业状态
 
 			homeworkBaseDAO.save(base); // update homework_base info
 
@@ -177,7 +162,18 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 				/*archive.setHomeworkBase(base);*/
 				archive.setStudentName(model.getStudentName());
 				archive.setStudentId(model.getStudentId());
-				archive.setStatus("" +ApproveStatusEnum.DSH.getCode());
+				
+				// 更新作业状态
+				if(userType != null && userType.equals(UserTypeEnum.STUDENT.getCode())){
+					archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
+				}
+				else if(userType != null && userType.equals(UserTypeEnum.TEACHER.getCode())){
+					archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
+				}
+				else if(userType != null && userType.equals(UserTypeEnum.ADMIN.getCode())){
+					archive.setStatus("" +ApproveStatusEnum.YSH.getCode());	
+				}
+				
 
 				homeworkArchiveDAO.save(archive);
 			}
@@ -209,6 +205,18 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	}
 	
 	@Override
+	public List<HomeworkBaseModel> getHomeworkByTeacher(
+			HomeworkBaseModel homeworkBaseModel) {
+		
+		return teacherMapper.getHomeworkByTeacher(homeworkBaseModel);
+	}
+
+	@Override
+	public int countHomeworkByTeachert(HomeworkBaseModel homeworkBaseModel) {
+		return teacherMapper.countHomeworkByTeacher(homeworkBaseModel);
+	}
+	
+	@Override
 	@Transactional
 	public HomeworkBase findById(Integer id) {
 		return homeworkBaseDAO.find(id);
@@ -225,5 +233,9 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	
 	@Autowired
 	private IStudentMapper studentMapper;
+	
+	@Autowired
+	private ITeacherMapper teacherMapper;
+
 
 }

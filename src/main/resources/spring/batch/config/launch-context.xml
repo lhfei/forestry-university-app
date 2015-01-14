@@ -18,8 +18,8 @@
 	<!-- stored job-metadata in database -->
 	<bean id="jobRepository"
 		class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean">
-		<property name="dataSource"  ref="dataSource" />
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="dataSource"  ref="mySQLDataSource" />
+		<property name="transactionManager" ref="txManager" />
 		<property name="databaseType" value="mysql" />
 	</bean>
 
@@ -33,20 +33,28 @@
 	</bean>
 	
 	<!-- create job-meta tables automatically -->
-	<jdbc:initialize-database data-source="dataSource">
+	<jdbc:initialize-database data-source="mySQLDataSource">
 		<!-- <jdbc:script location="org/springframework/batch/core/schema-drop-oracle10g.sql" />
 		<jdbc:script location="org/springframework/batch/core/schema-oracle10g.sql" /> -->
+		
 		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-drop-mysql.sql" />
 		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-mysql.sql" />
 	</jdbc:initialize-database>
 	
-	
 	<!-- Batch Jobs -->
-	<import resource="classpath*:spring/batch/jobs/job-import-user.xml"/>
 	
-	<import resource="classpath*:spring/batch/jobs/job-import-student.xml"/>
+	<import resource="classpath*:spring/batch/jobs/job-import-user.xml" />
 	
-	<import resource="classpath*:spring/batch/jobs/job-import-teacher.xml"/>
+	<!-- 
+	<import resource="classpath*:spring/batch/jobs/job-import-course.xml" />
+	<import resource="classpath*:spring/batch/jobs/job-import-teacher.xml" />
 	
+	<import resource="classpath*:spring/batch/jobs/job-import-student.xml" />
+	
+	
+	<import resource="classpath*:spring/batch/jobs/job-import-homework.xml" />
+	
+	
+	<import resource="classpath*:spring/batch/jobs/job-import-class.xml" /> -->
 	
 </beans>

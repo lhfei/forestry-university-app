@@ -130,6 +130,9 @@ public class HomeworkBase extends AbstractEntity {
 	}
 
 	public void setOperationTime(Date operationTime) {
+		if(null == operationTime){
+			operationTime = new Date();
+		}
 		this.operationTime = operationTime;
 	}
 
