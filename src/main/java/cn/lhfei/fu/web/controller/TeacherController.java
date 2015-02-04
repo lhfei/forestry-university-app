@@ -230,6 +230,23 @@ public class TeacherController extends AbstractController {
 		return list;
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////
+	//// Reset Password		
+	/////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/preResetPw", method = RequestMethod.GET)
+	public ModelAndView preResetPw(HttpSession session) {
+		UserSession userSession = (UserSession) session
+				.getAttribute(USER_SESSION);
+		String userId = userSession.getUser().getUserId();
+		
+		ModelAndView view = new ModelAndView("teacher/config/resetPw");
+		
+		view.addObject("id", userId);
+		
+		return view;
+	}
+	
+	
 	@Autowired
 	private HomeworkBaseService homeworkBaseService;
 	@Autowired
