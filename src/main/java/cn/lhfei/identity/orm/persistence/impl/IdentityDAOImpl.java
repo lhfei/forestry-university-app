@@ -17,6 +17,9 @@ package cn.lhfei.identity.orm.persistence.impl;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -48,6 +51,37 @@ public class IdentityDAOImpl extends AbstractBaseDAO<AbstractDomain, Integer>
 
 		return true;
 	}*/
+	
+	@Override
+	public int restPassword(String userId, String password) {
+		int result = -1;
+		
+		String hql = "update User set passWord = :password where userId = :userId ";
+		
+		Session session  = null;
+		
+		try {
+			session = sessionFactory.openSession();
+			
+			Query query = session.createQuery(hql);
+			
+			query.setParameter("password", password);
+			query.setParameter("userId", userId);
+			
+			result = query.executeUpdate();
+			
+			return result;
+			
+		} catch (HibernateException e) {
+			
+			return result;
+			
+		} finally {
+			if(session != null && session.isOpen()){
+				session.close();
+			}
+		}
+	}
 
 	@Resource
 	private SessionFactory sessionFactory;

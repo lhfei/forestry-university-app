@@ -60,7 +60,8 @@ Ext.onReady(function() {
             name: 'id',
             fieldLabel: '用户ID',
             allowBlank: false,
-            minLength: 6
+            readOnly: true,
+            value: Ext.get('_userId').getValue()
         },/* {
             xtype: 'textfield',
             name: 'email',
@@ -165,53 +166,31 @@ Ext.onReady(function() {
                 handler: function() {
                     var form = this.up('form').getForm();
 
-                    /* Normally we would submit the form to the server here and handle the response...
-                    form.submit({
-                        clientValidation: true,
-                        url: 'register.php',
-                        success: function(form, action) {
-                           //...
-                        },
-                        failure: function(form, action) {
-                            //...
-                        }
-                    });
-                    */
-
                     if (form.isValid()) {
-                        /*var out = [];
-                        Ext.Object.each(form.getValues(), function(key, value){
-                            out.push(key + '=' + value);
-                        });
-                        Ext.Msg.alert('Submitted Values', out.join('<br />'));*/
                         var items = form.getValues();
-                        
                         Ext.Ajax.request({
             				url: '../system/restPassword.do?id=' +items['id']+ '&password=' +items['password1'],
             				waitMsg: 'Loading ...',
             				method: 'get',
-            				success: function (response){
+            				success: function (response, opts){
             					var result = Ext.decode(response.responseText); 
-            					if(result.success && result.message == '0'){
-            						document.location.href = 'main.do';
-            					}else if(!result.success)
+            					if(result.success){
             						Ext.MessageBox.show({
             							title: 'System Message',
             							msg: result.message
-            					});
+            						});
+            						
+            						form.reset();
+            					}
             				},
-            				failure: function(){
+            				failure: function(response, opts){
             					Ext.MessageBox.show({
             						title: 'System Message',
             						msg: 'The server engine is busy now, please try a later.'
             					});
             				}
             			});                        
-                        
                     }
-                    
-                    
-                    
                 }
             }]
         }]

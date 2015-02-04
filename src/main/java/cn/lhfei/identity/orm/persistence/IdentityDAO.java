@@ -29,4 +29,10 @@ import com.googlecode.genericdao.dao.hibernate.GenericDAO;
 
 public interface IdentityDAO extends GenericDAO<AbstractDomain, Integer> {
 	
+	/**
+	 * @param userId
+	 * @param password
+	 * @return
+	 */
+	int restPassword(String userId, String password);
 }

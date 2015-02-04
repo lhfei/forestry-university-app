@@ -155,24 +155,28 @@ public class SystemController extends AbstractController {
 	
 	
 	/**
-	 * @param id
+	 * @param userId
 	 * @param password
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/restPassword", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Map<String, Object> restPassword(
-			@RequestParam("id") String id,
+			@RequestParam("id") String userId,
 			@RequestParam("password") String password, HttpSession session) {
 		UserSession userSession = (UserSession) session
 				.getAttribute(USER_SESSION);
-		String userId = userSession.getUser().getUserId();
-		String userType = userSession.getUser().getUserType();
+		String operatorId = userSession.getUser().getUserId();
+		String operatorType = userSession.getUser().getUserType();
 		
+		boolean result = identityService.restPassword(userId, password);
 
-		log.debug("UserId: {}, Password: {}", id, password);
+		log.debug("UserId: {}, Password: {}", operatorId, password);
 
-		return JSONReturn.mapOK("0");
+		if(result){
+			return JSONReturn.mapOK("\u5bc6\u7801\u4fee\u6539\u6210\u529f!");
+		}else
+			return JSONReturn.mapOK("\u5bc6\u7801\u4fee\u6539\u5931\u8d25!");
 	}
 	
 	

@@ -67,8 +67,13 @@ public class IdentityServiceImpl implements IdentityService {
 	}
 	
 	@Override
-	public void restPassword(User user) {
-		userService.saveOrUpdate(user);
+	public boolean restPassword(String userId, String password) {
+		
+		password = SecurityUtils.toMd5(password);
+		
+		int result = identityDAO.restPassword(userId, password);
+		
+		return result > 0 ;
 	}
 	
 

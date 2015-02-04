@@ -32,5 +32,10 @@ public interface IdentityService {
 
 	User login(String userId, String passWord);
 
-	void restPassword(User user);
+	/**
+	 * @param userId
+	 * @param password
+	 * @return
+	 */
+	boolean restPassword(String userId, String password);
 }

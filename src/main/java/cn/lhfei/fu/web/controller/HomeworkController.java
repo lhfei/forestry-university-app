@@ -249,8 +249,14 @@ public class HomeworkController extends AbstractController {
 	//// Reset Password		
 	/////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/preResetPw", method = RequestMethod.GET)
-	public ModelAndView preResetPw() {
+	public ModelAndView preResetPw(HttpSession session) {
+		UserSession userSession = (UserSession) session
+				.getAttribute(USER_SESSION);
+		String userId = userSession.getUser().getUserId();
+		
 		ModelAndView view = new ModelAndView("student/config/resetPw");
+		
+		view.addObject("id", userId);
 		
 		return view;
 	}

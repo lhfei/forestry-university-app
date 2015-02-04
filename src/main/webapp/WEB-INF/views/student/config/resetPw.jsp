@@ -39,6 +39,9 @@
 <body>
 	
 	<div id="centered" class="centered"></div>
-
+	
+	<input type="hidden" id="_userId" value="<c:out value="${id }"></c:out>" />
+	
+	
 </body>
 </html>
