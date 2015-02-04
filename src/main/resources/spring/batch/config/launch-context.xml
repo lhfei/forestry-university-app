@@ -18,9 +18,9 @@
 	<!-- stored job-metadata in database -->
 	<bean id="jobRepository"
 		class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean">
-		<property name="dataSource"  ref="mySQLDataSource" />
+		<property name="dataSource"  ref="dataSource" />
 		<property name="transactionManager" ref="txManager" />
-		<property name="databaseType" value="mysql" />
+		<!-- <property name="databaseType" value="mysql" /> -->
 	</bean>
 
 	<!-- stored job-metadata in memory -->
@@ -33,13 +33,13 @@
 	</bean>
 	
 	<!-- create job-meta tables automatically -->
-	<jdbc:initialize-database data-source="mySQLDataSource">
-		<!-- <jdbc:script location="org/springframework/batch/core/schema-drop-oracle10g.sql" />
-		<jdbc:script location="org/springframework/batch/core/schema-oracle10g.sql" /> -->
+	<!-- <jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-drop-oracle10g.sql" />
+		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-oracle10g.sql" />
 		
 		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-drop-mysql.sql" />
 		<jdbc:script location="classpath*:/org/springframework/batch/core/schema-mysql.sql" />
-	</jdbc:initialize-database>
+	</jdbc:initialize-database> -->
 	
 	<!-- Batch Jobs -->
 	

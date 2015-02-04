@@ -245,6 +245,17 @@ public class HomeworkController extends AbstractController {
 		return list;
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////
+	//// Reset Password		
+	/////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/preResetPw", method = RequestMethod.GET)
+	public ModelAndView preResetPw() {
+		ModelAndView view = new ModelAndView("student/config/resetPw");
+		
+		return view;
+	}
+	
+	
 	@Autowired
 	private HomeworkBaseService homeworkBaseService;
 	

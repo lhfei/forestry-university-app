@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -151,6 +152,30 @@ public class SystemController extends AbstractController {
 		
 		return "redirect: login.do";
 	}
+	
+	
+	/**
+	 * @param id
+	 * @param password
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/restPassword", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Map<String, Object> restPassword(
+			@RequestParam("id") String id,
+			@RequestParam("password") String password, HttpSession session) {
+		UserSession userSession = (UserSession) session
+				.getAttribute(USER_SESSION);
+		String userId = userSession.getUser().getUserId();
+		String userType = userSession.getUser().getUserType();
+		
+
+		log.debug("UserId: {}, Password: {}", id, password);
+
+		return JSONReturn.mapOK("0");
+	}
+	
+	
 	
 	@Autowired
 	private IdentityService identityService;

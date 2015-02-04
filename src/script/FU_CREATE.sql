@@ -223,15 +223,15 @@ CREATE TABLE MAJOR_COURSE
 /
 
 COMMENT ON TABLE MAJOR_COURSE IS
-'×¨Òµ¡¢×¨Òµ¿Î³Ì¹ØÁª±í'
+'ä¸“ä¸šã€ä¸“ä¸šè¯¾ç¨‹å…³è”è¡¨'
 /
 
 COMMENT ON COLUMN MAJOR_COURSE."MAJOR_BASE_ID" IS
-'×¨Òµ»ù±¾ÐÅÏ¢'
+'ä¸“ä¸šåŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN MAJOR_COURSE."COURSE_BASE_ID" IS
-'¿Î³Ì»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -262,15 +262,15 @@ CREATE TABLE STUDENT_COURSE
 /
 
 COMMENT ON TABLE STUDENT_COURSE IS
-'Ñ§Éú×¨Òµ¹ØÁªÐÅÏ¢±í'
+'å­¦ç”Ÿä¸“ä¸šå…³è”ä¿¡æ¯è¡¨'
 /
 
 COMMENT ON COLUMN STUDENT_COURSE."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN STUDENT_COURSE."MAJOR_BASE_ID" IS
-'×¨Òµ»ù±¾ÐÅÏ¢'
+'ä¸“ä¸šåŸºæœ¬ä¿¡æ¯'
 /
 
 /*==============================================================*/
@@ -301,15 +301,15 @@ CREATE TABLE S_T
 /
 
 COMMENT ON TABLE S_T IS
-'½ÌÊ¦-ÂÛÎÄ¹ØÁª±í'
+'æ•™å¸ˆ-è®ºæ–‡å…³è”è¡¨'
 /
 
 COMMENT ON COLUMN S_T."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN S_T."THESIS_BASE_ID" IS
-'ÂÛÎÄ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è®ºæ–‡åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -340,15 +340,15 @@ CREATE TABLE TEACHTER_COURSE
 /
 
 COMMENT ON TABLE TEACHTER_COURSE IS
-'½ÌÊ¦-¿Î³Ì¹ØÁª±í'
+'æ•™å¸ˆ-è¯¾ç¨‹å…³è”è¡¨'
 /
 
 COMMENT ON COLUMN TEACHTER_COURSE."TEACHER_BASE_ID" IS
-'½ÌÊ¦»ù±¾ÐÅÏ¢Ö÷¼üID'
+'æ•™å¸ˆåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN TEACHTER_COURSE."COURSE_BASE_ID" IS
-'¿Î³Ì»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -379,15 +379,15 @@ CREATE TABLE TH_HW
 /
 
 COMMENT ON TABLE TH_HW IS
-'½ÌÊ¦-×÷Òµ¹ØÁª±í'
+'æ•™å¸ˆ-ä½œä¸šå…³è”è¡¨'
 /
 
 COMMENT ON COLUMN TH_HW."TEACHER_BASE_ID" IS
-'½ÌÊ¦»ù±¾ÐÅÏ¢Ö÷¼üID'
+'æ•™å¸ˆåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN TH_HW."HOMEWORK_BASE_ID" IS
-'×÷Òµ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'ä½œä¸šåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -418,15 +418,15 @@ CREATE TABLE T_HW
 /
 
 COMMENT ON TABLE T_HW IS
-'Ñ§Éú-×÷Òµ¹ØÁª±í'
+'å­¦ç”Ÿ-ä½œä¸šå…³è”è¡¨'
 /
 
 COMMENT ON COLUMN T_HW."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN T_HW."HOMEWORK_BASE_ID" IS
-'×÷Òµ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'ä½œä¸šåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -457,15 +457,15 @@ CREATE TABLE T_S
 /
 
 COMMENT ON TABLE T_S IS
-'½ÌÊ¦-Ñ§Éú¹ØÁª±í'
+'æ•™å¸ˆ-å­¦ç”Ÿå…³è”è¡¨'
 /
 
 COMMENT ON COLUMN T_S."TEACHER_BASE_ID" IS
-'½ÌÊ¦»ù±¾ÐÅÏ¢Ö÷¼üID'
+'æ•™å¸ˆåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN T_S."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -496,15 +496,15 @@ CREATE TABLE T_T
 /
 
 COMMENT ON TABLE T_T IS
-'½ÌÊ¦-ÂÛÎÄ¹ØÁª±í'
+'æ•™å¸ˆ-è®ºæ–‡å…³è”è¡¨'
 /
 
 COMMENT ON COLUMN T_T."TEACHER_BASE_ID" IS
-'½ÌÊ¦»ù±¾ÐÅÏ¢Ö÷¼üID'
+'æ•™å¸ˆåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN T_T."THESIS_BASE_ID" IS
-'ÂÛÎÄ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è®ºæ–‡åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 /*==============================================================*/
@@ -537,23 +537,23 @@ CREATE TABLE "APPROVE_STATUS"
 /
 
 COMMENT ON TABLE "APPROVE_STATUS" IS
-'×÷Òµ¡¢ÂÛÎÄÉóºË×´Ì¬±í£¬Ã¶¾ÙÖµ°üÀ¨£º [Î´Ìá½»|Î´ÉóºË|ÒÑÉóºË|Î´Í¨¹ý]'
+'ä½œä¸šã€è®ºæ–‡å®¡æ ¸çŠ¶æ€è¡¨ï¼Œæžšä¸¾å€¼åŒ…æ‹¬ï¼š [æœªæäº¤|æœªå®¡æ ¸|å·²å®¡æ ¸|æœªé€šè¿‡]'
 /
 
 COMMENT ON COLUMN "APPROVE_STATUS"."APPROVE_STATUS_ID" IS
-'ÉóºË×´Ì¬±íÖ÷¼üID'
+'å®¡æ ¸çŠ¶æ€è¡¨ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "APPROVE_STATUS"."DICT_TEXT" IS
-'Ã¶¾ÙÖµÖÐÎÄÃû³Æ'
+'æžšä¸¾å€¼ä¸­æ–‡åç§°'
 /
 
 COMMENT ON COLUMN "APPROVE_STATUS"."DICT_CODE" IS
-'×Öµä±àÂë'
+'å­—å…¸ç¼–ç '
 /
 
 COMMENT ON COLUMN "APPROVE_STATUS"."DICT_DESC" IS
-'×ÖµäÒµÎñÒâÒå±¸×¢ËµÃ÷'
+'å­—å…¸ä¸šåŠ¡æ„ä¹‰å¤‡æ³¨è¯´æ˜Ž'
 /
 
 /*==============================================================*/
@@ -571,27 +571,27 @@ CREATE TABLE "CLASS_BASE"
 /
 
 COMMENT ON TABLE "CLASS_BASE" IS
-'°à¼¶ÐÅÏ¢±í'
+'ç­çº§ä¿¡æ¯è¡¨'
 /
 
 COMMENT ON COLUMN "CLASS_BASE"."CLASS_ID" IS
-'°à¼¶Ö÷¼üID'
+'ç­çº§ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "CLASS_BASE"."COURSE_BASE_ID" IS
-'¿Î³Ì»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "CLASS_BASE"."CLASS_NAME" IS
-'°à¼¶Ãû³Æ'
+'ç­çº§åç§°'
 /
 
 COMMENT ON COLUMN "CLASS_BASE"."COURSE_NAME" IS
-'¿Î³ÌÃû³Æ'
+'è¯¾ç¨‹åç§°'
 /
 
 COMMENT ON COLUMN "CLASS_BASE"."COURSE_CODE" IS
-'¿Î³Ì´úÂë'
+'è¯¾ç¨‹ä»£ç '
 /
 
 /*==============================================================*/
@@ -617,27 +617,27 @@ CREATE TABLE "COMBOBOX"
 /
 
 COMMENT ON TABLE "COMBOBOX" IS
-'ÏÂÀ­²Ëµ¥'
+'ä¸‹æ‹‰èœå•'
 /
 
 COMMENT ON COLUMN "COMBOBOX"."COMBO_ID" IS
-'ÏÂÀ­²Ëµ¥Ö÷¼üID'
+'ä¸‹æ‹‰èœå•ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "COMBOBOX"."COMBO_LABEL" IS
-'ÏÂÀ­²Ëµ¥ÎÄ±¾'
+'ä¸‹æ‹‰èœå•æ–‡æœ¬'
 /
 
 COMMENT ON COLUMN "COMBOBOX"."COMBO_KEY" IS
-'ÏÂÀ­²Ëµ¥Àà±ð'
+'ä¸‹æ‹‰èœå•ç±»åˆ«'
 /
 
 COMMENT ON COLUMN "COMBOBOX"."COMBO_CODE" IS
-'ÏÂÀ­²Ëµ¥±àÂë'
+'ä¸‹æ‹‰èœå•ç¼–ç '
 /
 
 COMMENT ON COLUMN "COMBOBOX"."COMBO_DESC" IS
-'ÏÂÀ­²Ëµ¥ÃèÊö'
+'ä¸‹æ‹‰èœå•æè¿°'
 /
 
 /*==============================================================*/
@@ -656,31 +656,31 @@ CREATE TABLE "COURSE_BASE"
 /
 
 COMMENT ON TABLE "COURSE_BASE" IS
-'¿Î³Ì»ù±¾ÐÅÏ¢'
+'è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."COURSE_BASE_ID" IS
-'¿Î³Ì»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."CLASS_NAME" IS
-'°à¼¶Ãû³Æ'
+'ç­çº§åç§°'
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."COURSE_CODE" IS
-'¿Î³Ì´úÂë'
+'è¯¾ç¨‹ä»£ç '
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."COURSE_NAME" IS
-'¿Î³ÌÃû³Æ'
+'è¯¾ç¨‹åç§°'
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."ACADEMIC_YEAR" IS
-'Ñ§Äê'
+'å­¦å¹´'
 /
 
 COMMENT ON COLUMN "COURSE_BASE"."SEMESTER" IS
-'Ñ§ÆÚ(semester)'
+'å­¦æœŸ(semester)'
 /
 
 /*==============================================================*/
@@ -706,65 +706,65 @@ CREATE TABLE "HOMEWORK_ARCHIVE"
 /
 
 COMMENT ON TABLE "HOMEWORK_ARCHIVE" IS
-'×÷Òµ¸½¼þ±í'
+'ä½œä¸šé™„ä»¶è¡¨'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."HOMEWORK_ARCHIVE_ID" IS
-'×÷Òµ¸½¼þ±íÖ÷¼üID'
+'ä½œä¸šé™„ä»¶è¡¨ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."HOMEWORK_BASE_ID" IS
-'×÷Òµ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'ä½œä¸šåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."HW_NAME" IS
-'×÷ÒµÃû³Æ HW(Homework)'
+'ä½œä¸šåç§° HW(Homework)'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."NAME" IS
-'Ñ§ÉúÐÕÃû'
+'å­¦ç”Ÿå§“å'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."STUDENT_ID" IS
-'Ñ§Éú±àºÅ'
+'å­¦ç”Ÿç¼–å·'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."ARCHIVE_NAME" IS
-'¸½¼þÃû³Æ'
+'é™„ä»¶åç§°'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."ARCHIVE_PATH" IS
-'¸½¼þ´æ·ÅÂ·¾¶'
+'é™„ä»¶å­˜æ”¾è·¯å¾„'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."STATUS" IS
-'×÷Òµ×´Ì¬£¬Ã¶¾ÙÖµ°üÀ¨£º
+'ä½œä¸šçŠ¶æ€ï¼Œæžšä¸¾å€¼åŒ…æ‹¬ï¼š
 [
-  Î´Ìá½»£¨0£©
-  ´ýÉóºË£¨1£©
-  ÒÑÉóºË£¨2£©
-  Î´Í¨¹ý£¨3£©
+  æœªæäº¤ï¼ˆ0ï¼‰
+  å¾…å®¡æ ¸ï¼ˆ1ï¼‰
+  å·²å®¡æ ¸ï¼ˆ2ï¼‰
+  æœªé€šè¿‡ï¼ˆ3ï¼‰
 ]'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "HOMEWORK_ARCHIVE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 /*==============================================================*/
@@ -811,79 +811,79 @@ CREATE TABLE "HOMEWORK_BASE"
 /
 
 COMMENT ON TABLE "HOMEWORK_BASE" IS
-'Ñ§Éú×÷Òµ»ù±¾ÐÅÏ¢±í'
+'å­¦ç”Ÿä½œä¸šåŸºæœ¬ä¿¡æ¯è¡¨'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."HOMEWORK_BASE_ID" IS
-'×÷Òµ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'ä½œä¸šåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."HW_NAME" IS
-'×÷ÒµÃû³Æ HW(Homework)'
+'ä½œä¸šåç§° HW(Homework)'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."ACADEMIC_YEAR" IS
-'Ñ§Äê'
+'å­¦å¹´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."SEMESTER" IS
-'Ñ§ÆÚ(semester)'
+'å­¦æœŸ(semester)'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."OPERATION_TIME" IS
-'²Ù×÷Ê±¼ä'
+'æ“ä½œæ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."ACTION_TYPE" IS
-'²Ù×÷ÀàÐÍ,Ã¶¾ÙÖµ°üÀ¨¡¾ÉÏ´«|ÏÂÔØ|ÅúÁ¿ÉÏ´«|ÅúÁ¿ÏÂÔØ|ÉóºË|ÐÞ¸Ä¡¿'
+'æ“ä½œç±»åž‹,æžšä¸¾å€¼åŒ…æ‹¬ã€ä¸Šä¼ |ä¸‹è½½|æ‰¹é‡ä¸Šä¼ |æ‰¹é‡ä¸‹è½½|å®¡æ ¸|ä¿®æ”¹ã€‘'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."TEACHER_ID" IS
-'½ÌÊ¦±àºÅteacher ID, ½ÌÊ¦Ö÷¼üID'
+'æ•™å¸ˆç¼–å·teacher ID, æ•™å¸ˆä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."TEACHER_NAME" IS
-'½ÌÊ¦ÐÕÃûteacher name'
+'æ•™å¸ˆå§“åteacher name'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."CLASS_NAME" IS
-'°à¼¶Ãû³Æ'
+'ç­çº§åç§°'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."COURSE_CODE" IS
-'¿Î³Ì´úÂë'
+'è¯¾ç¨‹ä»£ç '
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."COURSE_NAME" IS
-'¿Î³ÌÃû³Æ'
+'è¯¾ç¨‹åç§°'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."MAJOR_CODE" IS
-'×¨Òµ´úÂë'
+'ä¸“ä¸šä»£ç '
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."MAJOR_NAME" IS
-'×¨ÒµÃû³Æ'
+'ä¸“ä¸šåç§°'
 /
 
 COMMENT ON COLUMN "HOMEWORK_BASE"."DESC_INFO" IS
-'ÃèÊöÐÅÏ¢'
+'æè¿°ä¿¡æ¯'
 /
 
 /*==============================================================*/
@@ -906,47 +906,47 @@ CREATE TABLE "HOMEWORK_HISTORY"
 /
 
 COMMENT ON TABLE "HOMEWORK_HISTORY" IS
-'×÷Òµ²Ù×÷ÀúÊ·±í'
+'ä½œä¸šæ“ä½œåŽ†å²è¡¨'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY".HOMEWORK_HISTORY_ID IS
-'×÷Òµ²Ù×÷ÀúÊ·±íÖ÷¼üID'
+'ä½œä¸šæ“ä½œåŽ†å²è¡¨ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."OPERATOR" IS
-'²Ù×÷ÈË'
+'æ“ä½œäºº'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."OPERATOR_ID" IS
-'²Ù×÷ÈË±êÊ¶'
+'æ“ä½œäººæ ‡è¯†'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."OPERATION_TIME" IS
-'²Ù×÷Ê±¼ä'
+'æ“ä½œæ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."ACTION_TYPE" IS
-'²Ù×÷ÀàÐÍ,Ã¶¾ÙÖµ°üÀ¨¡¾ÉÏ´«|ÏÂÔØ|ÅúÁ¿ÉÏ´«|ÅúÁ¿ÏÂÔØ|ÉóºË|ÐÞ¸Ä¡¿'
+'æ“ä½œç±»åž‹,æžšä¸¾å€¼åŒ…æ‹¬ã€ä¸Šä¼ |ä¸‹è½½|æ‰¹é‡ä¸Šä¼ |æ‰¹é‡ä¸‹è½½|å®¡æ ¸|ä¿®æ”¹ã€‘'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."REF_ID" IS
-'²Ù×÷Ó°ÏìµÄ¼ÇÂ¼ID£¬¸Ã¼ÇÂ¼ID¼´ÒýÓÃ¡¾×÷Òµ»ù±¾ÐÅÏ¢±í»òÂÛÎÄ»ù±¾ÐÅÏ¢±íÖ÷¼üID¡¿'
+'æ“ä½œå½±å“çš„è®°å½•IDï¼Œè¯¥è®°å½•IDå³å¼•ç”¨ã€ä½œä¸šåŸºæœ¬ä¿¡æ¯è¡¨æˆ–è®ºæ–‡åŸºæœ¬ä¿¡æ¯è¡¨ä¸»é”®IDã€‘'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "HOMEWORK_HISTORY"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 /*==============================================================*/
@@ -963,23 +963,23 @@ CREATE TABLE "MAJOR_BASE"
 /
 
 COMMENT ON TABLE "MAJOR_BASE" IS
-'×¨Òµ»ù±¾ÐÅÏ¢'
+'ä¸“ä¸šåŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "MAJOR_BASE"."MAJOR_BASE_ID" IS
-'×¨Òµ»ù±¾ÐÅÏ¢'
+'ä¸“ä¸šåŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "MAJOR_BASE"."MAJOR_CODE" IS
-'×¨Òµ´úÂë'
+'ä¸“ä¸šä»£ç '
 /
 
 COMMENT ON COLUMN "MAJOR_BASE"."MAJOR_NAME" IS
-'×¨ÒµÃû³Æ'
+'ä¸“ä¸šåç§°'
 /
 
 COMMENT ON COLUMN "MAJOR_BASE"."ACADEMIC_YEAR" IS
-'Ñ§Äê'
+'å­¦å¹´'
 /
 
 /*==============================================================*/
@@ -1007,71 +1007,71 @@ CREATE TABLE "STUDENT_BASE"
 /
 
 COMMENT ON TABLE "STUDENT_BASE" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."BIRTHDAY" IS
-'³öÉúÈÕÆÚ'
+'å‡ºç”Ÿæ—¥æœŸ'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."NAME" IS
-'Ñ§ÉúÐÕÃû'
+'å­¦ç”Ÿå§“å'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."STUDENT_ID" IS
-'Ñ§Éú±àºÅ'
+'å­¦ç”Ÿç¼–å·'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."GENDER" IS
-'ÐÔ±ð£¬ Ã¶¾ÙÖµ°üÀ¨
+'æ€§åˆ«ï¼Œ æžšä¸¾å€¼åŒ…æ‹¬
 [
-  ÄÐ£¨0£©
-  Å®£¨1£©
+  ç”·ï¼ˆ0ï¼‰
+  å¥³ï¼ˆ1ï¼‰
 ]'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."EMAIL" IS
-'µç×ÓÓÊÏä'
+'ç”µå­é‚®ç®±'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."ALIAS_NAME" IS
-'ÓÃ»§±ðÃû'
+'ç”¨æˆ·åˆ«å'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."USER_TYPE" IS
-'ÓÃ»§ÀàÐÍ'
+'ç”¨æˆ·ç±»åž‹'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."CLASS_NAME" IS
-'°à¼¶Ãû³Æ'
+'ç­çº§åç§°'
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."MAJOR_CODE" IS
-'×¨Òµ´úÂë'
+'ä¸“ä¸šä»£ç '
 /
 
 COMMENT ON COLUMN "STUDENT_BASE"."MAJOR_NAME" IS
-'×¨ÒµÃû³Æ'
+'ä¸“ä¸šåç§°'
 /
 
 /*==============================================================*/
@@ -1096,59 +1096,59 @@ CREATE TABLE "TEACHER_BASE"
 /
 
 COMMENT ON TABLE "TEACHER_BASE" IS
-'½ÌÊ¦¡¢µ¼Ê¦¡¢ÀÏÊ¦»ù±¾ÐÅÏ¢'
+'æ•™å¸ˆã€å¯¼å¸ˆã€è€å¸ˆåŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."TEACHER_BASE_ID" IS
-'½ÌÊ¦»ù±¾ÐÅÏ¢Ö÷¼üID'
+'æ•™å¸ˆåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."BIRTHDAY" IS
-'³öÉúÈÕÆÚ'
+'å‡ºç”Ÿæ—¥æœŸ'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."GENDER" IS
-'ÐÔ±ð£¬ Ã¶¾ÙÖµ°üÀ¨
+'æ€§åˆ«ï¼Œ æžšä¸¾å€¼åŒ…æ‹¬
 [
-  ÄÐ£¨0£©
-  Å®£¨1£©
+  ç”·ï¼ˆ0ï¼‰
+  å¥³ï¼ˆ1ï¼‰
 ]'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."TEACHER_NAME" IS
-'½ÌÊ¦ÐÕÃûteacher name'
+'æ•™å¸ˆå§“åteacher name'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."TEACHER_ID" IS
-'½ÌÊ¦±àºÅteacher ID, ½ÌÊ¦Ö÷¼üID'
+'æ•™å¸ˆç¼–å·teacher ID, æ•™å¸ˆä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."USER_TYPE" IS
-'ÓÃ»§ÀàÐÍ'
+'ç”¨æˆ·ç±»åž‹'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."EMAIL" IS
-'µç×ÓÓÊÏä'
+'ç”µå­é‚®ç®±'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."ALIAS_NAME" IS
-'ÓÃ»§±ðÃû'
+'ç”¨æˆ·åˆ«å'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "TEACHER_BASE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 /*==============================================================*/
@@ -1173,55 +1173,55 @@ CREATE TABLE "THESIS_ARCHIVE"
 /
 
 COMMENT ON TABLE "THESIS_ARCHIVE" IS
-'ÂÛÎÄ¸½¼þ±í'
+'è®ºæ–‡é™„ä»¶è¡¨'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."THESIS_ARCHIVE_ID" IS
-'ÂÛÎÄ¸½¼þ±íÖ÷¼üID'
+'è®ºæ–‡é™„ä»¶è¡¨ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."THESIS_BASE_ID" IS
-'ÂÛÎÄ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è®ºæ–‡åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."STUDENT_BASE_ID" IS
-'Ñ§Éú»ù±¾ÐÅÏ¢Ö÷¼üID'
+'å­¦ç”ŸåŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."THESIS_TITLE" IS
-'ÂÛÎÄ±êÌâthesis'
+'è®ºæ–‡æ ‡é¢˜thesis'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."NAME" IS
-'Ñ§ÉúÐÕÃû'
+'å­¦ç”Ÿå§“å'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."STUDENT_ID" IS
-'Ñ§Éú±àºÅ'
+'å­¦ç”Ÿç¼–å·'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."ARCHIVE_NAME" IS
-'¸½¼þÃû³Æ'
+'é™„ä»¶åç§°'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."ARCHIVE_PATH" IS
-'¸½¼þ´æ·ÅÂ·¾¶'
+'é™„ä»¶å­˜æ”¾è·¯å¾„'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "THESIS_ARCHIVE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 /*==============================================================*/
@@ -1263,68 +1263,68 @@ CREATE TABLE "THESIS_BASE"
 /
 
 COMMENT ON TABLE "THESIS_BASE" IS
-'ÂÛÎÄ»ù±¾ÐÅÏ¢'
+'è®ºæ–‡åŸºæœ¬ä¿¡æ¯'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."THESIS_BASE_ID" IS
-'ÂÛÎÄ»ù±¾ÐÅÏ¢Ö÷¼üID'
+'è®ºæ–‡åŸºæœ¬ä¿¡æ¯ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."TEACHER_NAME" IS
-'½ÌÊ¦ÐÕÃûteacher name'
+'æ•™å¸ˆå§“åteacher name'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."TEACHER_ID" IS
-'½ÌÊ¦±àºÅteacher ID, ½ÌÊ¦Ö÷¼üID'
+'æ•™å¸ˆç¼–å·teacher ID, æ•™å¸ˆä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."ORIGIN" IS
-'ÂÛÎÄÀ´Ô´£¬Ã¶¾ÙÖµ°üÀ¨£º [
-  ¿ÆÑÐ£¨1£©
-  Éú²ú£¨2£©
-  Ä£Äâ£¨3£©
-  ÆäËü£¨0£©
+'è®ºæ–‡æ¥æºï¼Œæžšä¸¾å€¼åŒ…æ‹¬ï¼š [
+  ç§‘ç ”ï¼ˆ1ï¼‰
+  ç”Ÿäº§ï¼ˆ2ï¼‰
+  æ¨¡æ‹Ÿï¼ˆ3ï¼‰
+  å…¶å®ƒï¼ˆ0ï¼‰
 ]'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."THESIS_TITLE" IS
-'ÂÛÎÄ±êÌâthesis'
+'è®ºæ–‡æ ‡é¢˜thesis'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."OPERATION_TIME" IS
-'²Ù×÷Ê±¼ä'
+'æ“ä½œæ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."ACTION_TYPE" IS
-'²Ù×÷ÀàÐÍ,Ã¶¾ÙÖµ°üÀ¨¡¾ÉÏ´«|ÏÂÔØ|ÅúÁ¿ÉÏ´«|ÅúÁ¿ÏÂÔØ|ÉóºË|ÐÞ¸Ä¡¿'
+'æ“ä½œç±»åž‹,æžšä¸¾å€¼åŒ…æ‹¬ã€ä¸Šä¼ |ä¸‹è½½|æ‰¹é‡ä¸Šä¼ |æ‰¹é‡ä¸‹è½½|å®¡æ ¸|ä¿®æ”¹ã€‘'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."THESIS_TYPE" IS
-'ÂÛÎÄÀà±ð£¬Ã¶¾ÙÖµ°üÀ¨£º
+'è®ºæ–‡ç±»åˆ«ï¼Œæžšä¸¾å€¼åŒ…æ‹¬ï¼š
 [
-  Éè¼Æ£¨0£©
-  ÂÛÎÄ£¨1£©
+  è®¾è®¡ï¼ˆ0ï¼‰
+  è®ºæ–‡ï¼ˆ1ï¼‰
 ]'
 /
 
 COMMENT ON COLUMN "THESIS_BASE".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_BASE".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "THESIS_BASE"."DESC_INFO" IS
-'ÃèÊöÐÅÏ¢'
+'æè¿°ä¿¡æ¯'
 /
 
 /*==============================================================*/
@@ -1347,47 +1347,47 @@ CREATE TABLE "THESIS_HISTORY"
 /
 
 COMMENT ON TABLE "THESIS_HISTORY" IS
-'ÂÛÎÄ²Ù×÷ÀúÊ·±í'
+'è®ºæ–‡æ“ä½œåŽ†å²è¡¨'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."THESIS_HISTORY_ID" IS
-'ÂÛÎÄ²Ù×÷ÀúÊ·±íÖ÷¼üID'
+'è®ºæ–‡æ“ä½œåŽ†å²è¡¨ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."OPERATOR" IS
-'²Ù×÷ÈË'
+'æ“ä½œäºº'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."OPERATOR_ID" IS
-'²Ù×÷ÈË±êÊ¶'
+'æ“ä½œäººæ ‡è¯†'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."OPERATION_TIME" IS
-'²Ù×÷Ê±¼ä'
+'æ“ä½œæ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."REF_ID" IS
-'²Ù×÷Ó°ÏìµÄ¼ÇÂ¼ID£¬¸Ã¼ÇÂ¼ID¼´ÒýÓÃ¡¾×÷Òµ»ù±¾ÐÅÏ¢±í»òÂÛÎÄ»ù±¾ÐÅÏ¢±íÖ÷¼üID¡¿'
+'æ“ä½œå½±å“çš„è®°å½•IDï¼Œè¯¥è®°å½•IDå³å¼•ç”¨ã€ä½œä¸šåŸºæœ¬ä¿¡æ¯è¡¨æˆ–è®ºæ–‡åŸºæœ¬ä¿¡æ¯è¡¨ä¸»é”®IDã€‘'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."ACTION_TYPE" IS
-'²Ù×÷ÀàÐÍ,Ã¶¾ÙÖµ°üÀ¨¡¾ÉÏ´«|ÏÂÔØ|ÅúÁ¿ÉÏ´«|ÅúÁ¿ÏÂÔØ|ÉóºË|ÐÞ¸Ä¡¿'
+'æ“ä½œç±»åž‹,æžšä¸¾å€¼åŒ…æ‹¬ã€ä¸Šä¼ |ä¸‹è½½|æ‰¹é‡ä¸Šä¼ |æ‰¹é‡ä¸‹è½½|å®¡æ ¸|ä¿®æ”¹ã€‘'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY".MODIFY_TIME IS
-'×î½üÒ»´ÎÐÞ¸ÄÊ±¼ä'
+'æœ€è¿‘ä¸€æ¬¡ä¿®æ”¹æ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY".CREATE_TIME IS
-'´´½¨Ê±¼ä'
+'åˆ›å»ºæ—¶é—´'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."EXTEND" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 COMMENT ON COLUMN "THESIS_HISTORY"."EXTEND1" IS
-'±¸ÓÃÀ©Õ¹'
+'å¤‡ç”¨æ‰©å±•'
 /
 
 /*==============================================================*/
@@ -1404,23 +1404,23 @@ CREATE TABLE "THESIS_ORIGIN"
 /
 
 COMMENT ON TABLE "THESIS_ORIGIN" IS
-'ÂÛÎÄÀ´Ô´×Öµä±í£¬Ã¶¾ÙÖµ°üÀ¨[¿ÆÑÐ|Éú²ú|Ä£Äâ|ÆäËü]'
+'è®ºæ–‡æ¥æºå­—å…¸è¡¨ï¼Œæžšä¸¾å€¼åŒ…æ‹¬[ç§‘ç ”|ç”Ÿäº§|æ¨¡æ‹Ÿ|å…¶å®ƒ]'
 /
 
 COMMENT ON COLUMN "THESIS_ORIGIN"."THESIS_ORIGIN_ID" IS
-'ÂÛÎÄÀ´Ô´×ÖµäÖ÷¼üID'
+'è®ºæ–‡æ¥æºå­—å…¸ä¸»é”®ID'
 /
 
 COMMENT ON COLUMN "THESIS_ORIGIN"."DICT_TEXT" IS
-'Ã¶¾ÙÖµÖÐÎÄÃû³Æ'
+'æžšä¸¾å€¼ä¸­æ–‡åç§°'
 /
 
 COMMENT ON COLUMN "THESIS_ORIGIN"."DICT_CODE" IS
-'×Öµä±àÂë'
+'å­—å…¸ç¼–ç '
 /
 
 COMMENT ON COLUMN "THESIS_ORIGIN"."DICT_DESC" IS
-'×ÖµäÒµÎñÒâÒå±¸×¢ËµÃ÷'
+'å­—å…¸ä¸šåŠ¡æ„ä¹‰å¤‡æ³¨è¯´æ˜Ž'
 /
 
 ALTER TABLE MAJOR_COURSE

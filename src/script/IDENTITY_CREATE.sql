@@ -1,3 +1,11 @@
+-------------------------------------------
+-- Export file for user ylxy            --
+-- Created by Hefei Li on 2015/2/2, 14:59:50 --
+-------------------------------------------
+
+set define off
+spool sys_seq.log
+
 ALTER TABLE SYS_USER
    DROP CONSTRAINT FK_SYS_USER_ROLE_USER_SYS_ROLE;
 
@@ -51,37 +59,37 @@ CREATE TABLE SYS_MENU
 );
 
 COMMENT ON TABLE SYS_MENU IS
-'ϵͳȨ�޲˵���';
+'系统权限菜单表';
 
 COMMENT ON COLUMN SYS_MENU."MENU_ID" IS
-'�˵�����ID';
+'菜单主键ID';
 
 COMMENT ON COLUMN SYS_MENU."M_NAME" IS
-'�˵�����';
+'菜单名称';
 
 COMMENT ON COLUMN SYS_MENU."M_CLS" IS
-'�˵���ʽ';
+'菜单样式';
 
 COMMENT ON COLUMN SYS_MENU."M_STATUS" IS
-'�˵�״̬��''open'' or ''closed''';
+'菜单状态，''open'' or ''closed''';
 
 COMMENT ON COLUMN SYS_MENU."M_URL" IS
-'�˵�����';
+'菜单链接';
 
 COMMENT ON COLUMN SYS_MENU."PID" IS
-'���˵��ڵ�ID���޸��ڵ�ʱ��ֵΪ0';
+'父菜单节点ID，无父节点时该值为0';
 
 COMMENT ON COLUMN SYS_MENU."MODIFY_TIME" IS
-'�޸�ʱ';
+'修改时';
 
 COMMENT ON COLUMN SYS_MENU."CREATE_TIME" IS
-'����ʱ��';
+'创建时间';
 
 COMMENT ON COLUMN SYS_MENU."EXTEND" IS
-'������չ����';
+'备用扩展属性';
 
 COMMENT ON COLUMN SYS_MENU."EXTEND1" IS
-'������չ1';
+'备用扩展1';
 
 /*==============================================================*/
 /* Table: SYS_ROLE                                              */
@@ -102,34 +110,34 @@ CREATE TABLE SYS_ROLE
 );
 
 COMMENT ON TABLE SYS_ROLE IS
-'ϵͳ��ɫ��';
+'系统角色表';
 
 COMMENT ON COLUMN SYS_ROLE."R_NAME" IS
-'��ɫ����';
+'角色名称';
 
 COMMENT ON COLUMN SYS_ROLE."R_CODE" IS
-'��ɫ���';
+'角色编号';
 
 COMMENT ON COLUMN SYS_ROLE."R_WEIGHT" IS
-'��ɫȨ��';
+'角色权重';
 
 COMMENT ON COLUMN SYS_ROLE."R_DESC" IS
-'��ɫ����';
+'角色描述';
 
 COMMENT ON COLUMN SYS_ROLE."R_STATUS" IS
-'��ɫ״̬';
+'角色状态';
 
 COMMENT ON COLUMN SYS_ROLE."EXTEND" IS
-'������չ����';
+'备用扩展属性';
 
 COMMENT ON COLUMN SYS_ROLE."EXTEND1" IS
-'������չ1';
+'备用扩展1';
 
 COMMENT ON COLUMN SYS_ROLE."MODIFY_TIME" IS
-'�޸�ʱ';
+'修改时';
 
 COMMENT ON COLUMN SYS_ROLE."CREATE_TIME" IS
-'����ʱ��';
+'创建时间';
 
 /*==============================================================*/
 /* Table: SYS_USER                                              */
@@ -155,49 +163,49 @@ CREATE TABLE SYS_USER
 );
 
 COMMENT ON TABLE SYS_USER IS
-'ϵͳ�û���';
+'系统用户表';
 
 COMMENT ON COLUMN SYS_USER."ID" IS
-'�û�����ID';
+'用户主键ID';
 
 COMMENT ON COLUMN SYS_USER."USER_ID" IS
-'�û���ţ�ѧ������ʦ��ţ�';
+'用户编号（学生、教师编号）';
 
 COMMENT ON COLUMN SYS_USER."USER_NAME" IS
-'�û�����';
+'用户名称';
 
 COMMENT ON COLUMN SYS_USER."GENDER" IS
-'�û��Ա��У�0��  Ů��1����';
+'用户性别（男（0）  女（1））';
 
 COMMENT ON COLUMN SYS_USER."BIRTHDAY" IS
-'��������';
+'出生日期';
 
 COMMENT ON COLUMN SYS_USER."USER_TYPE" IS
-'�û�����';
+'用户类型';
 
 COMMENT ON COLUMN SYS_USER."PASS_WORD" IS
-'�û�����';
+'用户密码';
 
 COMMENT ON COLUMN SYS_USER."EMAIL" IS
-'�û�����';
+'用户邮箱';
 
 COMMENT ON COLUMN SYS_USER."ALIAS_NAME" IS
-'�û�����';
+'用户别名';
 
 COMMENT ON COLUMN SYS_USER."SIGN_TIME" IS
-'��¼ʱ��';
+'登录时间';
 
 COMMENT ON COLUMN SYS_USER."MODIFY_TIME" IS
-'�޸�ʱ';
+'修改时';
 
 COMMENT ON COLUMN SYS_USER."CREATE_TIME" IS
-'����ʱ��';
+'创建时间';
 
 COMMENT ON COLUMN SYS_USER."EXTEND" IS
-'������չ����';
+'备用扩展属性';
 
 COMMENT ON COLUMN SYS_USER."EXTEND1" IS
-'������չ1';
+'备用扩展1';
 
 /*==============================================================*/
 /* Index: "ROLE_USER_ID_FK"                                     */
@@ -217,10 +225,10 @@ CREATE TABLE "SYS_ROLE_MENU"
 );
 
 COMMENT ON TABLE "SYS_ROLE_MENU" IS
-'��ɫ�˵�������';
+'角色菜单关联表';
 
 COMMENT ON COLUMN "SYS_ROLE_MENU"."MENU_ID" IS
-'�˵�����ID';
+'菜单主键ID';
 
 /*==============================================================*/
 /* Index: "R_M_FK"                                              */
@@ -240,3 +248,46 @@ ALTER TABLE "SYS_ROLE_MENU"
 ALTER TABLE "SYS_ROLE_MENU"
    ADD CONSTRAINT FK_SYS_ROLE_ROLE_MENU_SYS_MENU FOREIGN KEY ()
       REFERENCES SYS_MENU ("MENU_ID");
+      
+      
+prompt
+
+prompt Creating sequence SEQ_SYS_MENU
+prompt ==============================
+prompt
+
+create sequence SEQ_SYS_MENU
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+prompt
+
+prompt Creating sequence SEQ_SYS_ROLE
+prompt ==============================
+prompt
+
+create sequence SEQ_SYS_ROLE
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 41
+increment by 1
+cache 20;
+
+prompt
+
+prompt Creating sequence SEQ_SYS_USER
+prompt ==============================
+prompt
+
+create sequence SEQ_SYS_USER
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 4261
+increment by 1
+cache 20;
+
+
+spool off

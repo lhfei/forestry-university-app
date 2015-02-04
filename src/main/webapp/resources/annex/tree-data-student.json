@@ -20,10 +20,10 @@
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{
-        id: 'processManager/deploy.do',
+        id: '../homework/preResetPw.do',
         text: '修改密码',
         iconCls: "tree-leaf",
-        url: "processManager/deploy.do",
+        url: "../homework/preResetPw.do",
         leaf: true
     }]
 }]
