@@ -58,7 +58,7 @@ public class StudentBaseModel extends AbstractPaginationModel implements
 			search.addFilterEqual("name", name.trim());
 		}
 		if (null != studentId && studentId.trim().length() > 0) {
-			search.addFilterEqual("studentId", name.trim());
+			search.addFilterEqual("studentId", studentId.trim());
 		}
 		if (null != email && email.trim().length() > 0) {
 			search.addFilterEqual("email", email.trim());

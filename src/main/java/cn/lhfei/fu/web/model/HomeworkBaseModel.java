@@ -159,15 +159,9 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 	private String majorName; // '专业名称'
 	private String description;
 	
-	
-	 /* ha.`archive_name` AS archiveName,
-	  ha.`archive_path` AS archivePath,
-	  ha.`status` AS STATUS*/
-	
 	private String archiveName;
 	private String archivePath;
 	private int status; // '作业状态，枚举值包括： 未提交（0） 待审核（1） 已审核（2） 未通过（3） ]'
-
 
 	private List<MultipartFile> files; // 作业附件
 
