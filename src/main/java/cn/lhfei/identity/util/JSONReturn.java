@@ -82,19 +82,29 @@ public class JSONReturn {
 	/**
 	 * Generates modelMap to return in the modelAndView
 	 * 
-	 * @param benas
+	 * @param beans
 	 * @param total
 	 * @param message
 	 * @return
 	 */
-	public static Map<String, Object> mapOK(List<? extends Serializable> benas,
+	public static Map<String, Object> mapOK(List<? extends Serializable> beans,
 			int total, String message) {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>(3);
 		modelMap.put(DEFAULT_TOTAL_NODE, total);
-		modelMap.put(DEFAULT_DATA_NODE, benas);
+		modelMap.put(DEFAULT_DATA_NODE, beans);
 		modelMap.put(DEFAULT_MESSAGE_NODE, message);
 		modelMap.put(DEFAULT_SUCCESS_NODE, true);
+
+		return modelMap;
+	}
+	
+	public static Map<String, Object> map(boolean result, Object bean, String message) {
+
+		Map<String, Object> modelMap = new HashMap<String, Object>(3);
+		modelMap.put(DEFAULT_SUCCESS_NODE, result);
+		modelMap.put(DEFAULT_DATA_NODE, bean);
+		modelMap.put(DEFAULT_MESSAGE_NODE, message);
 
 		return modelMap;
 	}

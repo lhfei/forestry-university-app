@@ -164,21 +164,20 @@ public class SystemController extends AbstractController {
 	public @ResponseBody Map<String, Object> restPassword(
 			@RequestParam("id") String userId,
 			@RequestParam("password") String password, HttpSession session) {
-		UserSession userSession = (UserSession) session
-				.getAttribute(USER_SESSION);
+		
+		/*UserSession userSession = (UserSession) session.getAttribute(USER_SESSION);
 		String operatorId = userSession.getUser().getUserId();
-		String operatorType = userSession.getUser().getUserType();
+		String operatorType = userSession.getUser().getUserType();*/
+		
+		password = password.trim();
 		
 		boolean result = identityService.restPassword(userId, password);
-
-		log.debug("UserId: {}, Password: {}", operatorId, password);
 
 		if(result){
 			return JSONReturn.mapOK("\u5bc6\u7801\u4fee\u6539\u6210\u529f!");
 		}else
 			return JSONReturn.mapOK("\u5bc6\u7801\u4fee\u6539\u5931\u8d25!");
 	}
-	
 	
 	
 	@Autowired

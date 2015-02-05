@@ -23,7 +23,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import cn.lhfei.fu.common.constant.UserTypeEnum;
+import cn.lhfei.identity.web.convert.JsonDateSerializer;
 
 /**
  * 学生基本信息</p>
@@ -36,6 +40,7 @@ import cn.lhfei.fu.common.constant.UserTypeEnum;
  */
 @Entity
 @Table(name = "STUDENT_BASE")
+@JsonAutoDetect
 public class StudentBase extends AbstractEntity {
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,6 +48,7 @@ public class StudentBase extends AbstractEntity {
 	private Integer id;
 
 	@Column(name = "BIRTHDAY")
+	@JsonSerialize(using=JsonDateSerializer.class)
 	private Date birthday;
 
 	@Column(name = "NAME")

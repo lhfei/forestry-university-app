@@ -23,7 +23,10 @@ import org.hibernate.criterion.SimpleExpression;
 
 import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.StudentBase;
+import cn.lhfei.identity.web.convert.JsonDateSerializer;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.ISearch;
 import com.googlecode.genericdao.search.Search;
@@ -35,6 +38,7 @@ import com.googlecode.genericdao.search.Search;
  *
  * @since Jan 7, 2015
  */
+@JsonAutoDetect
 public class StudentBaseModel extends AbstractPaginationModel implements
 		Serializable {
 	private static final long serialVersionUID = -2954819011036534693L;
@@ -167,6 +171,8 @@ public class StudentBaseModel extends AbstractPaginationModel implements
 	}
 
 	private Integer id;
+	
+	@JsonSerialize(using=JsonDateSerializer.class)
 	private Date birthday;
 	private String name; // 学生姓名
 	private int gender; // '性别， 枚举值包括[男（0）女（1）]

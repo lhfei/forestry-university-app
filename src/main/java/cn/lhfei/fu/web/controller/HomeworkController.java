@@ -78,8 +78,8 @@ public class HomeworkController extends AbstractController {
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////
-	//// 系统角色管理			
-	//// Process step  	... 											
+	//// 学生作业列表	
+	//// 										
 	/////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value="/read", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody JsonReturnModel<HomeworkBaseModel> read(
@@ -259,6 +259,43 @@ public class HomeworkController extends AbstractController {
 		view.addObject("id", userId);
 		
 		return view;
+	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	//// 学生作业列表	
+	//// for client REST							
+	/////////////////////////////////////////////////////////////////////////////////	
+	@RequestMapping(value="/findById", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> findById(
+			@RequestParam(value = "userId", required = true) String userId,
+			@RequestParam(value = "academicYear", required = false)String academicYear,
+			@RequestParam(value = "semester", required = false)String semester,
+			@RequestParam(value = "courseName", required = false)String courseName,
+			@RequestParam(value = "className", required = false)String className,
+			@RequestParam(value = "name", required = false)String name,
+			HttpSession session) {
+		
+		if(null != name && name.trim().length() > 0){
+			name = "%" +name+ "%";
+		} 
+		
+		HomeworkBaseModel homework = new HomeworkBaseModel();
+		homework.setAcademicYear(academicYear);
+		homework.setSemester(semester);
+		homework.setCourseName(courseName);
+		homework.setName(name);
+		homework.setClassName(className);	//filter by student's class name.
+		
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
+
+		json.setResult(true);
+		
+		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByStudent(homework);
+		
+		json.setRows(result);
+		
+		return json;
 	}
 	
 	
