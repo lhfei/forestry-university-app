@@ -5,5 +5,4 @@
 <mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.ISystemMapper">
 
 
-
 </mapper>
