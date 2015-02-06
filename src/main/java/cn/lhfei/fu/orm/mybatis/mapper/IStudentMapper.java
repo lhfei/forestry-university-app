@@ -35,11 +35,6 @@ public interface IStudentMapper {
 	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
 	
 	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
-	
-	
-	/**
-	 * @param studentId
-	 * @return
-	 */
+
 	Student findStudentByStudentId(String studentId);
 }
