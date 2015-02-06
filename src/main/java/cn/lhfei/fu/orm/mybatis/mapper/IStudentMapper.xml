@@ -4,7 +4,7 @@
 
 <mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper">
 
-	<select id="findStudentByStudentId" resultType="student" parameterType="string">
+	<select id="findStudentById" resultType="student" parameterType="string">
 		SELECT 
 			s.STUDENT_BASE_ID as id, 
 			s.STUDENT_ID      as studentId, 
