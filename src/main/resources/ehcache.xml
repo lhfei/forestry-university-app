@@ -9,7 +9,6 @@
          java.io.tmpdir - Default temp file path 'java.io.tmpdir'-->
     <diskStore path="/home/archives_fu"/>
 
-
     <!--Default Cache configuration. These will applied to caches programmatically created through
         the CacheManager.
         The following attributes are required for defaultCache:
