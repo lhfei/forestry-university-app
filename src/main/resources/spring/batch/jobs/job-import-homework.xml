@@ -61,8 +61,8 @@
 		<property name="sql">
 			<value>
             <![CDATA[        
-            	INSERT INTO HOMEWORK_BASE(HW_NAME, ACADEMIC_YEAR, SEMESTER, TEACHER_ID, TEACHER_NAME, CLASS_NAME, COURSE_NAME, COURSE_CODE, MAJOR_NAME, MAJOR_CODE) 
-				VALUES (:name, :academicYear, :semester, :teacherId, :teacherName, :className, :courseName, :courseCode, :majorName, :majorCode)
+            	INSERT INTO HOMEWORK_BASE(HOMEWORK_BASE_ID, HW_NAME, ACADEMIC_YEAR, SEMESTER, TEACHER_ID, TEACHER_NAME, CLASS_NAME, COURSE_NAME, COURSE_CODE, MAJOR_NAME, MAJOR_CODE) 
+				VALUES (seq_homework_base.nextval, :name, :academicYear, :semester, :teacherId, :teacherName, :className, :courseName, :courseCode, :majorName, :majorCode)
             ]]>
 			</value>
 		</property>

@@ -13,33 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.orm.mybatis.mapper;
 
-import java.util.List;
+package cn.lhfei.fu.constant;
 
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cn.lhfei.fu.common.constant.ThesisCategoryEnum;
 
 /**
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Dec 18, 2014
+ * @since Nov 25, 2014
  */
 
-public interface IStudentMapper {
+public class ThesisCategoryEnumTest {
 
-	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
+	private static final Logger log = LoggerFactory.getLogger(ThesisCategoryEnumTest.class);
 	
-	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
+	@Test
+	public void getLabel() {
+		ThesisCategoryEnum tc = ThesisCategoryEnum.LW;
+		
+		log.info(tc.getLabel(ThesisCategoryEnum.LW.getCode()));;
+	}
 	
-	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
-	
-	
-	/**
-	 * @param studentId
-	 * @return
-	 */
-	Student findStudentByStudentId(String studentId);
 }

@@ -43,18 +43,15 @@
 	
 	<!-- Batch Jobs -->
 	
-	<import resource="classpath*:spring/batch/jobs/job-import-user.xml" />
-	
-	<!-- 
-	<import resource="classpath*:spring/batch/jobs/job-import-course.xml" />
-	<import resource="classpath*:spring/batch/jobs/job-import-teacher.xml" />
-	
-	<import resource="classpath*:spring/batch/jobs/job-import-student.xml" />
-	
-	
 	<import resource="classpath*:spring/batch/jobs/job-import-homework.xml" />
 	
+	<!-- 
 	
+	<import resource="classpath*:spring/batch/jobs/job-import-user.xml" />
+	<import resource="classpath*:spring/batch/jobs/job-import-teacher.xml" />
+	<import resource="classpath*:spring/batch/jobs/job-import-student.xml" />
+	
+	<import resource="classpath*:spring/batch/jobs/job-import-course.xml" />
 	<import resource="classpath*:spring/batch/jobs/job-import-class.xml" /> -->
 	
 </beans>

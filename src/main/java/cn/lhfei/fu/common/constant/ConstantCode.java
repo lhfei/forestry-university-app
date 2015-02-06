@@ -13,46 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.service;
-
-import java.util.List;
-
-import cn.lhfei.fu.orm.domain.StudentBase;
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
+package cn.lhfei.fu.common.constant;
 
 /**
- * 
- * 
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Feb 5, 2015
+ * @since Feb 6, 2015
  */
 
-public interface IRESTService {
+public final class ConstantCode {
 
 	/**
-	 * query student base info by student id.
-	 * 
-	 * @param studentId
-	 * @return
+	 * 学年<code>code</code>编码
 	 */
-	StudentBase findStudentInfo(String studentId) throws Exception;
-
+	public static final String XN_CODE = "XN";
+	
 	/**
-	 * @param studentId
-	 * @return
-	 * @throws Exception
+	 * 学期<code>code</code>编码
 	 */
-	Student findStudentByStudentId(String studentId) throws Exception;
-
-	/**
-	 * @param studentId
-	 * @return
-	 * @throws Exception
-	 */
-	List<HomeworkBaseModel> findHomeworkBaseByStudent(String studentId)
-			throws Exception;
+	public static final String XQ_CODE = "XQ";
 }

@@ -13,33 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.orm.mybatis.mapper;
+package cn.lhfei.fu.orm.persistence.impl;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
+import cn.lhfei.fu.orm.persistence.TeachingPeriodsDAO;
+import cn.lhfei.identity.orm.persistence.impl.AbstractBaseDAO;
 
 /**
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Dec 18, 2014
+ * @since Dec 2, 2014
  */
+@Repository("teachingPeriodsDAO")
+public class TeachingPeriodsDAOImpl extends AbstractBaseDAO<TeachingPeriods, Integer>
+		implements TeachingPeriodsDAO {
 
-public interface IStudentMapper {
-
-	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
-	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
-	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
-	
-	
-	/**
-	 * @param studentId
-	 * @return
-	 */
-	Student findStudentByStudentId(String studentId);
 }

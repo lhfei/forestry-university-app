@@ -50,7 +50,7 @@ public class BatchTest {
 
 	private static final Logger log = LoggerFactory.getLogger(BatchTest.class);
 
-	@Test
+	
 	public void importUser() {
 		Map<String, JobParameter> jobParameters = new HashMap<String, JobParameter>();
 		jobParameters.put("inputFile", new JobParameter("data/log-data.json"));
@@ -92,6 +92,7 @@ public class BatchTest {
 		}
 	}
 
+	
 	public void importTeacher() {
 		try {
 			JobExecution execution = jobLauncher.run(importTeacherJob,
@@ -108,6 +109,7 @@ public class BatchTest {
 		}
 	}
 	
+	@Test
 	public void importHomeworkJob() {
 		try {
 			JobExecution execution = jobLauncher.run(importHomeworkJob,
@@ -123,7 +125,6 @@ public class BatchTest {
 			log.error(e.getMessage(), e);
 		}
 	}
-	
 	
 	public void importCourseJob() {
 		try {

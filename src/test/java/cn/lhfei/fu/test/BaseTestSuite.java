@@ -13,46 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.service;
+package cn.lhfei.fu.test;
 
-import java.util.List;
-
-import cn.lhfei.fu.orm.domain.StudentBase;
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 
- * 
  * @version 1.0.0
  *
  * @author Hefei Li
  *
  * @since Feb 5, 2015
  */
+public abstract class BaseTestSuite {
 
-public interface IRESTService {
-
-	/**
-	 * query student base info by student id.
-	 * 
-	 * @param studentId
-	 * @return
-	 */
-	StudentBase findStudentInfo(String studentId) throws Exception;
-
-	/**
-	 * @param studentId
-	 * @return
-	 * @throws Exception
-	 */
-	Student findStudentByStudentId(String studentId) throws Exception;
-
-	/**
-	 * @param studentId
-	 * @return
-	 * @throws Exception
-	 */
-	List<HomeworkBaseModel> findHomeworkBaseByStudent(String studentId)
-			throws Exception;
+	protected Logger log = LoggerFactory.getLogger(this.getClass());
 }

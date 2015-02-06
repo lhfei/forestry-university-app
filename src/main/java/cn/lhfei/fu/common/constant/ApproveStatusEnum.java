@@ -65,5 +65,12 @@ public enum ApproveStatusEnum implements AbstractDictEnum<Integer> {
 
 	private int code;
 	private String label;
+	
+	public static final String DESCRIPTION = "\u4f5c\u4e1a\u5ba1\u6279\u72b6\u6001";
+	
+	/**
+	 * 作业审批状态
+	 */
+	public static final String KEY_ZYZT = "ZYZT";
 
 }

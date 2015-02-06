@@ -17,42 +17,38 @@ package cn.lhfei.fu.service;
 
 import java.util.List;
 
-import cn.lhfei.fu.orm.domain.StudentBase;
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
+import cn.lhfei.fu.orm.domain.Combobox;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 
 /**
- * 
- * 
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Feb 5, 2015
+ * @since Feb 6, 2015
  */
 
-public interface IRESTService {
+public interface ISystemService {
 
 	/**
-	 * query student base info by student id.
-	 * 
-	 * @param studentId
-	 * @return
-	 */
-	StudentBase findStudentInfo(String studentId) throws Exception;
-
-	/**
-	 * @param studentId
-	 * @return
+	 * @param academicYear
 	 * @throws Exception
 	 */
-	Student findStudentByStudentId(String studentId) throws Exception;
+	void saveAcademicYear(Combobox academicYear) throws Exception;
 
 	/**
-	 * @param studentId
-	 * @return
+	 * @param teachingPeriods
 	 * @throws Exception
 	 */
-	List<HomeworkBaseModel> findHomeworkBaseByStudent(String studentId)
-			throws Exception;
+	void saveTeachingPeriods(TeachingPeriods teachingPeriods) throws Exception;
+
+	/**
+	 * @return
+	 */
+	List<TeachingPeriods> searchTeachingPeriods();
+
+	/**
+	 * @return
+	 */
+	TeachingPeriods searchCurrentTeachingPeriods() throws Exception;
 }

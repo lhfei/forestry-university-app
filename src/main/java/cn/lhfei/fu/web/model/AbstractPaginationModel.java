@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.hibernate.criterion.SimpleExpression;
 
+import cn.lhfei.identity.web.convert.JsonDateSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.ISearch;
 
@@ -126,7 +129,9 @@ public abstract class AbstractPaginationModel {
 	
 	private int end;
 	
+	@JsonSerialize(using=JsonDateSerializer.class)
 	private Date createTime;
+	@JsonSerialize(using=JsonDateSerializer.class)
 	private Date modifyTime;
 	private String extend;
 	private String extend1;

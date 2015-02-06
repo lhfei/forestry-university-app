@@ -26,7 +26,9 @@ import org.hibernate.criterion.SimpleExpression;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.lhfei.fu.orm.domain.HomeworkBase;
+import cn.lhfei.identity.web.convert.JsonDateSerializer;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.ISearch;
 import com.googlecode.genericdao.search.Search;
@@ -147,6 +149,8 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 	private String name; 		// 学生姓名
 	private String academicYear; // '学年 academic year'
 	private String semester; // '学期(semester)'
+	
+	@JsonSerialize(using=JsonDateSerializer.class)
 	private Date operationTime;
 	private String actionType; // '操作类型,枚举值包括【上传|下载|批量上传|批量下载|审核|修改】'
 	private String teacherId; // 教师编号

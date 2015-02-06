@@ -15,6 +15,7 @@
  */
 package cn.lhfei.fu.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lhfei.fu.orm.domain.StudentBase;
 import cn.lhfei.fu.service.impl.RESTServiceImpl;
+import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.fu.web.model.rest.Student;
 import cn.lhfei.identity.util.JSONReturn;
 
@@ -46,29 +48,30 @@ public class RESTController {
 			.getLogger(RESTController.class);
 
 	@RequestMapping(value = "/{id}/findStudentInfo", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> findStudentInfo(@PathVariable("id")String studentId) {
-		//String studentId = "110314217";
+	public @ResponseBody Map<String, Object> findStudentInfo(
+			@PathVariable("id") String studentId) {
+		
 		log.debug("ID: [{}]", studentId);
 
 		boolean result = false;
-		String message  = "\u67e5\u8be2\u6210\u529f";
+		String message = "\u67e5\u8be2\u6210\u529f";
 
 		Student student = null;
 
 		try {
 			StudentBase base = restService.findStudentInfo(studentId);
-			
+
 			student = new Student();
-			
+
 			student.setClassName(base.getClassName());
-			
+
 			student.setId(base.getId());
 			student.setName(base.getName());
 			student.setStudentId(base.getStudentId());
-			
-			if(base.getGender() == 0){// gender code: 0(男) | 1(女)
+
+			if (base.getGender() == 0) {// gender code: 0(男) | 1(女)
 				student.setGender("\u7537");
-			}else{
+			} else {
 				student.setGender("\u5973");
 			}
 
@@ -76,13 +79,34 @@ public class RESTController {
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			
+
 			message = "\u67e5\u8be2\u5931\u8d25";
 		}
 
 		return JSONReturn.map(result, student, message);
 	}
 
+	@RequestMapping(value = "/{id}/findHomework", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> findHomework(
+			@PathVariable("id") String studentId) {
+		
+		log.debug("ID: [{}]", studentId);
+
+		try {
+			List<HomeworkBaseModel> list = restService
+					.findHomeworkBaseByStudent(studentId);
+
+			return JSONReturn.mapOK(list);
+
+		} catch (Exception e) {
+
+			log.error(e.getMessage(), e);
+
+			return JSONReturn.mapError("");
+		}
+	}
+
 	@Autowired
 	private RESTServiceImpl restService;
+
 }

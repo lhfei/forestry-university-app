@@ -15,31 +15,14 @@
  */
 package cn.lhfei.fu.orm.mybatis.mapper;
 
-import java.util.List;
-
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
-import cn.lhfei.fu.web.model.rest.Student;
-
 /**
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Dec 18, 2014
+ * @since Feb 6, 2015
  */
 
-public interface IStudentMapper {
+public interface ISystemMapper {
 
-	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
-	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
-	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
-	
-	
-	/**
-	 * @param studentId
-	 * @return
-	 */
-	Student findStudentByStudentId(String studentId);
 }

@@ -10,6 +10,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
        <setting name="logImpl" value="LOG4J"/>
     </settings>
     <typeAliases>
+    
+    	<typeAlias type="cn.lhfei.fu.web.model.rest.Student" alias="student" />
         <typeAlias type="cn.lhfei.fu.web.model.HomeworkBaseModel" alias="homeworkBaseModel"/>
     </typeAliases>
 </configuration>
