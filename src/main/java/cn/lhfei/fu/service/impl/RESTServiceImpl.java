@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.lhfei.fu.orm.domain.HomeworkBase;
 import cn.lhfei.fu.orm.domain.StudentBase;
 import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper;
@@ -81,13 +80,15 @@ public class RESTServiceImpl implements IRESTService {
 		TeachingPeriods period = systemService.searchCurrentTeachingPeriods();
 
 		// get current student info by studentId
-		Student student = studentMapper.findStudentById(studentId);
+		/*Student student = studentMapper.findStudentById(studentId);*/
 		
-		if(student != null){
+		StudentBase base = findStudentInfo(studentId);
+		
+		if(base != null){
 			HomeworkBaseModel homework = new HomeworkBaseModel();
 			homework.setAcademicYear(period.getAcademicYear());
 			homework.setSemester(period.getSemester());
-			homework.setClassName(student.getClassName());
+			homework.setClassName(base.getClassName());
 			homework.setPageNum(0);
 			homework.setPageSize(Integer.MAX_VALUE);
 			
