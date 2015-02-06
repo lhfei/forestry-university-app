@@ -7,7 +7,7 @@
          user.home - User's home directory
          user.dir - User's current working directory
          java.io.tmpdir - Default temp file path 'java.io.tmpdir'-->
-    <diskStore path="E:/tmpdir"/>
+    <diskStore path="/home/archives_fu"/>
 
 
     <!--Default Cache configuration. These will applied to caches programmatically created through
