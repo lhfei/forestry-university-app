@@ -80,15 +80,13 @@ public class RESTServiceImpl implements IRESTService {
 		TeachingPeriods period = systemService.searchCurrentTeachingPeriods();
 
 		// get current student info by studentId
-		/*Student student = studentMapper.findStudentById(studentId);*/
+		Student student = studentMapper.findStudentById(studentId);
 		
-		StudentBase base = findStudentInfo(studentId);
-		
-		if(base != null){
+		if(student != null){
 			HomeworkBaseModel homework = new HomeworkBaseModel();
 			homework.setAcademicYear(period.getAcademicYear());
 			homework.setSemester(period.getSemester());
-			homework.setClassName(base.getClassName());
+			homework.setClassName(student.getClassName());
 			homework.setPageNum(0);
 			homework.setPageSize(Integer.MAX_VALUE);
 			
