@@ -4,7 +4,17 @@
 
 <mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper">
 
-
+	<select id="findStudentByStudentId" resultType="student" parameterType="string">
+		SELECT 
+			s.STUDENT_BASE_ID as id, 
+			s.STUDENT_ID      as studentId, 
+			s.NAME            as name, 
+			s.GENDER          as gender, 
+			s.CLASS_NAME      as className 
+		FROM STUDENT_BASE s  
+		WHERE s.STUDENT_ID = #{studentId}
+	</select>
+	
 	<sql id="get_homework_column">
 		hb.homework_base_id    as id,
 		hb.hw_name             as name,
@@ -95,17 +105,6 @@
 
 		<include refid="get_homework_where"/>
 	
-	</select>
-	
-	<select id="findStudentByStudentId" resultType="student" parameterType="string">
-		SELECT 
-			s.STUDENT_BASE_ID as id, 
-			s.STUDENT_ID      as studentId, 
-			s.NAME            as name, 
-			s.GENDER          as gender, 
-			s.CLASS_NAME      as className 
-		FROM STUDENT_BASE s  
-		WHERE s.STUDENT_ID = #{studentId}
 	</select>
 
 </mapper>

@@ -30,11 +30,13 @@ import cn.lhfei.fu.web.model.rest.Student;
 
 public interface IStudentMapper {
 
-	List<HomeworkBaseModel> getHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
+	List<HomeworkBaseModel> getHomeworkByStudent(
+			HomeworkBaseModel homeworkBaseModel);
+
 	int countHomeworkByStudent(HomeworkBaseModel homeworkBaseModel);
-	
+
 	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
 
 	Student findStudentByStudentId(String studentId);
+	
 }
