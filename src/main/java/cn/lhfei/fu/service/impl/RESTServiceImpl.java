@@ -69,7 +69,7 @@ public class RESTServiceImpl implements IRESTService {
 
 	@Override
 	public Student findStudentByStudentId(String studentId) throws Exception {
-		Student student = studentMapper.findStudentByStudentId(studentId);
+		Student student = studentMapper.findStudentById(studentId);
 
 		return student;
 	}
@@ -81,7 +81,7 @@ public class RESTServiceImpl implements IRESTService {
 		TeachingPeriods period = systemService.searchCurrentTeachingPeriods();
 
 		// get current student info by studentId
-		Student student = studentMapper.findStudentByStudentId(studentId);
+		Student student = studentMapper.findStudentById(studentId);
 		
 		if(student != null){
 			HomeworkBaseModel homework = new HomeworkBaseModel();
