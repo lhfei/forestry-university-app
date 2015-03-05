@@ -9,10 +9,10 @@
         url: "../homework/index.do",
         leaf: true
     },{
-        id: 'ifeng/videoList.do',
+        id: '../thesis/index.do',
         text: '论文列表',
         iconCls: "tree-leaf",
-        url: "ifeng/videoList.do",
+        url: "../thesis/index.do",
         leaf: true
     }]
 },{

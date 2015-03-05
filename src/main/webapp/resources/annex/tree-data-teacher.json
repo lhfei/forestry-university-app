@@ -9,10 +9,10 @@
     	url: "../teacher/homeworkIndex.do",
     	leaf: true
     },{
-    	id: "../teacherthesisIndex.do",
+    	id: "../thesis/index.do",
     	text: "论文列表",
     	iconCls: "tree-leaf",
-    	url: "../teacherthesisIndex.do",
+    	url: "../thesis/index.do",
     	leaf: true
     }]
 },{
