@@ -108,7 +108,7 @@ public class RESTController {
 		}
 	}
 	
-	@RequestMapping(value = "/{baseId}/{teacherId}/{studentId}/{fileName}/{filePath}/updateHomeworkStatus",
+	@RequestMapping(value = "/updateHomeworkStatus",
 			method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public @ResponseBody Map<String, Object> updateHomeworkStatus(@RequestBody HomeworkArchiveModel archive) {
 
