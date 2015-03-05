@@ -121,6 +121,23 @@ public class HomeworkBaseServiceImplTest {
 		}
 	}
 	
+	@Test
+	public void importHomework() {
+		String filePath = "E:\\Webapp_workspace\\webapps_agent\\forestry-university-app\\src\\test\\resource\\excel\\2014-2015.xlsx";
+		
+		try {
+			homeworkBaseService.importHomework(filePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void updateTeacherId() {
+		homeworkBaseService.updateTeacherId();
+	}
+	
 	
 	@Autowired
 	private HomeworkBaseService homeworkBaseService;

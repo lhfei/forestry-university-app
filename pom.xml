@@ -35,6 +35,7 @@
 
 		<!-- Google Hibernate Generic DAO Framework -->
 		<generic-framework.version>1.2.0</generic-framework.version>
+		<poi.version>3.11-beta3</poi.version>
 	</properties>
 
 	<dependencies>
@@ -303,6 +304,26 @@
 			<groupId>oracle.jdbc</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-excelant</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-contrib</artifactId>
+			<version>3.7-beta3</version>
 		</dependency>
 	</dependencies>
 	

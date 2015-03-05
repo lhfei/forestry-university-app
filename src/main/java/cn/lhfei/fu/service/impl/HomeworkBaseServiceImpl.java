@@ -17,15 +17,23 @@ package cn.lhfei.fu.service.impl;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +45,7 @@ import cn.lhfei.fu.common.constant.OperationTypeEnum;
 import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
 import cn.lhfei.fu.orm.domain.HomeworkBase;
+import cn.lhfei.fu.orm.mybatis.mapper.IExcelFactoryMapper;
 import cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper;
 import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.HomeworkArchiveDAO;
@@ -45,6 +54,7 @@ import cn.lhfei.fu.service.HomeworkBaseService;
 import cn.lhfei.fu.service.IFilePathBuilder;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.fu.web.model.SearchAndCountModel;
+import cn.lhfei.fu.web.model.TeacherBaseModel;
 
 import com.googlecode.genericdao.search.SearchResult;
 
@@ -187,6 +197,99 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 
 		return false;
 	}
+
+	@Override
+	public boolean importHomework(String filePath) throws Exception {
+		InputStream inp = new FileInputStream(filePath);
+
+	    Workbook wb = WorkbookFactory.create(inp);
+	    Sheet sheet = wb.getSheetAt(0);
+	    
+	    int totalRows = sheet.getPhysicalNumberOfRows();
+    	Cell teacherCell = null;
+    	Cell courseCell = null;	
+    	Cell academicYearCell = null;
+    	Cell semesterCell = null;
+    	Cell classCell = null;
+	    
+		String teacherName = null;
+		String courseName = null;
+		String academicYear = null;
+		String semester = null; 
+		String classNames = null;
+	    
+		HomeworkBaseModel model = null;
+		Date currentDate = new Date();
+		List<HomeworkBaseModel> homeworkList = new ArrayList<HomeworkBaseModel>();
+		
+	    for(int i = 0; i < totalRows; i++){
+	    	Row row = sheet.getRow(i);
+
+	    	teacherCell = row.getCell(2);		// 授课教师
+	    	courseCell = row.getCell(3);		// 课程
+	    	academicYearCell = row.getCell(4);	// 学年
+	    	semesterCell = row.getCell(5);		// 学期
+	    	classCell = row.getCell(10);		// 班级
+	    	
+	    	
+	    	if(teacherCell != null){
+	    		teacherName = teacherCell.getStringCellValue().trim();
+	    	}
+	    	if(courseCell != null){
+	    		courseName = courseCell.getStringCellValue().trim();
+	    	}
+	    	if(academicYearCell != null){
+	    		academicYear = academicYearCell.getStringCellValue().trim();
+	    	}
+	    	if(semesterCell != null){
+	    		semester = semesterCell.getStringCellValue().trim();
+	    	}
+	    	if(classCell != null){
+	    		classNames = classCell.getStringCellValue().trim();
+	    		
+	    		String[] names = classNames.split(",");
+	    		if(names != null && names.length > 0){
+	    			for(String className : names){
+	    				model = new HomeworkBaseModel();
+	    				model.setAcademicYear(academicYear);
+	    				model.setSemester(semester);
+	    				model.setActionType(OperationTypeEnum.SC.getCode().toString());
+	    				model.setClassName(className);
+	    				model.setCourseName(courseName);
+	    				model.setTeacherName(teacherName);
+	    				
+	    				model.setOperationTime(currentDate);
+	    				model.setCreateTime(currentDate);
+	    				model.setModifyTime(currentDate);
+	    				
+	    				model.setName("");
+	    				model.setTeacherId("");
+	    				model.setCourseCode("0");
+	    				
+	    				homeworkList.add(model);
+	    			}
+	    		}
+	    		
+	    	}
+	    	
+	    	log.info("teacher={}, course={}, xn={}, xq={}, homework={}", teacherName, courseName, academicYear, semester, classNames);
+	    }
+	    
+	    for(HomeworkBaseModel baseModel : homeworkList){
+	    	excelFactoryMapper.importHomework(baseModel);
+	    }
+	    
+		return false;
+	}
+	
+	@Override
+	public void updateTeacherId() {
+		List<TeacherBaseModel> list = excelFactoryMapper.getTeacher();
+		
+		for(TeacherBaseModel model : list){
+			excelFactoryMapper.updateTeacherId(model);
+		}
+	}
 	
 	@Override
 	public SearchAndCountModel<HomeworkBase> getPageAndCount(HomeworkBaseModel homeworkModel) {
@@ -236,6 +339,8 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	
 	@Autowired
 	private ITeacherMapper teacherMapper;
-
+	
+	@Autowired
+	private IExcelFactoryMapper excelFactoryMapper;
 
 }

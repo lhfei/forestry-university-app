@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.IExcelFactoryMapper">
+
+	<insert id="importHomework" parameterType="homeworkBaseModel">
+		INSERT INTO HOMEWORK_BASE(HOMEWORK_BASE_ID, HW_NAME, ACADEMIC_YEAR, SEMESTER, TEACHER_ID, TEACHER_NAME, CLASS_NAME, COURSE_NAME, COURSE_CODE, ACTION_TYPE, CREATE_TIME, MODIFY_TIME, OPERATION_TIME) 
+		VALUES (
+			seq_homework_base.nextval, #{name}, #{academicYear}, #{semester}, #{teacherId}, #{teacherName}, #{className}, #{courseName}, #{courseCode}, #{actionType}, #{createTime}, #{modifyTime}, #{operationTime}
+		 )		
+		<!-- 
+		<foreach collection="homeworkList" item="model" separator=",">
+		 	(
+				seq_homework_base.nextval, #{name}, #{academicYear}, #{semester}, #{teacherId}, #{teacherName}, #{className}, #{courseName}, #{courseCode}, #{majorName}, #{majorCode}
+		 	)
+		</foreach> -->
+		
+	</insert>
+	
+	
+	<select id="getTeacher" resultType="teacherBaseModel">
+		SELECT tb.TEACHER_NAME as teacherName, tb.TEACHER_ID as teacherId 
+		
+		FROM TEACHER_BASE tb 
+		
+		GROUP BY tb.TEACHER_NAME, tb.TEACHER_ID
+	</select>
+	
+	<update id="updateTeacherId" parameterType="teacherBaseModel">
+		UPDATE HOMEWORK_BASE hb
+		
+		SET hb.teacher_id = #{teacherId}
+		
+		WHERE hb.teacher_name = #{teacherName}
+	</update>
+
+</mapper>

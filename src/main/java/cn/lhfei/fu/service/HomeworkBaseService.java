@@ -48,7 +48,10 @@ public interface HomeworkBaseService {
 	boolean approve(Integer[] ids);
 
 	SearchAndCountModel<HomeworkBase> getPageAndCount(HomeworkBaseModel homeworkModel);
+	
+	boolean importHomework(String filePath) throws Exception;
 
+	void updateTeacherId();
 	
 	/**
 	 * 学生作业列表

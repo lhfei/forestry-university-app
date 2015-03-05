@@ -12,6 +12,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <typeAliases>
     
     	<typeAlias type="cn.lhfei.fu.web.model.rest.Student" alias="student"/>
+    	<typeAlias type="cn.lhfei.fu.web.model.TeacherBaseModel" alias="teacherBaseModel"/>
         <typeAlias type="cn.lhfei.fu.web.model.HomeworkBaseModel" alias="homeworkBaseModel"/>
+        
+        
     </typeAliases>
 </configuration>
