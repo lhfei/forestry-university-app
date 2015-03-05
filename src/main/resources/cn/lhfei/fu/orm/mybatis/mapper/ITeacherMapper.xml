@@ -109,4 +109,21 @@
 		</trim>	
 	</select>
 	
+	<!-- 
+		Approve Homework:
+			== update HOMEWORK_ARCHIVE.STATUS: 作业状态，枚举值包括：[未提交（0） 待审核（1）  已审核（2）  未通过（3）]
+	 -->
+	<update id="updateArachive" parameterType="map">
+		UPDATE HOMEWORK_ARCHIVE ha
+		
+		  SET ha.STATUS = #{status},
+		
+			  ha.EXTEND = #{desc}
+		
+		WHERE ha.HOMEWORK_ARCHIVE_ID = #{id}
+	</update>
+	
+	
+	
+	
 </mapper>

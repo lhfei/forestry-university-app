@@ -16,6 +16,7 @@
 package cn.lhfei.fu.orm.mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 
@@ -33,6 +34,7 @@ public interface ITeacherMapper {
 	
 	int countHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
 	
-	
 	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
+	
+	void updateArachive(Map<String, Object> map) throws Exception;
 }

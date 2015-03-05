@@ -15,12 +15,18 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.lhfei.fu.common.constant.ApproveStatusEnum;
+import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
+import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.HomeworkArchiveDAO;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 
@@ -42,6 +48,42 @@ public class HomeworkArchiveServiceImpl implements HomeworkArchiveService{
 		return homeworkArchiveDAO.find(id);
 	}
 	
+	@Override
+	public String updateArachive(Integer id, String status, String desc, String userType) throws Exception {
+		String message = "0";
+		// 更新作业状态
+		if(userType != null && userType.equals(UserTypeEnum.STUDENT.getCode())){
+			message = "\u5f53\u524d\u64cd\u4f5c\u4e3a\u6388\u6743,"
+					+ "\u8bf7\u4e0e\u7ba1\u7406\u5458\u8054\u7cfb!";
+			
+			return message;
+		}
+		/*else if(userType != null && userType.equals(UserTypeEnum.TEACHER.getCode())){
+		}
+		else if(userType != null && userType.equals(UserTypeEnum.ADMIN.getCode())){
+		}*/
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("desc", desc);
+		
+		if("1".equals(status)){// 1 审批通过 | 0 审批未通过
+			status = ApproveStatusEnum.YSH.getCode().toString();
+		}else{
+			status = ApproveStatusEnum.WTG.getCode().toString();
+		}
+		
+		map.put("status", status);
+		
+		teacherMapper.updateArachive(map);
+		
+		return message;
+	}
+	
+	
 	@Autowired
 	private  HomeworkArchiveDAO  homeworkArchiveDAO;
+	
+	@Autowired
+	private ITeacherMapper teacherMapper;
 }

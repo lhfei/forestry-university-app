@@ -180,6 +180,11 @@ Ext.define('hwork.controller.HWController', {
         if(m){
             switch(m[1]){
                 case 'upload':
+                	if(record.status != '0' && record.status != '3') {
+                		Ext.MessageBox.alert('Status', '当前已完成上传, 请不要重复上传!.');
+                		return false;
+                	}
+                	
                 	if(!uploadWin){
                 		uploadWin = Ext.create('Ext.window.Window', {
                 			title: '<b>上传作业附件作业</b>',

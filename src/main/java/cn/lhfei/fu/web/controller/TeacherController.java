@@ -89,6 +89,20 @@ public class TeacherController extends AbstractController {
 	//// 作业管理管理
 	//// Process step  	... 											
 	/////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Homework read
+	 * 
+	 * @param academicYear
+	 * @param semester
+	 * @param courseName
+	 * @param name
+	 * @param start
+	 * @param page
+	 * @param limit
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/homeworkRead", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(
 			@RequestParam("academicYear")String academicYear,
@@ -135,26 +149,13 @@ public class TeacherController extends AbstractController {
 		
 	}
 
-	@RequestMapping(value="/createHomework", method=RequestMethod.POST,
-			consumes = "application/json", produces = "application/json")
-	public @ResponseBody Map<String, Object> createHomework(
-			@RequestBody HomeworkBase homework, Model model, HttpSession session) {
-		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
-		// 
-		homework.setTeacherId(userSession.getUser().getUserId());
-		homework.setTeacherName(userSession.getUser().getUserName());
-		
-        model.addAttribute("role", homework);
-        
-        boolean result = homeworkBaseService.save(homework);
-        
-        if (result) {
-			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
-		}else{
-			return JSONReturn.mapError("\u64cd\u4f5c\u5931\u8d25!");
-		}
-    }
-
+	/**
+	 * upload homework archives.
+	 * 
+	 * @param uploadForm
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "updateHomework", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Map<String, Object> updateHomework(
 			@ModelAttribute("uploadForm") HomeworkBaseModel uploadForm,
@@ -172,18 +173,37 @@ public class TeacherController extends AbstractController {
 		return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
 	}
 	
-	@RequestMapping(value="/deleteHomework", method=RequestMethod.POST,
-			consumes = "application/json", produces = "application/json")
-    public @ResponseBody Map<String, Object> deleteHomework(@RequestBody IdsModel<Integer> ids, Model model) {
-		log.info(ids.toString());
+	/**
+	 * approve homework.
+	 * 
+	 * @param id
+	 * @param desc
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/approveHomework", method = RequestMethod.GET,produces = "application/json")
+	public @ResponseBody Map<String, Object> approveHomework(
+			@RequestParam("id")Integer id, @RequestParam("desc")String desc, 
+			@RequestParam("status")String status, HttpSession session) {
+		
 		try {
-			homeworkBaseService.delete(ids.getIds());
-			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+			
+			String userType = (String)session.getAttribute(USER_TYPE);
+			
+			String message = homeworkArchiveService.updateArachive(id, status, desc, userType);
+			
+			if("0".equals(message)){
+				return JSONReturn.mapOK("\u5ba1\u6279\u6210\u529f!");
+			}else
+				return JSONReturn.mapOK("\u5ba1\u6279\u5931\u8d25!" +message);
+
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			return JSONReturn.mapError("\u64cd\u4f5c\u5931\u8d25!");
+
+			return JSONReturn.mapError("\u5ba1\u6279\u5931\u8d25!");
 		}
-    }	
+		
+	}
 	
 	/**
 	 * Method for handling file download request from client
@@ -225,6 +245,49 @@ public class TeacherController extends AbstractController {
 		}
     }
 
+
+
+	/**
+	 * create homework.
+	 * 
+	 * @param homework
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/createHomework", method=RequestMethod.POST,
+			consumes = "application/json", produces = "application/json")
+	public @ResponseBody Map<String, Object> createHomework(
+			@RequestBody HomeworkBase homework, Model model, HttpSession session) {
+		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
+		// 
+		homework.setTeacherId(userSession.getUser().getUserId());
+		homework.setTeacherName(userSession.getUser().getUserName());
+		
+        model.addAttribute("role", homework);
+        
+        boolean result = homeworkBaseService.save(homework);
+        
+        if (result) {
+			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+		}else{
+			return JSONReturn.mapError("\u64cd\u4f5c\u5931\u8d25!");
+		}
+    }
+	
+	@RequestMapping(value="/deleteHomework", method=RequestMethod.POST,
+			consumes = "application/json", produces = "application/json")
+    public @ResponseBody Map<String, Object> deleteHomework(@RequestBody IdsModel<Integer> ids, Model model) {
+		log.info(ids.toString());
+		try {
+			homeworkBaseService.delete(ids.getIds());
+			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return JSONReturn.mapError("\u64cd\u4f5c\u5931\u8d25!");
+		}
+    }	
+	
 	@RequestMapping(value = "/getClassByCourse", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<ClassBase> getClassByCourse(@RequestParam("courseId") int courseId) {
 		List<ClassBase> list = comboboxService.getClassByCourseId(courseId);

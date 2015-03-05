@@ -28,5 +28,7 @@ import cn.lhfei.fu.orm.domain.HomeworkArchive;
 public interface HomeworkArchiveService {
 
 	HomeworkArchive read(Integer id);
+	
+	String updateArachive(Integer id, String status, String desc, String userType) throws Exception;
 
 }

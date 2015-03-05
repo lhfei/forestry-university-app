@@ -128,12 +128,12 @@ var tpl,
 		        fieldLabel: '审批结果',
 		        labelWidth: 65,
 		        boxLabel: '通过',
-		        name: 'aproveResult',
+		        name: 'status',
 		        inputValue: '1'
 		    }, {
 		        boxLabel: '未通过',
 		        labelWidth: 65,
-		        name: 'aproveResult',
+		        name: 'status',
 		        inputValue: '0'
 		    },{
 		    	xtype: 'textarea',
@@ -218,9 +218,16 @@ Ext.define('hwork.controller.HWController', {
         var record = this.getHwGrid().getStore().getAt(row).data;
         var mm =  this.getHWStoreStore();
         
+        var approveButtonIsValid = (record.status != '1');
+        
         if(m){
             switch(m[1]){
                 case 'upload':
+                	if(record.status != '0' && record.status != '3') {
+                		Ext.MessageBox.alert('Status', '当前已完成上传, 请不要重复上传!.');
+                		return false;
+                	}
+                	
                 	if(!uploadWin){
                 		uploadWin = Ext.create('Ext.window.Window', {
                 			title: '<b>上传作业附件作业</b>',
@@ -260,7 +267,8 @@ Ext.define('hwork.controller.HWController', {
                 	if(record.homeworkArahiveId == null){
                 		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
                 		return false;
-                	};                	
+                	};  
+                	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
                 		header: {
@@ -318,13 +326,40 @@ Ext.define('hwork.controller.HWController', {
                 			text: '审批',
                 			iconCls: 'icon-download',
                 			scope: this,
+                			hidden: approveButtonIsValid,
                 			handler: function(){
+                				if(record.status != '1'){
+                					Ext.MessageBox.alert('Status', '当前已完成审批, 请不要重复审批!.');
+                					return false;
+                				}
                 				var form = approveForm.getForm();
                 				var vals = form.getValues();
                 				
-                				alert(vals.aproveResult +'<>'+ vals.approveDesc +'<>'+record.homeworkArahiveId)
-                				
-                				downloadWin.hide();
+                				Ext.Ajax.request({
+		            				url: '../teacher/approveHomework.do?id=' +record.homeworkArahiveId+ '&status=' +vals.status+ '&desc=' +vals.approveDesc ,
+		            				waitMsg: 'Loading ...',
+		            				method: 'get',
+		            				success: function (response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					if(result.success){
+		            						Ext.MessageBox.alert({
+		            							title: 'System Message',
+		            							msg: result.message
+		            						});
+		            						
+		            						downloadWin.hide();
+		            					}
+		            				},
+		            				failure: function(response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					Ext.MessageBox.alert({
+		            						title: 'System Message',
+		            						msg: result.message
+		            					});
+		            					
+		            					downloadWin.hide();
+		            				}
+		            			});
                 			}
                 		},{
                 			text: '取消',
@@ -336,7 +371,21 @@ Ext.define('hwork.controller.HWController', {
                 		}]
                 	});
                 	
-                	approveForm.getForm().reset();
+                	var form = approveForm.getForm();
+                	form.reset();
+                	var status = record.status;
+                	if(status == '2' || status == '3'){// approve had done.
+                		if(status == '2'){
+                    		status = '1';
+                    	}else {
+                    		status = '0'
+                    	}
+                    		form.setValues({
+                    			status: status,
+                    			approveDesc: record.extend
+                    		});
+                	}
+                	
                     downloadWin.show();
                     
                     break;    
