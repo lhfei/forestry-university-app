@@ -19,6 +19,7 @@ import java.util.List;
 
 import cn.lhfei.fu.orm.domain.StudentBase;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.rest.HomeworkArchiveModel;
 import cn.lhfei.fu.web.model.rest.Student;
 
 /**
@@ -31,6 +32,10 @@ import cn.lhfei.fu.web.model.rest.Student;
  * @since Feb 5, 2015
  */
 
+/**
+ * @author lihf
+ *
+ */
 public interface IRESTService {
 
 	/**
@@ -55,4 +60,11 @@ public interface IRESTService {
 	 */
 	List<HomeworkBaseModel> findHomeworkBaseByStudent(String studentId)
 			throws Exception;
+	
+
+	/**
+	 * @param archive
+	 * @throws Exception
+	 */
+	void saveHomeWorkArchive(HomeworkArchiveModel archive) throws Exception;
 }

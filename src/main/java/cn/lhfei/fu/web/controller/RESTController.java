@@ -23,13 +23,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lhfei.fu.orm.domain.StudentBase;
-import cn.lhfei.fu.service.impl.RESTServiceImpl;
+import cn.lhfei.fu.service.IRESTService;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.rest.HomeworkArchiveModel;
 import cn.lhfei.fu.web.model.rest.Student;
 import cn.lhfei.identity.util.JSONReturn;
 
@@ -105,8 +107,29 @@ public class RESTController {
 			return JSONReturn.mapError("");
 		}
 	}
+	
+	@RequestMapping(value = "/{baseId}/{teacherId}/{studentId}/{fileName}/{filePath}/updateHomeworkStatus",
+			method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public @ResponseBody Map<String, Object> updateHomeworkStatus(@RequestBody HomeworkArchiveModel archive) {
+
+		log.debug(
+				"baseId={}, teacherId={}, studentId={}, fileName={}, filePath={}",
+				archive.getBaseId(), archive.getTeacherId(), archive.getStudentId(), archive.getFileName(), archive.getFilePath());
+
+		try {
+			restService.saveHomeWorkArchive(archive);
+
+			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+
+			return JSONReturn.mapError("");
+		}
+
+	}
 
 	@Autowired
-	private RESTServiceImpl restService;
+	private IRESTService restService;
 
 }

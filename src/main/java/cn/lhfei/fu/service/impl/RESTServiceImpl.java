@@ -32,6 +32,7 @@ import cn.lhfei.fu.service.ISystemService;
 import cn.lhfei.fu.service.StudentService;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.fu.web.model.StudentBaseModel;
+import cn.lhfei.fu.web.model.rest.HomeworkArchiveModel;
 import cn.lhfei.fu.web.model.rest.Student;
 
 /**
@@ -98,6 +99,13 @@ public class RESTServiceImpl implements IRESTService {
 			throw new java.lang.IllegalArgumentException("\u53c2\u6570\u65e0\u6548\uff1b\u5b66\u53f7\u4e0d\u5b58\u5728.");
 		}
 
+	}
+	
+	@Override
+	public void saveHomeWorkArchive(HomeworkArchiveModel archive) {
+		homeworkArchiveService.saveHomeWorkArchive(archive.getBaseId(),
+				archive.getTeacherId(), archive.getStudentId(),
+				archive.getFileName(), archive.getFilePath(), archive.getName());
 	}
 
 	@Autowired

@@ -30,5 +30,7 @@ public interface HomeworkArchiveService {
 	HomeworkArchive read(Integer id);
 	
 	String updateArachive(Integer id, String status, String desc, String userType) throws Exception;
+	
+	void saveHomeWorkArchive(Integer baseId, String teacherId, String studentId, String fileName, String filePath, String homeworkName);
 
 }

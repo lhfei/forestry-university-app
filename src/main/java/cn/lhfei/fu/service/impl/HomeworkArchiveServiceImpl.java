@@ -15,6 +15,7 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +27,11 @@ import org.springframework.stereotype.Service;
 import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
+import cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper;
 import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.HomeworkArchiveDAO;
 import cn.lhfei.fu.service.HomeworkArchiveService;
+import cn.lhfei.fu.web.model.rest.Student;
 
 
 /**
@@ -80,10 +83,34 @@ public class HomeworkArchiveServiceImpl implements HomeworkArchiveService{
 		return message;
 	}
 	
+	@Override
+	public void saveHomeWorkArchive(Integer baseId, String teacherId, String studentId, String fileName, String filePath, String homeworkName) {
+		HomeworkArchive archive = new HomeworkArchive();
+		Date currentDate = new Date();
+		
+		Student student = studentMapper.findStudentById(studentId);
+		
+		archive.setModifyTime(currentDate);
+		archive.setCreateTime(currentDate);
+		archive.setArchiveName(fileName);
+		archive.setArchivePath(filePath);
+		archive.setHomeworkBaseId(baseId);
+		archive.setStudentId(studentId);
+		archive.setStudentName(student.getName());
+		archive.setName(homeworkName);
+		
+		archive.setStatus(ApproveStatusEnum.DSH.getCode().toString());
+		
+		homeworkArchiveDAO.save(archive);
+	}
+	
 	
 	@Autowired
 	private  HomeworkArchiveDAO  homeworkArchiveDAO;
 	
 	@Autowired
 	private ITeacherMapper teacherMapper;
+	
+	@Autowired
+	private IStudentMapper studentMapper;
 }
