@@ -16,7 +16,7 @@ Ext.define('hwork.view.HWGrid', {
 
     columns: [
         {header: '序号', xtype: 'rownumberer', width: 40, sortable: false, locked: true }, 
-        {header: 'ID',  dataIndex: 'id',  flex: 1, align: 'center', hidden: true},
+        {header: 'ID',  dataIndex: 'baseId',  flex: 1, align: 'center', hidden: true},
         {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center'},
         {header: '学期', dataIndex: 'semester', flex: 1, align: 'center'},
         {header: '课程名称', dataIndex: 'courseName', flex: 1, align: 'center'},
@@ -48,7 +48,7 @@ Ext.define('hwork.view.HWGrid', {
         		}
         	}
         	
-        }, {
+        },{
             xtype: 'actioncolumn',
             id: 'ctrlCell',
             flex: 1,

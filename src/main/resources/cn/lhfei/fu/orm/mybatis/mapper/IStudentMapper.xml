@@ -16,7 +16,7 @@
 	</select>
 	
 	<sql id="get_homework_column">
-		hb.homework_base_id    as id,
+		hb.homework_base_id    as baseId,
 		hb.hw_name             as name,
 		hb.academic_year       as academicYear,
 		hb.semester            as semester,

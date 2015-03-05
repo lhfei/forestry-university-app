@@ -123,7 +123,7 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 
 		List<MultipartFile> files = model.getFiles();
 		try {
-			HomeworkBase base = homeworkBaseDAO.find(model.getId());
+			HomeworkBase base = homeworkBaseDAO.find(model.getBaseId());
 
 			base.setModifyTime(currentTime);
 			base.setActionType("" + OperationTypeEnum.SC.getCode());
@@ -158,7 +158,7 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 				archive.setModifyTime(currentTime);
 				archive.setName(model.getName());
 				archive.setStudentBaseId(model.getStudentBaseId());
-				archive.setHomeworkBaseId(model.getId());
+				archive.setHomeworkBaseId(model.getBaseId());
 				/*archive.setHomeworkBase(base);*/
 				archive.setStudentName(model.getStudentName());
 				archive.setStudentId(model.getStudentId());

@@ -51,7 +51,7 @@ var tpl,
 	    },{
 	        xtype: 'textfield',
 	        fieldLabel: '作业主键',
-	        name: 'id',
+	        name: 'baseId',
 	        hidden: true
 	    },{
 	        xtype: 'textfield',
@@ -205,7 +205,7 @@ Ext.define('hwork.controller.HWController', {
                 	
                 	var form = uploadForm.getForm();
                 	form.setValues({ 
-                		id: record.id,
+                		baseId: record.baseId,
                 		name: record.name,
                 		academicYear: record.academicYear,
                 		semester: record.semester,
@@ -216,6 +216,10 @@ Ext.define('hwork.controller.HWController', {
                     break;
                 	
                 case 'download':
+                	if(record.homeworkArahiveId == null){
+                		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
+                		return false;
+                	};                	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
                 		header: {
@@ -228,6 +232,7 @@ Ext.define('hwork.controller.HWController', {
                 		resizable: true,
                 		stateId: 'previewState',
                 		stateful: true,
+                		autoScroll : true,
                 		closeAction: 'hide',
                 		width: 800,
                 		minWidth: 350,
@@ -237,15 +242,15 @@ Ext.define('hwork.controller.HWController', {
                 			type: 'border',
                 			padding: 5
                 		},
-                		items: [{
+                		items: [/*{
                 			region: 'west',
                 			title: 'Navigation',
                 			width: 200,
                 			split: true,
                 			collapsible: true,
-                			collapsed: true,
-                			floatable: false
-                		}, {
+                			collapsed: false,
+                			floatable: true
+                		}, */{
                 			region: 'center',
                 			xtype: 'tabpanel',
                 			items: [{

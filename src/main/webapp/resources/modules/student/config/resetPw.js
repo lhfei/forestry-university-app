@@ -72,10 +72,10 @@ Ext.onReady(function() {
         },*/ {
             xtype: 'textfield',
             name: 'password1',
-            fieldLabel: '密码',
+            fieldLabel: '新密码',
             inputType: 'password',
             style: 'margin-top:15px',
-            emptyText: '请输入密码',
+            emptyText: '请输入新密码',
             allowBlank: false,
             minLength: 6
         }, {

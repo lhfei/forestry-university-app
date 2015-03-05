@@ -140,7 +140,7 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 		return search;
 	}
 
-	private Integer id; // 作业ID
+	private Integer baseId; // 作业ID
 	private Integer studentBaseId; // 学生主键ID
 	private String studentId; // 学生编号		
 	private Integer homeworkArahiveId;// 作业附件主键ID
@@ -169,12 +169,12 @@ public class HomeworkBaseModel extends AbstractPaginationModel implements Serial
 
 	private List<MultipartFile> files; // 作业附件
 
-	public Integer getId() {
-		return id;
+	public Integer getBaseId() {
+		return baseId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setBaseId(Integer baseId) {
+		this.baseId = baseId;
 	}
 
 	/**

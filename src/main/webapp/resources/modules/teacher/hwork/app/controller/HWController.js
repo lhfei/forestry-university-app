@@ -10,7 +10,8 @@ Ext.require([
 
 var tpl,
 	downloadWin,
-	uploadForm,
+	uploadForm,		
+	approveForm,
 	uploadWin;
 
 	tpl = new Ext.XTemplate(
@@ -19,6 +20,7 @@ var tpl,
 	    'Size: {fileSize:fileSize}'
 	);
 	
+	// upload form panel
 	uploadForm = Ext.create('Ext.form.Panel', {
 	    autoWidth: true,
 	    autoHeight: true,
@@ -51,7 +53,7 @@ var tpl,
 	    },{
 	        xtype: 'textfield',
 	        fieldLabel: '作业主键',
-	        name: 'id',
+	        name: 'baseId',
 	        hidden: true
 	    },{
 	        xtype: 'textfield',
@@ -105,6 +107,45 @@ var tpl,
 	            uploadWin.hide();
 	        }
 	    }]
+	}); 
+
+	approveForm = Ext.create('Ext.form.Panel', {
+	    autoWidth: true,
+	    autoHeight: true,
+	    frame: false,
+	    items:[{
+		    xtype: 'fieldset',
+		    flex: 1,
+		    title: '作业审批',
+		    defaultType: 'radio', // each item will be a radio button
+		    layout: 'anchor',
+		    defaults: {
+		        anchor: '100%',
+		        hideEmptyLabel: false
+		    },
+		    items: [{
+		        checked: false,
+		        fieldLabel: '审批结果',
+		        labelWidth: 65,
+		        boxLabel: '通过',
+		        name: 'aproveResult',
+		        inputValue: '1'
+		    }, {
+		        boxLabel: '未通过',
+		        labelWidth: 65,
+		        name: 'aproveResult',
+		        inputValue: '0'
+		    },{
+		    	xtype: 'textarea',
+	            style: 'margin:0',
+	            hideLabel: false,
+	            labelWidth: 65,
+	            fieldLabel: '备注',
+	            emptyText: '审批意见描述, 可以不填...',
+	            name: 'approveDesc',
+		    }]
+		}]	
+
 	}); 
 	
 Ext.define('hwork.controller.HWController', {
@@ -187,7 +228,7 @@ Ext.define('hwork.controller.HWController', {
                 				titlePosition: 2,
                 				titleAlign: 'center'
                 			},
-                			maximizable: false,
+                			maximizable: true,
                 			modal: true,
                 			closeAction: 'hide',
                 			width: 400,
@@ -205,7 +246,7 @@ Ext.define('hwork.controller.HWController', {
                 	
                 	var form = uploadForm.getForm();
                 	form.setValues({ 
-                		id: record.id,
+                		baseId: record.baseId,
                 		name: record.name,
                 		academicYear: record.academicYear,
                 		semester: record.semester,
@@ -216,6 +257,10 @@ Ext.define('hwork.controller.HWController', {
                     break;
                 	
                 case 'download':
+                	if(record.homeworkArahiveId == null){
+                		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
+                		return false;
+                	};                	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
                 		header: {
@@ -236,16 +281,22 @@ Ext.define('hwork.controller.HWController', {
                 		tools: [{type: 'pin'}],
                 		layout: {
                 			type: 'border',
-                			padding: 5
+                			margin: 30
                 		},
                 		items: [{
-                			region: 'west',
+                			region: 'east',
                 			title: 'Navigation',
                 			width: 200,
                 			split: true,
                 			collapsible: true,
-                			collapsed: true,
-                			floatable: false
+                			collapsed: false,
+                			floatable: true,
+                			bodyStyle: {
+                				background: '#ffc',
+                				padding: '30px 0px 0px 0px'
+                			},
+                			items:[approveForm]
+                		
                 		}, {
                 			region: 'center',
                 			xtype: 'tabpanel',
@@ -264,6 +315,18 @@ Ext.define('hwork.controller.HWController', {
                 				document.location.href = '../teacher/downloadImg.do?id='+record.homeworkArahiveId;
                 			}
                 		},{
+                			text: '审批',
+                			iconCls: 'icon-download',
+                			scope: this,
+                			handler: function(){
+                				var form = approveForm.getForm();
+                				var vals = form.getValues();
+                				
+                				alert(vals.aproveResult +'<>'+ vals.approveDesc +'<>'+record.homeworkArahiveId)
+                				
+                				downloadWin.hide();
+                			}
+                		},{
                 			text: '取消',
                 			iconCls: 'icon-cancel',
                 			scope: this,
@@ -273,6 +336,7 @@ Ext.define('hwork.controller.HWController', {
                 		}]
                 	});
                 	
+                	approveForm.getForm().reset();
                     downloadWin.show();
                     
                     break;    

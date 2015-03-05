@@ -8,52 +8,70 @@
 
 	<select id="getHomeworkByTeacher" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
 		
-		SELECT hb.homework_base_id as id, hb.hw_name as name,
-			hb.academic_year as academicYear, hb.semester as semester,
-			ha.homework_archive_id as homeworkArahiveId, ha.student_base_id
-			as studentId, hb.operation_time as operationTime, hb.action_type
-			as actionType, hb.teacher_ID as teacherId, hb.teacher_name as
-			teacherName, hb.MODIFY_TIME as modifyTime, hb.CREATE_TIME as
-			createTime, hb.extend as extend, hb.extend1 as extend1,
-			hb.class_name as className, hb.course_code as courseCode,
-			hb.course_name as courseName, hb.major_code as majorCode,
-			hb.major_name as majorName, hb.desc_info as description 
-		
-		FROM homework_base hb 
-		
-		  LEFT JOIN homework_archive ha 
-			
-			ON hb.homework_base_id = ha.homework_base_id
-		
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="teacherId != null">
-				hb.TEACHER_ID = #{teacherId}
-			</if>
-			
-			<if test="academicYear != null and academicYear != '-1'">
-				AND hb.academic_year = #{academicYear}
-			</if>
-			
-			<if test="semester != null and semester != '-1'">
-				AND hb.semester = #{semester}
-			</if>	
+		SELECT * FROM 
+		(
+			SELECT ROWNUM row_num, A.* FROM 
+			(
+				SELECT hb.homework_base_id    as baseId,
+				       hb.hw_name             as name,
+				       hb.academic_year       as academicYear,
+				       hb.semester            as semester,
+				       ha.homework_archive_id as homeworkArahiveId,
+				       ha.student_base_id     as studentId,
+				       ha.status              AS STATUS,
+				       hb.operation_time      as operationTime,
+				       hb.action_type         as actionType,
+				       hb.teacher_ID          as teacherId,
+				       hb.teacher_name        as teacherName,
+				       hb.MODIFY_TIME         as modifyTime,
+				       hb.CREATE_TIME         as createTime,
+				       hb.extend              as extend,
+				       hb.extend1             as extend1,
+				       hb.class_name          as className,
+				       hb.course_code         as courseCode,
+				       hb.course_name         as courseName,
+				       hb.major_code          as majorCode,
+				       hb.major_name          as majorName,
+				       hb.desc_info           as description
+				
+				FROM homework_base hb 
+				
+				  LEFT JOIN homework_archive ha 
 					
-			<if test="courseName != null and courseName != '-1'">
-				AND hb.course_name = #{courseName}
-			</if>			
+					ON hb.homework_base_id = ha.homework_base_id
+				
+				<trim prefix="WHERE" prefixOverrides="AND |OR ">
+					<if test="teacherId != null">
+						hb.TEACHER_ID = #{teacherId}
+					</if>
+					
+					<if test="academicYear != null and academicYear != '-1'">
+						AND hb.academic_year = #{academicYear}
+					</if>
+					
+					<if test="semester != null and semester != '-1'">
+						AND hb.semester = #{semester}
+					</if>	
+							
+					<if test="courseName != null and courseName != '-1'">
+						AND hb.course_name = #{courseName}
+					</if>			
+					
+					<if test="className != null and className != '-1'">
+						AND hb.class_name = #{className}
+					</if>
+					<if test="name != null and name != ''">
+						AND hb.hw_name like  #{name}
+					</if>
+				</trim>
+				ORDER BY hb.academic_year DESC, hb.semester DESC
+			) A
 			
-			<if test="className != null and className != '-1'">
-				AND hb.class_name = #{className}
-			</if>
-			<if test="name != null and name != ''">
-				AND hb.hw_name like  #{name}
-			</if>
-		</trim>
-		ORDER BY hb.academic_year DESC, hb.semester DESC
+			WHERE ROWNUM &lt; #{end}
+		)
 		
-		<if test="pageNum &gt;= 0 and pageSize &gt; 0">
-			LIMIT #{pageNum}, #{pageSize}
-		</if>
+		WHERE row_num &gt; #{pageNum}
+		
 	</select>
 
 	<select id="countHomeworkByTeacher" resultType="int" parameterType="homeworkBaseModel">

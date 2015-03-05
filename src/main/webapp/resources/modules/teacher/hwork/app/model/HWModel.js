@@ -6,7 +6,7 @@ Ext.define('hwork.model.HWModel', {
 	
 	requires: ['Ext.data.reader.Json'],
 	fields: [
-	         'id' ,
+	         'baseId' ,
 	         'name' ,
 	         'academicYear' ,
 	         'semester' ,

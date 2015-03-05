@@ -90,7 +90,7 @@ public class TeacherController extends AbstractController {
 	//// Process step  	... 											
 	/////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value="/homeworkRead", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody JsonReturnModel<HomeworkBaseModel> read(
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(
 			@RequestParam("academicYear")String academicYear,
 			@RequestParam("semester")String semester,
 			@RequestParam("courseName")String courseName,
@@ -125,6 +125,7 @@ public class TeacherController extends AbstractController {
 		json.setTotal(result.getTotalCount());*/
 		
 		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByTeacher(homework);
+		//result.get(0).setId(789);
 		int total = homeworkBaseService.countHomeworkByTeachert(homework);
 		
 		json.setTotal(total);
