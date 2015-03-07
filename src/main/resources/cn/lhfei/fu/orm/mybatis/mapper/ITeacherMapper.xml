@@ -6,7 +6,89 @@
 	
 	<!-- <cache /> -->
 
+	
 	<select id="getHomeworkByTeacher" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
+		SELECT * FROM 
+		(
+			SELECT ROWNUM row_num, A.* FROM 
+			(
+				select hk.baseId,
+				       hk.homeWork as name,
+				       hk.academicYear,
+				       hk.semester,
+				       hk.className,
+				       hk.studentName,     
+				       ha.homework_archive_id as homeworkArahiveId,
+				       hk.student_id          as studentId,
+				       ha.status              as STATUS,
+				       hk.operationTime,
+				       hk.actionType,
+				       hk.teacherId,
+				       hk.teacherName,
+				       hk.modifyTime,
+				       hk.createTime,
+				       hk.extend,
+				       hk.extend1,
+				       hk.courseCode,
+				       hk.courseName,
+				       hk.majorCode,
+				       hk.majorName,
+				       hk.description
+				
+				  from (select homework.*,
+				               sb.student_id,
+				               sb.name as studentName,
+				               sb.class_name
+				          from student_base sb
+				          left join (
+				                    
+				                    SELECT hb.homework_base_id as baseId,
+				                            hb.hw_name          as homeWork,
+				                            hb.academic_year    as academicYear,
+				                            hb.semester         as semester,
+				                            hb.operation_time   as operationTime,
+				                            hb.action_type      as actionType,
+				                            hb.teacher_ID       as teacherId,
+				                            hb.teacher_name     as teacherName,
+				                            hb.MODIFY_TIME      as modifyTime,
+				                            hb.CREATE_TIME      as createTime,
+				                            hb.extend           as extend,
+				                            hb.extend1          as extend1,
+				                            hb.class_name       as className,
+				                            hb.course_code      as courseCode,
+				                            hb.course_name      as courseName,
+				                            hb.major_code       as majorCode,
+				                            hb.major_name       as majorName,
+				                            hb.desc_info        as description
+				                      from homework_base hb
+				                     
+				                     where hb.teacher_id = #{teacherId}) homework
+				        
+				            on sb.class_name = homework.className
+				        
+				         where sb.class_name in
+				               (select hb.class_name
+				                  from homework_base hb
+				              	  
+				              	  <include refid="get_homework_where_condition"/>
+				               )
+				        ) hk
+				
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
+				
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
+			) A
+			
+			WHERE ROWNUM &lt;= #{end}
+		)
+		
+		WHERE row_num &gt; #{pageNum}
+	
+	</select>
+
+	<select id="getHomeworkByTeacher2" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
 		
 		SELECT * FROM 
 		(
@@ -17,7 +99,7 @@
 				       hb.academic_year       as academicYear,
 				       hb.semester            as semester,
 				       ha.homework_archive_id as homeworkArahiveId,
-				       ha.student_base_id     as studentId,
+				       hk.student_id          as studentId,
 				       ha.status              AS STATUS,
 				       hb.operation_time      as operationTime,
 				       hb.action_type         as actionType,
@@ -40,41 +122,92 @@
 					
 					ON hb.homework_base_id = ha.homework_base_id
 				
-				<trim prefix="WHERE" prefixOverrides="AND |OR ">
-					<if test="teacherId != null">
-						hb.TEACHER_ID = #{teacherId}
-					</if>
+					<include refid="get_homework_where_condition"/>
 					
-					<if test="academicYear != null and academicYear != '-1'">
-						AND hb.academic_year = #{academicYear}
-					</if>
-					
-					<if test="semester != null and semester != '-1'">
-						AND hb.semester = #{semester}
-					</if>	
-							
-					<if test="courseName != null and courseName != '-1'">
-						AND hb.course_name = #{courseName}
-					</if>			
-					
-					<if test="className != null and className != '-1'">
-						AND hb.class_name = #{className}
-					</if>
-					<if test="name != null and name != ''">
-						AND hb.hw_name like  #{name}
-					</if>
-				</trim>
 				ORDER BY hb.academic_year DESC, hb.semester DESC
 			) A
 			
-			WHERE ROWNUM &lt; #{end}
+			WHERE ROWNUM &lt;= #{end}
 		)
 		
 		WHERE row_num &gt; #{pageNum}
 		
 	</select>
-
+	
+	
 	<select id="countHomeworkByTeacher" resultType="int" parameterType="homeworkBaseModel">
+		SELECT COUNT(*) FROM 
+			(
+				select hk.baseId,
+				       hk.homeWork as name,
+				       hk.academicYear,
+				       hk.semester,
+				       hk.className,
+				       hk.studentName,     
+				       ha.homework_archive_id as homeworkArahiveId,
+				       ha.student_base_id     as studentId,
+				       ha.status              AS STATUS,
+				       hk.operationTime,
+				       hk.actionType,
+				       hk.teacherId,
+				       hk.teacherName,
+				       hk.modifyTime,
+				       hk.createTime,
+				       hk.extend,
+				       hk.extend1,
+				       hk.courseCode,
+				       hk.courseName,
+				       hk.majorCode,
+				       hk.majorName,
+				       hk.description
+				
+				  from (select homework.*,
+				               sb.student_id,
+				               sb.name as studentName,
+				               sb.class_name
+				          from student_base sb
+				          left join (
+				                    
+				                    SELECT hb.homework_base_id as baseId,
+				                            hb.hw_name          as homeWork,
+				                            hb.academic_year    as academicYear,
+				                            hb.semester         as semester,
+				                            hb.operation_time   as operationTime,
+				                            hb.action_type      as actionType,
+				                            hb.teacher_ID       as teacherId,
+				                            hb.teacher_name     as teacherName,
+				                            hb.MODIFY_TIME      as modifyTime,
+				                            hb.CREATE_TIME      as createTime,
+				                            hb.extend           as extend,
+				                            hb.extend1          as extend1,
+				                            hb.class_name       as className,
+				                            hb.course_code      as courseCode,
+				                            hb.course_name      as courseName,
+				                            hb.major_code       as majorCode,
+				                            hb.major_name       as majorName,
+				                            hb.desc_info        as description
+				                      from homework_base hb
+				                     
+				                     where hb.teacher_id = #{teacherId}) homework
+				        
+				            on sb.class_name = homework.className
+				        
+				         where sb.class_name in
+				               (select hb.class_name
+				                  from homework_base hb
+				              	  
+				              	  <include refid="get_homework_where_condition"/>
+				               )
+				        ) hk
+				
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
+			) 
+
+	</select>
+
+	<select id="countHomeworkByTeacher2" resultType="int" parameterType="homeworkBaseModel">
 		SELECT COUNT(*)
 		
 		FROM homework_base hb 
@@ -83,6 +216,28 @@
 			
 			ON hb.homework_base_id = ha.homework_base_id
 
+		<include refid="get_homework_where_condition"/>
+		
+	</select>
+	
+	<!-- 
+		Approve Homework:
+			== update HOMEWORK_ARCHIVE.STATUS: 作业状态，枚举值包括：[未提交（0） 待审核（1）  已审核（2）  未通过（3）]
+	 -->
+	<update id="updateArachive" parameterType="map">
+		UPDATE HOMEWORK_ARCHIVE ha
+		
+		  SET ha.STATUS = #{status},
+		
+			  ha.EXTEND = #{desc}
+		
+		WHERE ha.HOMEWORK_ARCHIVE_ID = #{id}
+	</update>
+	
+	
+	
+	<!-- 作业列表 where 条件 -->
+	<sql id="get_homework_where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<if test="teacherId != null">
 				hb.TEACHER_ID = #{teacherId}
@@ -107,22 +262,7 @@
 				AND hb.hw_name like  #{name}
 			</if>
 		</trim>	
-	</select>
-	
-	<!-- 
-		Approve Homework:
-			== update HOMEWORK_ARCHIVE.STATUS: 作业状态，枚举值包括：[未提交（0） 待审核（1）  已审核（2）  未通过（3）]
-	 -->
-	<update id="updateArachive" parameterType="map">
-		UPDATE HOMEWORK_ARCHIVE ha
-		
-		  SET ha.STATUS = #{status},
-		
-			  ha.EXTEND = #{desc}
-		
-		WHERE ha.HOMEWORK_ARCHIVE_ID = #{id}
-	</update>
-	
+	</sql>
 	
 	
 	

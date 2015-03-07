@@ -15,7 +15,9 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -29,7 +31,9 @@ import cn.lhfei.fu.orm.domain.ApproveStatus;
 import cn.lhfei.fu.orm.domain.ClassBase;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.orm.domain.ThesisOrigin;
+import cn.lhfei.fu.orm.mybatis.mapper.IComboboxMapper;
 import cn.lhfei.fu.orm.persistence.ApproveStatusDAO;
 import cn.lhfei.fu.orm.persistence.ClassBaseDAO;
 import cn.lhfei.fu.orm.persistence.ComboboxDAO;
@@ -142,6 +146,16 @@ public class ComboboxServiceImpl implements ComboboxService {
 		
 		return list;
 	}	
+	
+	@Override
+	public List<Combobox> getClassByTeacher(String teacherId, TeachingPeriods teachingPeriod) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("teacherId", teacherId);
+		model.put("academicYear", teachingPeriod.getAcademicYear());
+		model.put("semester", teachingPeriod.getSemester());
+		
+		return comboboxMapper.getClassByTeacher(model);
+	}
 
 	@Autowired
 	private ApproveStatusDAO approveStatusDAO;
@@ -157,5 +171,8 @@ public class ComboboxServiceImpl implements ComboboxService {
 	
 	@Autowired
 	private ClassBaseDAO classBaseDAO;
+	
+	@Autowired
+	private IComboboxMapper comboboxMapper;
 
 }

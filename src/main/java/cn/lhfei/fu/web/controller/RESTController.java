@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lhfei.fu.orm.domain.StudentBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.service.IRESTService;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.fu.web.model.rest.HomeworkArchiveModel;
@@ -95,6 +96,7 @@ public class RESTController {
 		log.debug("ID: [{}]", studentId);
 
 		try {
+			
 			List<HomeworkBaseModel> list = restService
 					.findHomeworkBaseByStudent(studentId);
 
@@ -131,5 +133,4 @@ public class RESTController {
 
 	@Autowired
 	private IRESTService restService;
-
 }

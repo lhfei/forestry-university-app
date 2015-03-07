@@ -205,6 +205,7 @@ Ext.define('hwork.controller.HWController', {
 		store.getProxy().setExtraParam('academicYear', searchModel.academicYear);
 		store.getProxy().setExtraParam('semester', searchModel.semester);
 		store.getProxy().setExtraParam('courseName', searchModel.courseName);
+		store.getProxy().setExtraParam('className', searchModel.className);		
 		store.getProxy().setExtraParam('name', ''+searchModel.name);
 	},
 	

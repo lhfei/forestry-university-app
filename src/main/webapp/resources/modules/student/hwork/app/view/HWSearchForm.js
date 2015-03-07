@@ -59,7 +59,7 @@ Ext.define('hwork.view.HWSearchForm', {
     defaults: {
         border: false,
         xtype: 'panel',
-        flex: 2,
+        flex: 3,
         bodyPadding: 2,
         layout: 'anchor'
     },
@@ -73,7 +73,7 @@ Ext.define('hwork.view.HWSearchForm', {
             anchor: '-5',
             name: 'academicYear'
         }*/ {
-        	anchor: '-5',
+        	anchor: '3',
         	items: [s_academicYear]
         }]
     },{
@@ -83,7 +83,7 @@ Ext.define('hwork.view.HWSearchForm', {
             anchor: '-5',
             name: 'semester'
         }*/ {
-        	anchor: '-5',
+        	anchor: '3',
         	items: [s_semester]
         }]
     },{
@@ -93,7 +93,7 @@ Ext.define('hwork.view.HWSearchForm', {
             anchor: '-5',
             name: 'courseName'
         }*/{
-        	anchor: '-5',
+        	anchor: '5',
         	items: [s_courseName]
         }]
     },{
@@ -103,11 +103,13 @@ Ext.define('hwork.view.HWSearchForm', {
             anchor: '-5',
             name: 'className'
         }*/ {
-        	anchor: '-5',
+        	anchor: '3',
+        	width: 0,
+        	hidden: true,
         	items: [s_className]
         }]
     },{
-    	flex: 3,
+    	flex: 4,
         items: [{
             xtype: 'textfield',
             labelWidth: 65,

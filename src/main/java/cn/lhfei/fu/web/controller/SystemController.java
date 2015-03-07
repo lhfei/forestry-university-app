@@ -34,6 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.fu.orm.domain.StudentBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
+import cn.lhfei.fu.service.ISystemService;
 import cn.lhfei.fu.service.StudentService;
 import cn.lhfei.fu.web.model.StudentBaseModel;
 import cn.lhfei.identity.orm.domain.User;
@@ -109,7 +111,7 @@ public class SystemController extends AbstractController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
 	@Transactional
-	public @ResponseBody Map<String, Object> login(@RequestBody UserModel user, HttpSession session) {
+	public @ResponseBody Map<String, Object> login(@RequestBody UserModel user, HttpSession session) throws Exception {
 		UserSession userSession = null;
 		
 		String userId = user.getUserId();
@@ -134,6 +136,11 @@ public class SystemController extends AbstractController {
 				userSession = new UserSession(session.getId());
 				userSession.setUser(user);
 				session.setAttribute(USER_SESSION, userSession);
+				
+				// get current teaching period
+				TeachingPeriods period = systemService.searchCurrentTeachingPeriods();
+				session.setAttribute(CURRENT_ACADEMICYEAR_SEMESTER, period);
+				//session.setAttribute(CURRENT_SEMESTER, period.getSemester());
 				
 				return JSONReturn.mapOK("0");
 				
@@ -185,4 +192,7 @@ public class SystemController extends AbstractController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private ISystemService systemService;
 }

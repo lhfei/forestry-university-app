@@ -29,7 +29,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.common.constant.ConstantCode;
 import cn.lhfei.fu.orm.domain.Combobox;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.service.ComboboxService;
+import cn.lhfei.fu.service.ISystemService;
 
 /**
  * @version 1.0.0
@@ -162,9 +164,26 @@ public class ComboboxServiceImplTest {
 		for(Combobox box : list){
 			comboboxService.createCombobox(box);
 		}
-		
 	}
+	
+	@Test
+	public void getClassByTeacher() throws Exception {
+
+		String teacherId = "19630306";
+
+		TeachingPeriods teachingPeriod = systemService.searchCurrentTeachingPeriods();
+
+		List<Combobox> classList = comboboxService.getClassByTeacher(teacherId,
+				teachingPeriod);
+		
+		for(Combobox box : classList){
+			log.info("ClassName: {}, Code: {}", box.getLabel(), box.getCode());
+		}
+	}
+	
 
 	@Autowired
 	private ComboboxService comboboxService;
+	@Autowired
+	private ISystemService systemService;
 }

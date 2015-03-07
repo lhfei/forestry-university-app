@@ -44,9 +44,11 @@ import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.CourseBase;
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
 import cn.lhfei.fu.orm.domain.HomeworkBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.service.ComboboxService;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 import cn.lhfei.fu.service.HomeworkBaseService;
+import cn.lhfei.fu.service.ISystemService;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.identity.util.JSONReturn;
 import cn.lhfei.identity.web.model.IdsModel;
@@ -65,16 +67,24 @@ import cn.lhfei.identity.web.model.UserSession;
 public class TeacherController extends AbstractController {
 
 	@RequestMapping(value="homeworkIndex", method=RequestMethod.GET)
-	public ModelAndView homeworkIndex(HttpSession session) {
+	public ModelAndView homeworkIndex(HttpSession session) throws Exception {
 		ModelAndView view = new ModelAndView("teacher/hwork/list");
 		List<ApproveStatus> list = comboboxService.getApproveStatus();
 		List<Combobox> xnList = comboboxService.getCombobo(XN);
 		List<Combobox> xqList = comboboxService.getCombobo(XQ);
 		List<CourseBase> courseList = comboboxService.getCourse();
+		
+		String teacherId = getUserId(session);
+		
+		TeachingPeriods teachingPeriod = systemService.searchCurrentTeachingPeriods();
+		
+		List<Combobox> classList = comboboxService.getClassByTeacher(teacherId, teachingPeriod);
+		
 		view.addObject(SPZT, list);
 		view.addObject(XN, xnList);
 		view.addObject(XQ, xqList);
 		view.addObject(COURSE, courseList);
+		view.addObject(CLASS, classList);
 		
 		return view;
 	}
@@ -102,31 +112,52 @@ public class TeacherController extends AbstractController {
 	 * @param limit
 	 * @param session
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="/homeworkRead", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(
 			@RequestParam("academicYear")String academicYear,
 			@RequestParam("semester")String semester,
 			@RequestParam("courseName")String courseName,
-			//@RequestParam("className")String className,
+			@RequestParam("className")String className,
 			@RequestParam("name")String name,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
-			@RequestParam("limit")int limit, HttpSession session) {
+			@RequestParam("limit")int limit, HttpSession session) throws Exception {
 		
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
+		
+		TeachingPeriods period = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
+		
 		
 		if(null != name && name.trim().length() > 0){
 			name = "%" +name+ "%";
 		} 
 		
 		HomeworkBaseModel homework = new HomeworkBaseModel();
-		homework.setAcademicYear(academicYear);
-		homework.setSemester(semester);
+		homework.setClassName(className);
 		homework.setCourseName(courseName);
 		homework.setName(name);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(academicYear)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setAcademicYear(period.getAcademicYear());
+			}
+		}else {		
+			homework.setAcademicYear(academicYear);
+		}
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(semester)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setSemester(period.getSemester());;
+			}
+		}else{			
+			homework.setSemester(semester);
+		}
 		
 		homework.setTeacherId(userSession.getUser().getUserId());
 		
@@ -310,12 +341,13 @@ public class TeacherController extends AbstractController {
 		return view;
 	}
 	
-	
 	@Autowired
 	private HomeworkBaseService homeworkBaseService;
 	@Autowired
 	private HomeworkArchiveService homeworkArchiveService;
 	@Autowired
 	private ComboboxService comboboxService;
+	@Autowired
+	private ISystemService systemService;
 
 }

@@ -90,6 +90,7 @@ public class RESTServiceImpl implements IRESTService {
 			homework.setClassName(student.getClassName());
 			homework.setPageNum(0);
 			homework.setPageSize(Integer.MAX_VALUE);
+			homework.setStudentId(studentId);
 			
 			List<HomeworkBaseModel> result = homeworkBaseService
 					.getHomeworkByStudent(homework);

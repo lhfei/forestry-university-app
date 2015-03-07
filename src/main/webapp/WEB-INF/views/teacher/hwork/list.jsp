@@ -24,7 +24,7 @@
 			<option value="-1">全部学年</option>
 			<c:forEach var="item" varStatus="index" items="${XN }">
 				<%-- <option value='<c:out value="${item.code}"></c:out>'> --%>
-				<option value='<c:out value="${item.label}"></c:out>'>
+				<option value='<c:out value="${item.code}"></c:out>'>
 					<c:out value="${item.label}"></c:out></option>
 			</c:forEach>
 		</select>
@@ -36,7 +36,7 @@
 				<option value="-1">全部学期</option>
 				<c:forEach var="item" varStatus="index" items="${XQ }">
 					<%-- <option value='<c:out value="${item.code}"></c:out>'> --%>
-					<option value='<c:out value="${item.label}"></c:out>'>
+					<option value='<c:out value="${item.code}"></c:out>'>
 					<c:out value="${item.label}"></c:out></option>
 				</c:forEach>
 			</select> 
@@ -57,7 +57,11 @@
 		<div id="div_className" class="code x-hide-display">
 			<span>班级:</span> 
 			<select id="s_className" name="className" >
-				<option value="-1" selected>请选择课程</option>
+				<option value="-1" selected>全部班级</option>
+				<c:forEach var="item" varStatus="index" items="${CLASS }">
+					<option value='<c:out value="${item.label}"></c:out>'>
+					<c:out value="${item.label}"></c:out></option>
+				</c:forEach>				
 			</select>
 		</div>
 </body>

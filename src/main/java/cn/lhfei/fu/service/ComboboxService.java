@@ -21,6 +21,7 @@ import cn.lhfei.fu.orm.domain.ApproveStatus;
 import cn.lhfei.fu.orm.domain.ClassBase;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.orm.domain.ThesisOrigin;
 
 import com.googlecode.genericdao.search.ISearch;
@@ -67,6 +68,17 @@ public interface ComboboxService {
 	 * @return
 	 */
 	List<ClassBase> getClassByCourseId(int courseId);
+	
+	/**
+	 * 获取教师教授的全部班级
+	 * 
+	 * 如果 <tt>teacherId</tt> 为 <code>Null</code>，将返回系统所有班级.
+	 * 
+	 * @param teacherId			教师工号
+	 * @param teachingPeriod	当前教学周期
+	 * @return
+	 */
+	List<Combobox> getClassByTeacher(String teacherId, TeachingPeriods teachingPeriod);
 	
 	void createCombobox(Combobox combobox);
 	

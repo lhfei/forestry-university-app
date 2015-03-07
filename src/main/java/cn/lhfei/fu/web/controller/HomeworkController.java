@@ -40,9 +40,11 @@ import cn.lhfei.fu.orm.domain.ClassBase;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.CourseBase;
 import cn.lhfei.fu.orm.domain.HomeworkBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.service.ComboboxService;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 import cn.lhfei.fu.service.HomeworkBaseService;
+import cn.lhfei.fu.service.ISystemService;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
 import cn.lhfei.identity.util.JSONReturn;
 import cn.lhfei.identity.web.model.IdsModel;
@@ -90,21 +92,41 @@ public class HomeworkController extends AbstractController {
 			@RequestParam("name")String name,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
-			@RequestParam("limit")int limit, HttpSession session) {
+			@RequestParam("limit")int limit, HttpSession session) throws Exception {
 		
+		String studentId = super.getUserId(session);
 		String className = (String)session.getAttribute(CLASS_NAME);
+		TeachingPeriods period = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
 		
 		if(null != name && name.trim().length() > 0){
 			name = "%" +name+ "%";
 		} 
 		
 		HomeworkBaseModel homework = new HomeworkBaseModel();
-		homework.setAcademicYear(academicYear);
-		homework.setSemester(semester);
 		homework.setCourseName(courseName);
 		homework.setName(name);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(academicYear)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setAcademicYear(period.getAcademicYear());
+			}
+		}else {		
+			homework.setAcademicYear(academicYear);
+		}
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(semester)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setSemester(period.getSemester());;
+			}
+		}else{			
+			homework.setSemester(semester);
+		}
+		
+		homework.setStudentId(studentId);
 		
 		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
 		
@@ -127,13 +149,31 @@ public class HomeworkController extends AbstractController {
 	
 	@RequestMapping(value="/homeworkRead", method = RequestMethod.POST, 
 			consumes = "application/json", produces = "application/json")
-	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(@RequestBody HomeworkBaseModel homework,HttpSession session) {
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(@RequestBody HomeworkBaseModel homework,
+			HttpSession session) throws Exception {
+		String studentId = super.getUserId(session);
 		String className = (String)session.getAttribute(CLASS_NAME);
+		TeachingPeriods period = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
 		
-		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();	
 		
 		json.setResult(true);
 		
+		if(COMBOBOX_DEFAULT_VALUE.equals(homework.getAcademicYear())){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setAcademicYear(period.getAcademicYear());
+			}
+		}
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(homework.getSemester())){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setSemester(period.getSemester());;
+			}
+		}
+		
+		homework.setStudentId(studentId);
 		homework.setClassName(className);	//filter by student's class name.
 		
 		/*SearchResult<HomeworkBase> result = homeworkBaseService.search(homework);
@@ -308,5 +348,7 @@ public class HomeworkController extends AbstractController {
 	@Autowired
 	private ComboboxService comboboxService;
 	
+	@Autowired
+	private ISystemService systemService;
 	
 }

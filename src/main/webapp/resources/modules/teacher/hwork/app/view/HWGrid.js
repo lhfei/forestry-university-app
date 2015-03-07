@@ -19,9 +19,10 @@ Ext.define('hwork.view.HWGrid', {
         {header: 'ID',  dataIndex: 'baseId',  flex: 1, align: 'center', hidden: true},
         {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center'},
         {header: '学期', dataIndex: 'semester', flex: 1, align: 'center'},
-        {header: '课程名称', dataIndex: 'courseName', flex: 1, align: 'center'},
+        {header: '课程名称', dataIndex: 'courseName', flex: 2, align: 'center'},
         {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
-        {header: '作业名称', dataIndex: 'name', flex: 1, align: 'center'},
+        {header: '作业名称', dataIndex: 'name', flex: 2, align: 'center'},
+        {header: '学生名称', dataIndex: 'studentName', flex: 1, align: 'center'},
         {
         	header: '作业状态', 
         	dataIndex: 'status', 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.IComboboxMapper">
+	
+	
+	<!-- 获取教师当前学年教授的全部班级 -->
+	<select id="getClassByTeacher" parameterType="map" resultType="combobox">
+		SELECT DISTINCT (hb.CLASS_NAME) as label 
+				
+		  FROM HOMEWORK_BASE hb
+		
+		 WHERE hb.ACADEMIC_YEAR = #{academicYear}
+		   and hb.SEMESTER = #{semester}
+		   and hb.TEACHER_ID = #{teacherId}
+
+		order by label asc
+	</select>
+
+</mapper>

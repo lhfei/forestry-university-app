@@ -15,10 +15,14 @@
  */
 package cn.lhfei.fu.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+
+import cn.lhfei.identity.web.model.UserSession;
 
 /**
  * @version 1.0.0
@@ -32,10 +36,21 @@ public abstract class AbstractController {
 	protected Marker marker = MarkerFactory.getMarker("_HOMEWORK_THESIS");
 	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	
+	protected String getUserId(HttpSession session) {
+		UserSession userSession = (UserSession) session
+				.getAttribute(USER_SESSION);
+		
+		String userId = null;
+		userId = userSession.getUser().getUserId();
+		
+		return userId;
+	}
+	
 	/**
 	 * User session key
 	 */
-	protected static final String USER_SESSION = "USER_SESSION";
+	public static final String USER_SESSION = "USER_SESSION";
 	
 	protected static String CLASS_NAME = "className";		//'班级名称'
 	
@@ -63,11 +78,27 @@ public abstract class AbstractController {
 	protected static final String XQ = "XQ";
 	
 	/**
+	 * 教师当前学年教授的全部班级
+	 */
+	protected static final String CLASS = "CLASS";
+	
+	/**
+	 * 当前教学学年、学期
+	 */
+	protected static final String CURRENT_ACADEMICYEAR_SEMESTER = "CURRENT_ACADEMICYEAR_SEMESTER";
+	
+	
+	/**
 	 * 全部课程列表
 	 */
 	protected static final String COURSE = "KC";
 	
 	protected static final String USER_TYPE = "userType";
+	
+	/**
+	 * 下拉框默认值  <tt> "全选|-1" </tt>
+	 */
+	protected static final String COMBOBOX_DEFAULT_VALUE = "-1";
 	
 	
 }
