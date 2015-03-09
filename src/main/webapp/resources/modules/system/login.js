@@ -42,14 +42,14 @@ Ext.require([
 			id: 'userId',
 	 		fieldLabel: '用户名',
 	 		name: 'user.userId',
-	 		value: '110314217'
+	 		value: ''
 	 		
 			},{
 			id: 'passWord',
-				fieldLabel: '密码',
+			fieldLabel: '密码',
 	 		inputType: 'password',
 	 		name: 'user.passWord',
-	 		value: '123456'
+	 		value: ''
 		}],
 		keys: {
 			key: Ext.EventObject.ENTER,
