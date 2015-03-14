@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${globalTitle }</title>
 	
-	<script type="text/javascript" src="${basePath }/resources/modules/student/hwork/app.js"></script>
+	<script type="text/javascript" src="${basePath }/resources/modules/admin/hwork/app.js"></script>
 	
 </head>
 <body>
@@ -54,10 +54,14 @@
 			</select> 
 		</div>
 		
-		<div id="div_className" class="code x-hide-display" >
+		<div id="div_className" class="code x-hide-display">
 			<span>班级:</span> 
 			<select id="s_className" name="className" >
-				<option value="-1" selected>请选择课程</option>
+				<option value="-1" selected>全部班级</option>
+				<c:forEach var="item" varStatus="index" items="${CLASS }">
+					<option value='<c:out value="${item.label}"></c:out>'>
+					<c:out value="${item.label}"></c:out></option>
+				</c:forEach>				
 			</select>
 		</div>
 		

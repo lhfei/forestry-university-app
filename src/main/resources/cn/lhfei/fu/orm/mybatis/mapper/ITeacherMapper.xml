@@ -6,7 +6,164 @@
 	
 	<!-- <cache /> -->
 
+	<!-- Admin -->
+	<select id="getHomeworkByAdmin" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
+		SELECT * FROM 
+		(
+			SELECT ROWNUM row_num, A.* FROM 
+			(
+				select hk.baseId,
+				       hk.homeWork as name,
+				       hk.academicYear,
+				       hk.semester,
+				       hk.className,
+				       hk.studentName,     
+				       ha.homework_archive_id as homeworkArahiveId,
+				       hk.student_id          as studentId,
+				       ha.status              as STATUS,
+				       hk.operationTime,
+				       hk.actionType,
+				       hk.teacherId,
+				       hk.teacherName,
+				       hk.modifyTime,
+				       hk.createTime,
+				       hk.extend,
+				       hk.extend1,
+				       hk.courseCode,
+				       hk.courseName,
+				       hk.majorCode,
+				       hk.majorName,
+				       hk.description
+				
+				  from (select homework.*,
+				               sb.student_id,
+				               sb.name as studentName,
+				               sb.class_name
+				          from student_base sb
+				          left join (
+				                    
+				                    SELECT hb.homework_base_id as baseId,
+				                            hb.hw_name          as homeWork,
+				                            hb.academic_year    as academicYear,
+				                            hb.semester         as semester,
+				                            hb.operation_time   as operationTime,
+				                            hb.action_type      as actionType,
+				                            hb.teacher_ID       as teacherId,
+				                            hb.teacher_name     as teacherName,
+				                            hb.MODIFY_TIME      as modifyTime,
+				                            hb.CREATE_TIME      as createTime,
+				                            hb.extend           as extend,
+				                            hb.extend1          as extend1,
+				                            hb.class_name       as className,
+				                            hb.course_code      as courseCode,
+				                            hb.course_name      as courseName,
+				                            hb.major_code       as majorCode,
+				                            hb.major_name       as majorName,
+				                            hb.desc_info        as description
+				                      from homework_base hb ) homework
+				        
+				            on sb.class_name = homework.className
+				        
+				         where sb.class_name in
+				               (select hb.class_name
+				                  from homework_base hb
+				              	  
+				              	  <include refid="get_homework_where_condition"/>
+				               )
+				        ) hk
+				
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
+				    
+				    <if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>
+				
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
+			) A
+			
+			WHERE ROWNUM &lt;= #{end}
+		)
+		
+		WHERE row_num &gt; #{pageNum}
 	
+	</select>
+	<select id="countHomeworkByAdmin" resultType="int" parameterType="homeworkBaseModel">
+		SELECT COUNT(*) FROM 
+			(
+				select hk.baseId,
+				       hk.homeWork as name,
+				       hk.academicYear,
+				       hk.semester,
+				       hk.className,
+				       hk.studentName,     
+				       ha.homework_archive_id as homeworkArahiveId,
+				       ha.student_base_id     as studentId,
+				       ha.status              AS STATUS,
+				       hk.operationTime,
+				       hk.actionType,
+				       hk.teacherId,
+				       hk.teacherName,
+				       hk.modifyTime,
+				       hk.createTime,
+				       hk.extend,
+				       hk.extend1,
+				       hk.courseCode,
+				       hk.courseName,
+				       hk.majorCode,
+				       hk.majorName,
+				       hk.description
+				
+				  from (select homework.*,
+				               sb.student_id,
+				               sb.name as studentName,
+				               sb.class_name
+				          from student_base sb
+				          left join (
+				                    
+				                    SELECT hb.homework_base_id as baseId,
+				                            hb.hw_name          as homeWork,
+				                            hb.academic_year    as academicYear,
+				                            hb.semester         as semester,
+				                            hb.operation_time   as operationTime,
+				                            hb.action_type      as actionType,
+				                            hb.teacher_ID       as teacherId,
+				                            hb.teacher_name     as teacherName,
+				                            hb.MODIFY_TIME      as modifyTime,
+				                            hb.CREATE_TIME      as createTime,
+				                            hb.extend           as extend,
+				                            hb.extend1          as extend1,
+				                            hb.class_name       as className,
+				                            hb.course_code      as courseCode,
+				                            hb.course_name      as courseName,
+				                            hb.major_code       as majorCode,
+				                            hb.major_name       as majorName,
+				                            hb.desc_info        as description
+				                      from homework_base hb ) homework
+				        
+				            on sb.class_name = homework.className
+				        
+				         where sb.class_name in
+				               (select hb.class_name
+				                  from homework_base hb
+				              	  
+				              	  <include refid="get_homework_where_condition"/>
+				               )
+				        ) hk
+				
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
+				    
+					<if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>
+			) 
+
+	</select>
+	
+	<!-- Teacher -->
 	<select id="getHomeworkByTeacher" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
 		SELECT * FROM 
 		(
@@ -77,6 +234,10 @@
 				  LEFT JOIN homework_archive ha
 				
 				    ON hk.baseId = ha.homework_base_id
+				    
+					<if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>		    
 				
 				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			) A
@@ -87,54 +248,6 @@
 		WHERE row_num &gt; #{pageNum}
 	
 	</select>
-
-	<select id="getHomeworkByTeacher2" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
-		
-		SELECT * FROM 
-		(
-			SELECT ROWNUM row_num, A.* FROM 
-			(
-				SELECT hb.homework_base_id    as baseId,
-				       hb.hw_name             as name,
-				       hb.academic_year       as academicYear,
-				       hb.semester            as semester,
-				       ha.homework_archive_id as homeworkArahiveId,
-				       hk.student_id          as studentId,
-				       ha.status              AS STATUS,
-				       hb.operation_time      as operationTime,
-				       hb.action_type         as actionType,
-				       hb.teacher_ID          as teacherId,
-				       hb.teacher_name        as teacherName,
-				       hb.MODIFY_TIME         as modifyTime,
-				       hb.CREATE_TIME         as createTime,
-				       hb.extend              as extend,
-				       hb.extend1             as extend1,
-				       hb.class_name          as className,
-				       hb.course_code         as courseCode,
-				       hb.course_name         as courseName,
-				       hb.major_code          as majorCode,
-				       hb.major_name          as majorName,
-				       hb.desc_info           as description
-				
-				FROM homework_base hb 
-				
-				  LEFT JOIN homework_archive ha 
-					
-					ON hb.homework_base_id = ha.homework_base_id
-				
-					<include refid="get_homework_where_condition"/>
-					
-				ORDER BY hb.academic_year DESC, hb.semester DESC
-			) A
-			
-			WHERE ROWNUM &lt;= #{end}
-		)
-		
-		WHERE row_num &gt; #{pageNum}
-		
-	</select>
-	
-	
 	<select id="countHomeworkByTeacher" resultType="int" parameterType="homeworkBaseModel">
 		SELECT COUNT(*) FROM 
 			(
@@ -203,22 +316,14 @@
 				  LEFT JOIN homework_archive ha
 				
 				    ON hk.baseId = ha.homework_base_id
+				    
+					<if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>	
 			) 
 
 	</select>
 
-	<select id="countHomeworkByTeacher2" resultType="int" parameterType="homeworkBaseModel">
-		SELECT COUNT(*)
-		
-		FROM homework_base hb 
-		
-		  LEFT JOIN homework_archive ha 
-			
-			ON hb.homework_base_id = ha.homework_base_id
-
-		<include refid="get_homework_where_condition"/>
-		
-	</select>
 	
 	<!-- 
 		Approve Homework:

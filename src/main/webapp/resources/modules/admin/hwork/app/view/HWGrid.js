@@ -14,7 +14,7 @@ Ext.define('hwork.view.HWGrid', {
 	
 	//selType: 'checkboxmodel',
 
-    columns: [        
+    columns: [
         {header: '序号', xtype: 'rownumberer', width: 40, sortable: false, locked: true }, 
         {header: 'ID',  dataIndex: 'baseId',  flex: 1, align: 'center', hidden: true},
         {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center'},
@@ -22,7 +22,7 @@ Ext.define('hwork.view.HWGrid', {
         {header: '课程名称', dataIndex: 'courseName', flex: 2, align: 'center'},
         {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
         {header: '作业名称', dataIndex: 'name', flex: 2, align: 'center'},
-        {header: '学生名称', dataIndex: 'studentName', flex: 1, align: 'center', hidden: true},
+        {header: '学生名称', dataIndex: 'studentName', flex: 1, align: 'center'},
         {header: '学生编号', dataIndex: 'studentId', flex: 1, align: 'center', hidden: true},
         {
         	header: '作业状态', 
@@ -90,7 +90,6 @@ Ext.define('hwork.view.HWGrid', {
                 return val;
             }
         },*/
-        
         {header: '专业名称', dataIndex: 'majorName', flex: 1, align: 'center', hidden: true},
         {header: '专业编号', dataIndex: 'majorCode', flex: 1, align: 'center', hidden: true},
         {header: '教师姓名', dataIndex: 'teacherName', flex: 1, align: 'center', hidden: true},

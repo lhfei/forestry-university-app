@@ -1,12 +1,12 @@
 [{
-	text: "我是学生",
+	text: "我是管理员",
 	iconCls: "tree-trunk",
     expanded: true,
     children: [{
-        id: '../homework/index.do',
+        id: '../admin/homeworkIndex.do',
         text: '作业列表',
         iconCls: "tree-leaf",
-        url: "../homework/index.do",
+        url: "../admin/homeworkIndex.do",
         leaf: true
     },{
         id: 'ifeng/videoList.do',
@@ -15,6 +15,46 @@
         url: "ifeng/videoList.do",
         leaf: true
     }]
+},{
+	text: '系统设置',
+	iconCls: 'tree-trunk',
+	expanded: true,
+	children:[{
+		id: '../admin/course.do',
+		text: '课程设置',
+		iconCls: 'tree-leaf',
+		url: '../admin/course.do',
+		leaf: true	
+	},{
+		id: '../admin/homework.do',
+		text: '作业设置',
+		iconCls: 'tree-leaf',
+		url: '../admin/homework.do',
+		leaf: true		
+	}]
+},{
+	text: '数据导出',
+	iconCls: 'tree-trunk',
+	expanded: true,
+	children:[{
+		id: 'studentImport',
+		text: '学生信息导入',
+		iconCls: 'tree-leaf',
+		url: '',
+		leaf: true	
+	},{
+		id: 'hwImport',
+		text: '作业导入',
+		iconCls: 'tree-leaf',
+		url: '',
+		leaf: true		
+	},{
+		id: 'hwExport',
+		text: '作业导出',
+		iconCls: 'tree-leaf',
+		url: '',
+		leaf: true				
+	}]
 },{
 	text: "个人设置",
 	iconCls: "tree-trunk",
@@ -27,5 +67,4 @@
         leaf: true
     }]
 }]
-
 

@@ -17,10 +17,10 @@ package cn.lhfei.identity.service;
 
 import java.util.List;
 
-import com.googlecode.genericdao.search.SearchResult;
-
 import cn.lhfei.identity.orm.domain.Role;
 import cn.lhfei.identity.web.model.RoleModel;
+
+import com.googlecode.genericdao.search.SearchResult;
 
 /**
  * @version 1.0.0
@@ -38,4 +38,6 @@ public interface RoleService {
 	void delete(Integer[] ids) throws Exception;
 	
 	SearchResult<Role> search(RoleModel roleModel);
+	
+	Role findById(Integer id);
 }

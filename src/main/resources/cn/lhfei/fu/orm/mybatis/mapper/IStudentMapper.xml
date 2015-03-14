@@ -131,6 +131,10 @@
 				  LEFT JOIN homework_archive ha
 				
 				    ON hk.baseId = ha.homework_base_id
+				    
+					<if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>					    
 				
 				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			) A
@@ -206,47 +210,12 @@
 				  LEFT JOIN homework_archive ha
 				
 				    ON hk.baseId = ha.homework_base_id
+				    
+					<if test="status != null and status != -1">
+						WHERE ha.status = #{status}
+					</if>				    
 				
 				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			)
-	</select>
-
-	<!-- +++++++ backup +++++++ -->
-	<select id="getHomeworkByStudent2" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
-		
-		SELECT * FROM 
-		(
-			SELECT ROWNUM row_num , A.* from 
-			(
-				SELECT <include refid="get_homework_column"/>
-				
-				FROM homework_base hb 
-				
-				  LEFT JOIN homework_archive ha 
-					
-					ON hb.homework_base_id = ha.homework_base_id
-		
-				<include refid="get_homework_where"/>
-				
-				ORDER BY hb.academic_year DESC, hb.semester DESC
-			
-			) A 
-			
-			WHERE ROWNUM &lt; #{end}
-		)
-		
-		WHERE row_num &gt; #{pageNum}
-	</select>
-	
-	<select id="countHomeworkByStudent2" resultType="int" parameterType="homeworkBaseModel">
-		SELECT COUNT(*)
-		
-		FROM homework_base hb 
-		
-		  LEFT JOIN homework_archive ha 
-			
-			ON hb.homework_base_id = ha.homework_base_id
-
-		<include refid="get_homework_where"/>
 	</select>
 </mapper>

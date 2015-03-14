@@ -13,32 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.orm.mybatis.mapper;
+package cn.lhfei.fu.service;
 
-import java.util.List;
-import java.util.Map;
+import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.web.model.CourseBaseModel;
 
-import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import com.googlecode.genericdao.search.SearchResult;
 
 /**
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Dec 18, 2014
+ * @since Mar 11, 2015
  */
+public interface CourseService {
 
-public interface ITeacherMapper {
+	void create(CourseBase base) throws Exception;
 
-	List<HomeworkBaseModel> getHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
-	
-	List<HomeworkBaseModel> getHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel);
-	
-	int countHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
-	
-	int countHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel);
-	
-	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
-	
-	void updateArachive(Map<String, Object> map) throws Exception;
+	SearchResult<CourseBase> read(CourseBaseModel model) throws Exception;
+
+	void update(CourseBase base) throws Exception;
+
+	void delete(CourseBase base) throws Exception;
 }

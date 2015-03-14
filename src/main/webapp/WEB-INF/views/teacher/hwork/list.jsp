@@ -64,5 +64,16 @@
 				</c:forEach>				
 			</select>
 		</div>
+		
+		<div id="div_status" class="code x-hide-display">
+			<span>班级:</span> 
+			<select id="s_status" name="status" >
+				<option value="-1" selected>全部状态</option>
+				<option value="0">未提交</option>
+				<option value="1">待审核</option>
+				<option value="2">已审核</option>
+				<option value="3">未通过</option>
+			</select>
+		</div>
 </body>
 </html>

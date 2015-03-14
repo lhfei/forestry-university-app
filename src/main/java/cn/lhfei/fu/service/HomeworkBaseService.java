@@ -76,10 +76,24 @@ public interface HomeworkBaseService {
 	List<HomeworkBaseModel> getHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
 	
 	/**
+	 * 管理员作业列表
+	 * @param homeworkBaseModel
+	 * @return
+	 */
+	List<HomeworkBaseModel> getHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel);
+	
+	/**
 	 * 统计教师作业
 	 * 
 	 * @param homeworkBaseModel
 	 * @return
 	 */
-	int countHomeworkByTeachert(HomeworkBaseModel homeworkBaseModel);
+	int countHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
+
+	/**
+	 * 管理员统计作业
+	 * @param homeworkBaseModel
+	 * @return
+	 */
+	int countHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel);
 }

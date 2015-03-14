@@ -89,6 +89,7 @@ public class HomeworkController extends AbstractController {
 			@RequestParam("semester")String semester,
 			@RequestParam("courseName")String courseName,
 			//@RequestParam("className")String className,
+			@RequestParam("status")Integer status,
 			@RequestParam("name")String name,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
@@ -105,6 +106,7 @@ public class HomeworkController extends AbstractController {
 		HomeworkBaseModel homework = new HomeworkBaseModel();
 		homework.setCourseName(courseName);
 		homework.setName(name);
+		homework.setStatus(status);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
 		

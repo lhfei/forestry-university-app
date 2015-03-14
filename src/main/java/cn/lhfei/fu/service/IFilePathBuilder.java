@@ -34,7 +34,7 @@ public interface IFilePathBuilder {
 	/**
 	 * Build home work name。
 	 * 
-	 * The file name like this {学号班级姓名}.{学年学期}.{课程名称}.{作业名称}
+	 * The file name like this <tt>{学号班级姓名}.{学年}.{学期}.{课程名称}.{作业名称}_{附件张数}</tt>
 	 * 
 	 * eg. 
 	 * 

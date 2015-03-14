@@ -15,6 +15,11 @@
  */
 package cn.lhfei.fu.common.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import cn.lhfei.fu.service.IFilePathBuilder;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
@@ -52,13 +59,22 @@ public class FilePathBuilderTest {
 	@Test
 	public void buildFileName() {
 		HomeworkBaseModel model = new HomeworkBaseModel();
+		MultipartFile file  = null;
+		List<MultipartFile> files = new ArrayList<MultipartFile>();
 		
 		model.setAcademicYear("2014-2015");
 		model.setSemester("1");
-		model.setClassName("园艺 12-1班");
+		model.setClassName("园艺 12-1");
 		model.setName("园艺素描");
+		model.setStudentId("130101");
+		model.setCourseName("城市园林学");
+		
+		files.add(file);
+		model.setFiles(files);
 		
 		String fileName = filePathBuilder.buildFileName(model, "习近平");
+		
+		org.junit.Assert.assertEquals("130101园艺 12-1习近平.2014-2015.1.城市园林学.园艺素描_1", fileName);
 		
 		log.info(fileName);
 	}
@@ -66,13 +82,15 @@ public class FilePathBuilderTest {
 	@Test
 	public void buildFullPath() {
 		HomeworkBaseModel model = new HomeworkBaseModel();
-		model.setStudentId("1313140212");
+		model.setStudentId("130101");
 		model.setAcademicYear("2014-2015");
 		model.setSemester("1");
 		model.setClassName("园艺 12-1班");
 		model.setName("园艺素描");
 		
 		String fileName = filePathBuilder.buildFullPath(model, "习近平");
+		
+		org.junit.Assert.assertTrue(fileName.endsWith("130101园艺 12-1班习近平"));
 		
 		log.info(fileName);
 		

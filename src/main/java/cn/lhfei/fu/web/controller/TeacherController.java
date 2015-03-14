@@ -120,6 +120,7 @@ public class TeacherController extends AbstractController {
 			@RequestParam("semester")String semester,
 			@RequestParam("courseName")String courseName,
 			@RequestParam("className")String className,
+			@RequestParam("status")Integer status,
 			@RequestParam("name")String name,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
@@ -138,6 +139,7 @@ public class TeacherController extends AbstractController {
 		homework.setClassName(className);
 		homework.setCourseName(courseName);
 		homework.setName(name);
+		homework.setStatus(status);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
 		
@@ -171,7 +173,7 @@ public class TeacherController extends AbstractController {
 		
 		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByTeacher(homework);
 		//result.get(0).setId(789);
-		int total = homeworkBaseService.countHomeworkByTeachert(homework);
+		int total = homeworkBaseService.countHomeworkByTeacher(homework);
 		
 		json.setTotal(total);
 		json.setRows(result);
@@ -196,8 +198,8 @@ public class TeacherController extends AbstractController {
 		
 		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		
-		uploadForm.setStudentId(userSession.getUser().getUserId());
-		uploadForm.setStudentName(userSession.getUser().getUserName());
+		//uploadForm.setStudentId(userSession.getUser().getUserId());
+		//uploadForm.setStudentName(userSession.getUser().getUserName());
 		
 		homeworkBaseService.update(uploadForm, userType);
 

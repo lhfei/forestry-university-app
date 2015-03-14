@@ -93,7 +93,15 @@ public abstract class AbstractController {
 	 */
 	protected static final String COURSE = "KC";
 	
+	/**
+	 * 用户类型
+	 */
 	protected static final String USER_TYPE = "userType";
+	
+	/**
+	 * 用户<tt>ID</tt>
+	 */
+	protected static final String USER_ID = "userId";
 	
 	/**
 	 * 下拉框默认值  <tt> "全选|-1" </tt>

@@ -39,7 +39,7 @@ public class CourseBase {
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "COURSE_BASE_ID")
-	private Integer id;
+	private Integer baseId;
 
 	@Column(name = "CLASS_NAME")
 	private String className; // '班级名称',
@@ -56,12 +56,13 @@ public class CourseBase {
 	@Column(name = "SEMESTER")
 	private String semester; // '学期(semester)'
 
-	public Integer getId() {
-		return id;
+	
+	public Integer getBaseId() {
+		return baseId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setBaseId(Integer baseId) {
+		this.baseId = baseId;
 	}
 
 	public String getClassName() {
@@ -103,7 +104,5 @@ public class CourseBase {
 	public void setSemester(String semester) {
 		this.semester = semester;
 	}
-	
-	
 
 }

@@ -41,6 +41,16 @@ var tpl,
 	        name: 'name',
 	        readOnly: true
 	    },{
+	        xtype: 'textfield',
+	        fieldLabel: '学生编号',
+	        name: 'studentId',
+	        readOnly: true
+	    },{
+	        xtype: 'textfield',
+	        fieldLabel: '学生姓名',
+	        name: 'studentName',
+	        readOnly: true
+	    },{
 	        xtype: 'filefield',
 	        id: 'form-file',
 	        emptyText: '请选择作业附件',
@@ -207,6 +217,7 @@ Ext.define('hwork.controller.HWController', {
 		store.getProxy().setExtraParam('courseName', searchModel.courseName);
 		store.getProxy().setExtraParam('className', searchModel.className);		
 		store.getProxy().setExtraParam('name', ''+searchModel.name);
+		store.getProxy().setExtraParam('status', ''+searchModel.status);
 	},
 	
 	doSearch: function() {
@@ -231,7 +242,7 @@ Ext.define('hwork.controller.HWController', {
                 	
                 	if(!uploadWin){
                 		uploadWin = Ext.create('Ext.window.Window', {
-                			title: '<b>上传作业附件作业</b>',
+                			title: '<b>上传作业附件</b>',
                 			header: {
                 				titlePosition: 2,
                 				titleAlign: 'center'
@@ -256,6 +267,8 @@ Ext.define('hwork.controller.HWController', {
                 	form.setValues({ 
                 		baseId: record.baseId,
                 		name: record.name,
+                		studentId: record.studentId,
+                		studentName: record.studentName,
                 		academicYear: record.academicYear,
                 		semester: record.semester,
                 		courseName: record.courseName,

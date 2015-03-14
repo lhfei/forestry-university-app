@@ -23,6 +23,7 @@ Ext.define('hwork.view.HWGrid', {
         {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
         {header: '作业名称', dataIndex: 'name', flex: 2, align: 'center'},
         {header: '学生名称', dataIndex: 'studentName', flex: 1, align: 'center'},
+        {header: '学生编号', dataIndex: 'studentId', flex: 1, align: 'center', hidden: true},
         {
         	header: '作业状态', 
         	dataIndex: 'status', 

@@ -10,7 +10,8 @@ Ext.require([
 
 var tpl,
 	downloadWin,
-	uploadForm,
+	uploadForm,		
+	approveForm,
 	uploadWin;
 
 	tpl = new Ext.XTemplate(
@@ -19,6 +20,7 @@ var tpl,
 	    'Size: {fileSize:fileSize}'
 	);
 	
+	// upload form panel
 	uploadForm = Ext.create('Ext.form.Panel', {
 	    autoWidth: true,
 	    autoHeight: true,
@@ -37,6 +39,16 @@ var tpl,
 	        xtype: 'textfield',
 	        fieldLabel: '作业名称',
 	        name: 'name',
+	        readOnly: true
+	    },{
+	        xtype: 'textfield',
+	        fieldLabel: '学生编号',
+	        name: 'studentId',
+	        readOnly: true
+	    },{
+	        xtype: 'textfield',
+	        fieldLabel: '学生姓名',
+	        name: 'studentName',
 	        readOnly: true
 	    },{
 	        xtype: 'filefield',
@@ -83,7 +95,7 @@ var tpl,
 	            var form = me.up('form').getForm();
 	            if(form.isValid()){
 	                form.submit({
-	                    url: 'updateHomework.do',
+	                    url: '../teacher/updateHomework.do',
 	                    waitMsg: '正在上传...',
 	                    success: function(fp, o) {
 	                        //msg('Success', tpl.apply(o.result));
@@ -105,6 +117,45 @@ var tpl,
 	            uploadWin.hide();
 	        }
 	    }]
+	}); 
+
+	approveForm = Ext.create('Ext.form.Panel', {
+	    autoWidth: true,
+	    autoHeight: true,
+	    frame: false,
+	    items:[{
+		    xtype: 'fieldset',
+		    flex: 1,
+		    title: '作业审批',
+		    defaultType: 'radio', // each item will be a radio button
+		    layout: 'anchor',
+		    defaults: {
+		        anchor: '100%',
+		        hideEmptyLabel: false
+		    },
+		    items: [{
+		        checked: false,
+		        fieldLabel: '审批结果',
+		        labelWidth: 65,
+		        boxLabel: '通过',
+		        name: 'status',
+		        inputValue: '1'
+		    }, {
+		        boxLabel: '未通过',
+		        labelWidth: 65,
+		        name: 'status',
+		        inputValue: '0'
+		    },{
+		    	xtype: 'textarea',
+	            style: 'margin:0',
+	            hideLabel: false,
+	            labelWidth: 65,
+	            fieldLabel: '备注',
+	            emptyText: '审批意见描述, 可以不填...',
+	            name: 'approveDesc',
+		    }]
+		}]	
+
 	}); 
 	
 Ext.define('hwork.controller.HWController', {
@@ -164,6 +215,7 @@ Ext.define('hwork.controller.HWController', {
 		store.getProxy().setExtraParam('academicYear', searchModel.academicYear);
 		store.getProxy().setExtraParam('semester', searchModel.semester);
 		store.getProxy().setExtraParam('courseName', searchModel.courseName);
+		store.getProxy().setExtraParam('className', searchModel.className);		
 		store.getProxy().setExtraParam('name', ''+searchModel.name);
 		store.getProxy().setExtraParam('status', ''+searchModel.status);
 	},
@@ -177,6 +229,8 @@ Ext.define('hwork.controller.HWController', {
         var m = e.getTarget().className.match(/\bicon-(\w+)\b/);
         var record = this.getHwGrid().getStore().getAt(row).data;
         var mm =  this.getHWStoreStore();
+        
+        var approveButtonIsValid = (record.status != '1');
         
         if(m){
             switch(m[1]){
@@ -213,6 +267,8 @@ Ext.define('hwork.controller.HWController', {
                 	form.setValues({ 
                 		baseId: record.baseId,
                 		name: record.name,
+                		studentId: record.studentId,
+                		studentName: record.studentName,
                 		academicYear: record.academicYear,
                 		semester: record.semester,
                 		courseName: record.courseName,
@@ -225,7 +281,8 @@ Ext.define('hwork.controller.HWController', {
                 	if(record.homeworkArahiveId == null){
                 		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
                 		return false;
-                	};                	
+                	};  
+                	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
                 		header: {
@@ -246,17 +303,23 @@ Ext.define('hwork.controller.HWController', {
                 		tools: [{type: 'pin'}],
                 		layout: {
                 			type: 'border',
-                			padding: 5
+                			margin: 30
                 		},
-                		items: [/*{
-                			region: 'west',
+                		items: [{
+                			region: 'east',
                 			title: 'Navigation',
                 			width: 200,
                 			split: true,
                 			collapsible: true,
                 			collapsed: false,
-                			floatable: true
-                		}, */{
+                			floatable: true,
+                			bodyStyle: {
+                				background: '#ffc',
+                				padding: '30px 0px 0px 0px'
+                			},
+                			items:[approveForm]
+                		
+                		}, {
                 			region: 'center',
                 			xtype: 'tabpanel',
                 			items: [{
@@ -274,6 +337,45 @@ Ext.define('hwork.controller.HWController', {
                 				document.location.href = '../teacher/downloadImg.do?id='+record.homeworkArahiveId;
                 			}
                 		},{
+                			text: '审批',
+                			iconCls: 'icon-download',
+                			scope: this,
+                			hidden: approveButtonIsValid,
+                			handler: function(){
+                				if(record.status != '1'){
+                					Ext.MessageBox.alert('Status', '当前已完成审批, 请不要重复审批!.');
+                					return false;
+                				}
+                				var form = approveForm.getForm();
+                				var vals = form.getValues();
+                				
+                				Ext.Ajax.request({
+		            				url: '../teacher/approveHomework.do?id=' +record.homeworkArahiveId+ '&status=' +vals.status+ '&desc=' +vals.approveDesc ,
+		            				waitMsg: 'Loading ...',
+		            				method: 'get',
+		            				success: function (response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					if(result.success){
+		            						Ext.MessageBox.alert({
+		            							title: 'System Message',
+		            							msg: result.message
+		            						});
+		            						
+		            						downloadWin.hide();
+		            					}
+		            				},
+		            				failure: function(response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					Ext.MessageBox.alert({
+		            						title: 'System Message',
+		            						msg: result.message
+		            					});
+		            					
+		            					downloadWin.hide();
+		            				}
+		            			});
+                			}
+                		},{
                 			text: '取消',
                 			iconCls: 'icon-cancel',
                 			scope: this,
@@ -282,6 +384,21 @@ Ext.define('hwork.controller.HWController', {
                 			}
                 		}]
                 	});
+                	
+                	var form = approveForm.getForm();
+                	form.reset();
+                	var status = record.status;
+                	if(status == '2' || status == '3'){// approve had done.
+                		if(status == '2'){
+                    		status = '1';
+                    	}else {
+                    		status = '0'
+                    	}
+                    		form.setValues({
+                    			status: status,
+                    			approveDesc: record.extend
+                    		});
+                	}
                 	
                     downloadWin.show();
                     

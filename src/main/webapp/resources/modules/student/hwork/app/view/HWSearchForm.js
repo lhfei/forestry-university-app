@@ -37,6 +37,13 @@ var s_className = Ext.create('Ext.form.field.ComboBox', {
     forceSelection: true
 });
 
+var s_status = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 's_status',
+    labelWidth:  45,
+    forceSelection: true
+});
+
 // =============================================================
 
 Ext.define('hwork.view.HWSearchForm', {
@@ -53,13 +60,13 @@ Ext.define('hwork.view.HWSearchForm', {
         labelAlign: 'right',
         msgTarget: 'side',
         labelWidth: 45,
-        anchor: '95%'
+        anchor: '99%'
     },
     
     defaults: {
         border: false,
         xtype: 'panel',
-        flex: 3,
+        //flex: 3,
         bodyPadding: 2,
         layout: 'anchor'
     },
@@ -109,7 +116,17 @@ Ext.define('hwork.view.HWSearchForm', {
         	items: [s_className]
         }]
     },{
-    	flex: 4,
+    	items: [/*{
+                xtype: 'combo',
+                fieldLabel: '班级',
+                anchor: '-5',
+                name: 'className'
+            }*/ {
+            	anchor: '-5',
+            	items: [s_status]
+            }]    	
+    },{
+    	width: 220,
         items: [{
             xtype: 'textfield',
             labelWidth: 65,

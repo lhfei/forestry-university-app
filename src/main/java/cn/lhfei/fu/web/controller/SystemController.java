@@ -74,7 +74,7 @@ public class SystemController extends AbstractController {
 		if (userType.equals(UserTypeEnum.ADMIN.getCode())) {
 			session.setAttribute(USER_TYPE, UserTypeEnum.ADMIN.getCode());
 			
-			view.setViewName("system/main");
+			view.setViewName("admin/main");
 		}
 
 		else if (userType.equals(UserTypeEnum.TEACHER.getCode())) {

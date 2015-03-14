@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.identity.service.impl;
-
-import java.util.Date;
-import java.util.List;
+package cn.lhfei.fu.service.impl;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.lhfei.identity.orm.domain.Role;
-import cn.lhfei.identity.orm.persistence.RoleDAO;
-import cn.lhfei.identity.service.RoleService;
-import cn.lhfei.identity.web.model.RoleModel;
+import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.persistence.CourseBaseDAO;
+import cn.lhfei.fu.service.CourseService;
+import cn.lhfei.fu.web.model.CourseBaseModel;
 
+import com.googlecode.genericdao.search.ISearch;
 import com.googlecode.genericdao.search.SearchResult;
 
 /**
@@ -35,42 +33,35 @@ import com.googlecode.genericdao.search.SearchResult;
  *
  * @author Hefei Li
  *
- * @since Nov 27, 2014
+ * @since Mar 11, 2015
  */
-@Service("roleService")
+@Service("courseService")
 @Transactional
-public class RoleServiceImpl implements RoleService {
+public class CourseServiceImpl implements CourseService {
 
 	@Override
-	public Role findById(Integer id) {
-		
-		return roleDAO.find(id);
-	}
-	
-	public boolean save(Role role) {
-		Date date = new Date();
-		role.setCreateTime(date);
-		role.setModifyTime(date);
-		
-		return roleDAO.save(role);
+	public void create(CourseBase base) throws Exception {
+		courseBaseDAO.save(base);
 	}
 
 	@Override
-	public List<Role> findAll(RoleModel roleModel) {
-		return roleDAO.search(roleModel.buildSearch());
-	}
-	
-	@Override
-	public SearchResult<Role> search(RoleModel roleModel) {
-		SearchResult<Role> result = roleDAO.searchAndCount(roleModel.buildSearch());
+	public SearchResult<CourseBase> read(CourseBaseModel model) throws Exception {
+
+		SearchResult<CourseBase> result = courseBaseDAO.searchAndCount(model.buildSearch());
+
 		return result;
 	}
 
-	public void delete(Integer[] ids) throws Exception {
-		roleDAO.removeByIds(ids);
+	@Override
+	public void update(CourseBase base) throws Exception {
+		courseBaseDAO.save(base);
+	}
+
+	@Override
+	public void delete(CourseBase base) throws Exception {
+		courseBaseDAO.remove(base);
 	}
 
 	@Autowired
-	private RoleDAO roleDAO;
-
+	private CourseBaseDAO courseBaseDAO;
 }

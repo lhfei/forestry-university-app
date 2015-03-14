@@ -1,0 +1,238 @@
+/*
+ * Copyright 2010-2011 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package cn.lhfei.fu.web.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import cn.lhfei.fu.orm.domain.ApproveStatus;
+import cn.lhfei.fu.orm.domain.Combobox;
+import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.domain.TeachingPeriods;
+import cn.lhfei.fu.service.ComboboxService;
+import cn.lhfei.fu.service.CourseService;
+import cn.lhfei.fu.service.HomeworkArchiveService;
+import cn.lhfei.fu.service.HomeworkBaseService;
+import cn.lhfei.fu.service.ISystemService;
+import cn.lhfei.fu.web.model.CourseBaseModel;
+import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.identity.web.model.JsonReturnModel;
+
+import com.googlecode.genericdao.search.SearchResult;
+
+/**
+ * @version 1.0.0
+ *
+ * @author Hefei Li
+ *
+ * @since Mar 11, 2015
+ */
+@Controller
+@RequestMapping(value = "admin")
+public class AdminController extends AbstractController {
+
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // Course Configuration
+	// ///////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="homeworkIndex", method=RequestMethod.GET)
+	public ModelAndView homeworkIndex(HttpSession session) throws Exception {
+		ModelAndView view = new ModelAndView("admin/hwork/list");
+		List<ApproveStatus> list = comboboxService.getApproveStatus();
+		List<Combobox> xnList = comboboxService.getCombobo(XN);
+		List<Combobox> xqList = comboboxService.getCombobo(XQ);
+		List<CourseBase> courseList = comboboxService.getCourse();
+		
+		String teacherId = getUserId(session);
+		
+		TeachingPeriods teachingPeriod = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
+		
+		List<Combobox> classList = comboboxService.getClassByTeacher(teacherId, teachingPeriod);
+		
+		view.addObject(SPZT, list);
+		view.addObject(XN, xnList);
+		view.addObject(XQ, xqList);
+		view.addObject(COURSE, courseList);
+		view.addObject(CLASS, classList);
+		
+		return view;
+	}	
+	
+	/**
+	 * Homework read
+	 * 
+	 * @param academicYear
+	 * @param semester
+	 * @param courseName
+	 * @param name
+	 * @param start
+	 * @param page
+	 * @param limit
+	 * @param session
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="/homeworkRead", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> homeworkRead(
+			@RequestParam("academicYear")String academicYear,
+			@RequestParam("semester")String semester,
+			@RequestParam("courseName")String courseName,
+			@RequestParam("className")String className,
+			@RequestParam("name")String name,
+			@RequestParam("status")Integer status,
+			@RequestParam("start")int start,
+			@RequestParam("page")int page,
+			@RequestParam("limit")int limit, HttpSession session) throws Exception {
+		
+		//UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
+		
+		TeachingPeriods period = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
+		
+		
+		if(null != name && name.trim().length() > 0){
+			name = "%" +name+ "%";
+		} 
+		
+		HomeworkBaseModel homework = new HomeworkBaseModel();
+		homework.setClassName(className);
+		homework.setCourseName(courseName);
+		homework.setName(name);
+		homework.setPageNum(start);
+		homework.setPageSize(limit);
+		homework.setStatus(status);
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(academicYear)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setAcademicYear(period.getAcademicYear());
+			}
+		}else {		
+			homework.setAcademicYear(academicYear);
+		}
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(semester)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setSemester(period.getSemester());;
+			}
+		}else{			
+			homework.setSemester(semester);
+		}
+		
+		homework.setTeacherId(null);
+		
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
+		
+		json.setResult(true);
+		
+		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByAdmin(homework);
+		int total = homeworkBaseService.countHomeworkByAdmin(homework);
+		
+		json.setTotal(total);
+		json.setRows(result);
+		
+		return json;	
+		
+	}	
+	
+	
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // Course Configuration
+	// ///////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * @param start
+	 * @param page
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
+
+	@RequestMapping(value = "/course", method = RequestMethod.GET)
+	public ModelAndView course(HttpSession session) {
+		ModelAndView view = new ModelAndView("admin/course");
+		String userId = getUserId(session);
+		view.addObject(USER_ID, userId);
+		
+		return view;
+	}
+
+	public void courseCreate() {
+
+	}
+	
+	@RequestMapping(value = "/courseRead")
+	public @ResponseBody JsonReturnModel<CourseBase> courseRead(
+			@RequestParam int start, @RequestParam("page") int page,
+			@RequestParam int limit) throws Exception {
+
+		JsonReturnModel<CourseBase> json = new JsonReturnModel<CourseBase>();
+		CourseBaseModel model = new CourseBaseModel();
+		model.setPageNum(start);
+		model.setPageSize(limit);
+		
+		try {
+			SearchResult<CourseBase> result = courseService.read(model);
+			
+			json.setResult(true);
+			json.setRows(result.getResult());
+			json.setTotal(result.getTotalCount());
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			
+			json.setResult(false);
+			json.setMessage(e.getMessage());
+			json.setTotal(0);
+		}
+
+		log.info("paging: start {} to {}", start, limit);
+
+		return json;
+	}
+
+	public void courseUpdate() {
+
+	}
+
+	public void courseDelete() {
+
+	}
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@Autowired
+	private ComboboxService comboboxService;
+	
+	@Autowired
+	private ISystemService systemService;
+	
+	@Autowired
+	private HomeworkBaseService homeworkBaseService;
+	
+	@Autowired
+	private HomeworkArchiveService homeworkArchiveService;
+}

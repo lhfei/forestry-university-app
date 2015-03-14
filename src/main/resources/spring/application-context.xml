@@ -18,5 +18,5 @@
 	<import resource="classpath*:spring/data-context.xml"/>
 	
 	<!-- Spring Batch Integrations -->
-	<import resource="classpath*:spring/batch/config/launch-context.xml"/>
+	<!-- <import resource="classpath*:spring/batch/config/launch-context.xml"/> -->
 </beans>

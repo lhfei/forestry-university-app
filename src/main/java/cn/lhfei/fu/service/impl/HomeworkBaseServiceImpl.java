@@ -313,10 +313,22 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 		
 		return teacherMapper.getHomeworkByTeacher(homeworkBaseModel);
 	}
+	
+	@Override
+	public List<HomeworkBaseModel> getHomeworkByAdmin(
+			HomeworkBaseModel homeworkBaseModel) {
+		
+		return teacherMapper.getHomeworkByAdmin(homeworkBaseModel);
+	}
 
 	@Override
-	public int countHomeworkByTeachert(HomeworkBaseModel homeworkBaseModel) {
+	public int countHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel) {
 		return teacherMapper.countHomeworkByTeacher(homeworkBaseModel);
+	}
+	
+	@Override
+	public int countHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel) {
+		return teacherMapper.countHomeworkByAdmin(homeworkBaseModel);
 	}
 	
 	@Override

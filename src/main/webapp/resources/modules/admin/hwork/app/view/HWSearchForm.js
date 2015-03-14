@@ -66,7 +66,7 @@ Ext.define('hwork.view.HWSearchForm', {
     defaults: {
         border: false,
         xtype: 'panel',
-        //flex: 2,
+        //flex: 3,
         bodyPadding: 2,
         layout: 'anchor'
     },
@@ -115,14 +115,14 @@ Ext.define('hwork.view.HWSearchForm', {
         }]
     },{
     	items: [/*{
-                xtype: 'combo',
-                fieldLabel: '班级',
-                anchor: '-5',
-                name: 'className'
-            }*/ {
-            	anchor: '-5',
-            	items: [s_status]
-            }]    	
+            xtype: 'combo',
+            fieldLabel: '班级',
+            anchor: '-5',
+            name: 'className'
+        }*/ {
+        	anchor: '-5',
+        	items: [s_status]
+        }]    	
     },{
     	width: 165,
         items: [{

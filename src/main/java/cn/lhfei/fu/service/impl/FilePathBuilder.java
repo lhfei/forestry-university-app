@@ -72,7 +72,7 @@ public class FilePathBuilder implements IFilePathBuilder {
 		String name = model.getName(); // 作业名称
 		String courseName = model.getCourseName();	//课程名称
 		
-		StringBuilder sb = new StringBuilder(academicYear);
+		StringBuilder sb = new StringBuilder("");
 		
 	
 		//section 1： {学号班级姓名}
@@ -82,19 +82,27 @@ public class FilePathBuilder implements IFilePathBuilder {
 		
 		sb.append(".");
 		
-		// section 2： {学年学期}
+		// section 2： {学年}
 		sb.append(academicYear);
-		sb.append(semester);
-		
 		sb.append(".");
 		
-		// section 3: {课程}
+		// section 3: {学期}
+		sb.append(semester);
+		sb.append(".");
+		
+		// section 4: {课程}
 		sb.append(courseName);
 		
 		sb.append(".");
 		
-		// section 4: {作业名称}
+		// section 5: {作业名称}
 		sb.append(name);
+		
+		// section 5: {作业名称}
+		if(model != null && model.getFiles() != null){
+			sb.append("_");
+			sb.append(model.getFiles().size());
+		}
 		
 		
 		fileName = sb.toString();
@@ -109,10 +117,10 @@ public class FilePathBuilder implements IFilePathBuilder {
 	public String buildFilePath(HomeworkBaseModel model, String studentName) {
 		String filePath = "";	//作业上传后存放路径
 		String studentId = model.getStudentId(); // 学号
-		String academicYear = model.getAcademicYear(); // 学年
+		//String academicYear = model.getAcademicYear(); // 学年
 		String className = model.getClassName(); // 班级名称
 		
-		StringBuilder sb = new StringBuilder(academicYear);
+		StringBuilder sb = new StringBuilder("");
 	
 		//section 1： {学号班级姓名}
 		sb.append(studentId);
