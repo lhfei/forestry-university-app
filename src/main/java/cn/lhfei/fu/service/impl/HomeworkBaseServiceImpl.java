@@ -141,51 +141,56 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 
 			homeworkBaseDAO.save(base); // update homework_base info
 
+			int num = 1;
 			for (MultipartFile file : files) {// save archive file
-
-				String filePath = filePathBuilder.buildFullPath(model,
-						model.getStudentName());
-				String fileName = filePathBuilder.buildFileName(model,
-						model.getStudentName());
-
-				String[] names = file.getOriginalFilename().split("[.]");
-
-				String fileType = names[names.length - 1];
-
-				String fullPath = filePath + File.separator + fileName + "."
-						+ fileType;
-
-				out = new FileOutputStream(new File(fullPath));
-
-				BufferedOutputStream bf = new BufferedOutputStream(out);
-
-				IOUtils.copyLarge(file.getInputStream(), bf);
-
-				HomeworkArchive archive = new HomeworkArchive();
-				archive.setArchiveName(fileName);
-				archive.setArchivePath(fullPath);
-				archive.setCreateTime(currentTime);
-				archive.setModifyTime(currentTime);
-				archive.setName(model.getName());
-				archive.setStudentBaseId(model.getStudentBaseId());
-				archive.setHomeworkBaseId(model.getBaseId());
-				/*archive.setHomeworkBase(base);*/
-				archive.setStudentName(model.getStudentName());
-				archive.setStudentId(model.getStudentId());
 				
-				// 更新作业状态
-				if(userType != null && userType.equals(UserTypeEnum.STUDENT.getCode())){
-					archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
+				if(file.getSize() > 0){
+					String filePath = filePathBuilder.buildFullPath(model,
+							model.getStudentName());
+					String fileName = filePathBuilder.buildFileName(model,
+							model.getStudentName(), num);
+					
+					String[] names = file.getOriginalFilename().split("[.]");
+					
+					String fileType = names[names.length - 1];
+					
+					String fullPath = filePath + File.separator + fileName + "."
+							+ fileType;
+					
+					out = new FileOutputStream(new File(fullPath));
+					
+					BufferedOutputStream bf = new BufferedOutputStream(out);
+					
+					IOUtils.copyLarge(file.getInputStream(), bf);
+					
+					HomeworkArchive archive = new HomeworkArchive();
+					archive.setArchiveName(fileName);
+					archive.setArchivePath(fullPath);
+					archive.setCreateTime(currentTime);
+					archive.setModifyTime(currentTime);
+					archive.setName(model.getName());
+					archive.setStudentBaseId(model.getStudentBaseId());
+					archive.setHomeworkBaseId(model.getBaseId());
+					/*archive.setHomeworkBase(base);*/
+					archive.setStudentName(model.getStudentName());
+					archive.setStudentId(model.getStudentId());
+					
+					// 更新作业状态
+					if(userType != null && userType.equals(UserTypeEnum.STUDENT.getCode())){
+						archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
+					}
+					else if(userType != null && userType.equals(UserTypeEnum.TEACHER.getCode())){
+						archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
+					}
+					else if(userType != null && userType.equals(UserTypeEnum.ADMIN.getCode())){
+						archive.setStatus("" +ApproveStatusEnum.YSH.getCode());	
+					}
+					
+					homeworkArchiveDAO.save(archive);
+					
+					// auto increment archives number.
+					num ++;
 				}
-				else if(userType != null && userType.equals(UserTypeEnum.TEACHER.getCode())){
-					archive.setStatus("" +ApproveStatusEnum.DSH.getCode());	
-				}
-				else if(userType != null && userType.equals(UserTypeEnum.ADMIN.getCode())){
-					archive.setStatus("" +ApproveStatusEnum.YSH.getCode());	
-				}
-				
-
-				homeworkArchiveDAO.save(archive);
 			}
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);

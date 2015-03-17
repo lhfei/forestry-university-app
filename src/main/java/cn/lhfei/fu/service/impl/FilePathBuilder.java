@@ -62,7 +62,7 @@ public class FilePathBuilder implements IFilePathBuilder {
 	 * @see cn.lhfei.fu.service.IFilePathBuilder#buildFileName(cn.lhfei.fu.web.model.HomeworkBaseModel, java.lang.String)
 	 */
 	@Override
-	public String buildFileName(HomeworkBaseModel model, String studentName) {
+	public String buildFileName(HomeworkBaseModel model, String studentName, int num) {
 		String fileName = "";	//作业命名后完整名称
 
 		String studentId = model.getStudentId(); // 学号
@@ -98,12 +98,9 @@ public class FilePathBuilder implements IFilePathBuilder {
 		// section 5: {作业名称}
 		sb.append(name);
 		
-		// section 5: {作业名称}
-		if(model != null && model.getFiles() != null){
-			sb.append("_");
-			sb.append(model.getFiles().size());
-		}
-		
+		// section 5: {作业名称_附件张数}
+		sb.append("_");
+		sb.append(num);
 		
 		fileName = sb.toString();
 		

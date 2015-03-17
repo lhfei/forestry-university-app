@@ -40,9 +40,10 @@ public interface IFilePathBuilder {
 	 * 
 	 * @param model
 	 * @param studentName
+	 * @param 附件编号
 	 * @return
 	 */
-	String buildFileName(HomeworkBaseModel model, String studentName);
+	String buildFileName(HomeworkBaseModel model, String studentName, int num);
 
 	/**
 	 * Build homework file path.

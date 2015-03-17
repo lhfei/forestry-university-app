@@ -50,13 +50,35 @@ var tpl,
 	        fieldLabel: '学生姓名',
 	        name: 'studentName',
 	        readOnly: true
-	    },{
+	    },{// 附件1
 	        xtype: 'filefield',
 	        id: 'form-file',
 	        emptyText: '请选择作业附件',
 	        fieldLabel: '作业附件',
 	        name: 'files',
 	        buttonText: '',
+	        buttonConfig: {
+	            iconCls: 'upload-icon'
+	        }
+	    },{// 附件2
+	        xtype: 'filefield',
+	        id: 'form-file2',
+	        emptyText: '若需上传多个附件，请继续请选择上传',
+	        fieldLabel: '作业附件',
+	        name: 'files',
+	        buttonText: '',
+	        allowBlank: true,
+	        buttonConfig: {
+	            iconCls: 'upload-icon'
+	        }
+	    },{// 附件3
+	        xtype: 'filefield',
+	        id: 'form-file3',
+	        emptyText: '若需上传多个附件，请继续请选择上传',
+	        fieldLabel: '作业附件',
+	        name: 'files',
+	        buttonText: '',
+	        allowBlank: true,
 	        buttonConfig: {
 	            iconCls: 'upload-icon'
 	        }
@@ -262,8 +284,8 @@ Ext.define('hwork.controller.HWController', {
                 			maximizable: true,
                 			modal: true,
                 			closeAction: 'hide',
-                			width: 400,
-                			height: 250,
+                			width: 520,
+                			height: 400,
                 			tools: [{type: 'pin'}],
                 			layout: {
                 				type: 'fit',
