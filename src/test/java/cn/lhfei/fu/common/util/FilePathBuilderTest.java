@@ -72,7 +72,7 @@ public class FilePathBuilderTest {
 		files.add(file);
 		model.setFiles(files);
 		
-		String fileName = filePathBuilder.buildFileName(model, "习近平");
+		String fileName = filePathBuilder.buildFileName(model, "习近平", 1);
 		
 		org.junit.Assert.assertEquals("130101园艺 12-1习近平.2014-2015.1.城市园林学.园艺素描_1", fileName);
 		
