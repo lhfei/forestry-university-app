@@ -9,7 +9,7 @@
 	border-bottom: 1px dotted #B5B8C8;
 }
 .icon-home{
-	background-image:url(../../resources/images/icons/home.gif) !important
+	background-image:url(../../resources/images/icons/aris_export_icon.png) !important
 }
 .icon-download {
 	background-image:url(../../resources/images/icons/cloud-download-white-icon-64.png) !important
@@ -22,7 +22,7 @@
 	background-image:url(../../resources/images/icons/search-icon.png) !important
 }
 .icon-commTab{
-	background-image:url(../images/default/grid/group-by.gif) !important
+	background-image:url(../../resources/ext4/resources/themes/images/default/grid/group-by.gif) !important
 }
 .icon-email{
 	background-image:url(../../resources/images/icons/email_go.png) !important
@@ -43,7 +43,18 @@
 .icon-logout{
 	background-image:url(../../resources/images/icons/logout.png) !important
 }
-
+.icon-send {
+    background-image:url(../../resources/images/icons/email_go.png) !important;
+}
+.icon-print {
+    background-image:url(../../resources/images/icons/printer.png) !important;
+}
+.icon-spell {
+    background-image:url(../../resources/images/icons/spellcheck.png) !important;
+}
+.icon-attach {
+    background-image:url(../../resources/images/icons/page_attach.png) !important;
+}
 .upload-icon {
     background: url('../../resources/ext4/shared/icons/fam/image_add.png') no-repeat 0 0 !important;
 }
@@ -103,6 +114,7 @@
 .icon-process{
 	background-image:url(../../resources/ext4/shared/icons/fam/user_edit.png) !important
 }
+
 
 
 

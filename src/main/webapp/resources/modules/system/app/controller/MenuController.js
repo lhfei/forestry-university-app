@@ -74,7 +74,7 @@ Ext.define('Ifeng.controller.MenuController', {
                 title: node.text,
                 id: node.id,
 				//title: node.text,
-				iconCls: 'commTab',
+				iconCls: 'icon-commTab',
 				autoScroll: true,
 				closable: true,
 				//height: 400,

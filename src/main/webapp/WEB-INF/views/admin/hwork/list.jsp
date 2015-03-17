@@ -21,14 +21,14 @@
 		<div id="div_academicYear" class="code x-hide-display">
 			<span>学年:</span> 
 			<select id="s_academicYear" name="academicYear" alt="学年">
-			<option value="-1">全部学年</option>
-			<c:forEach var="item" varStatus="index" items="${XN }">
-				<%-- <option value='<c:out value="${item.code}"></c:out>'> --%>
-				<option value='<c:out value="${item.code}"></c:out>'>
-					<c:out value="${item.label}"></c:out></option>
-			</c:forEach>
-		</select>
-	</div>
+				<option value="-1">全部学年</option>
+				<c:forEach var="item" varStatus="index" items="${XN }">
+					<%-- <option value='<c:out value="${item.code}"></c:out>'> --%>
+					<option value='<c:out value="${item.code}"></c:out>'>
+						<c:out value="${item.label}"></c:out></option>
+				</c:forEach>
+			</select>
+		</div>
 		
 		<div id="div_semester" class="code x-hide-display">
 			<span>学期:</span> 

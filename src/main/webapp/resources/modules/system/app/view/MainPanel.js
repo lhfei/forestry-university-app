@@ -17,12 +17,11 @@ Ext.define('Ifeng.view.MainPanel', {
         autoScroll: true,
         bodyPadding: 2
     },
-    items: [/*{
-        title: 'Tab 1',
-        iconCls: 'tabs',
-        html: 'Tab Body<br/><br/>' ,
-        closable: true
-    }*/],
+    items: [{
+        title: '主页',
+        iconCls: 'icon-home',
+        closable: false
+    }],
     plugins: Ext.create('Ext.ux.TabCloseMenu', {
         extraItemsTail: [
             '-',

@@ -10,37 +10,40 @@ Ext.require([
 var s_academicYear = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
     transform: 's_academicYear',
-    /*fieldLabel: '学年',
-    labelWidth:  45,*/
+    fieldLabel: '学年',
+    labelWidth:  60,
     forceSelection: true
 });
 
 var s_semester = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
     transform: 's_semester',
-    /*fieldLabel: '学期',
-    labelWidth:  45,*/
+    fieldLabel: '学期',
+    labelWidth:  60,
     forceSelection: true
 });
 
 var s_courseName = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
     transform: 's_courseName',
-    labelWidth:  45,
+    fieldLabel: '课程名称',
+    labelWidth:  60,
     forceSelection: true
 });
 
 var s_className = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
+    fieldLabel: '班级名称',
     transform: 's_className',
-    labelWidth:  45,
+    labelWidth:  60,
     forceSelection: true
 });
 
 var s_status = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
+    fieldLabel: '作业状态',
     transform: 's_status',
-    labelWidth:  45,
+    labelWidth:  60,
     forceSelection: true
 });
 
@@ -51,7 +54,6 @@ Ext.define('hwork.view.HWSearchForm', {
 	alias: 'widget.hwSearchForm',
 	
 	frame: true,
-	//autoWidth: true,
 	width: '100%',
 	autoHeight: true,
 	title: '作业列表',
@@ -59,87 +61,84 @@ Ext.define('hwork.view.HWSearchForm', {
 	fieldDefaults: {
         labelAlign: 'right',
         msgTarget: 'side',
-        labelWidth: 45,
-        anchor: '99%'
+        labelWidth: 65,
+        anchor: '100%'
     },
     
     defaults: {
         border: false,
         xtype: 'panel',
         //flex: 3,
-        bodyPadding: 2,
+        bodyPadding: 5,
+        padding: '3 3 3 3',
         layout: 'anchor'
     },
 
     layout: 'hbox',
     
     items: [{
-        items: [/*{
-            xtype: 'combo',
-            fieldLabel: '学年',
-            anchor: '-5',
-            name: 'academicYear'
-        }*/ {
+    	padding: '3 3 3 3',
+        items: [{
         	anchor: '-5',
         	items: [s_academicYear]
-        }]
-    },{
-        items: [/*{
-            xtype: 'combo',
-            fieldLabel: '学期',
-            anchor: '-5',
-            name: 'semester'
-        }*/ {
+        },{
         	anchor: '-5',
         	items: [s_semester]
         }]
     },{
-        items: [/*{
-            xtype: 'combo',
-            fieldLabel: '课程',
-            anchor: '-5',
-            name: 'courseName'
-        }*/{
+    	padding: '3 3 3 3',
+        items: [{
         	anchor: '-5',
         	items: [s_courseName]
-        }]
-    },{
-        items: [/*{
-            xtype: 'combo',
-            fieldLabel: '班级',
-            anchor: '-5',
-            name: 'className'
-        }*/ {
+        },{
         	anchor: '-5',
         	items: [s_className]
         }]
     },{
-    	items: [/*{
-            xtype: 'combo',
-            fieldLabel: '班级',
-            anchor: '-5',
-            name: 'className'
-        }*/ {
+    	padding: '3 3 3 3',
+    	items: [{
         	anchor: '-5',
         	items: [s_status]
-        }]    	
-    },{
-    	width: 165,
-        items: [{
+        },{
+        	anchor: '-5',
             xtype: 'textfield',
             labelWidth: 65,
+            labelAlign: 'left',
             fieldLabel: '作业名称',
-            anchor: '100%',
             name: 'name'
+        }]    	
+    },{
+    	padding: '3 3 3 3',
+    	anchor: '-5',
+        items: [{
+            xtype: 'textfield',
+            labelWidth: 60,
+            fieldLabel: '学生编号',
+            anchor: '100%',
+            name: 'studentId'
+        },{
+        	xtype: 'textfield',
+            labelWidth: 60,
+            fieldLabel: '学生姓名',
+            anchor: '100%',
+            name: 'studentName'
         }]
     },{
-    	width: 65,
         items: [{
-            xtype:'button',
-            action: 'doSearch',
-            width: 65,
-            iconCls: 'search-icon',
-            text: '查询'
+        	items: [{
+                xtype:'button',
+                action: 'doReset',
+                iconCls: 'icon-refresh',
+                text: '重置'
+            }]
+        },{
+        	padding: '3 3 3 0',
+        	items: [{
+                xtype:'button',
+                action: 'doSearch',
+                iconCls: 'search-icon',
+                text: '查询'
+            }]
         }]
     }]
 });

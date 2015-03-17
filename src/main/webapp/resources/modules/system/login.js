@@ -11,19 +11,19 @@ Ext.require([
     'Ext.ux.DataTip'
 ]);
 
-	var headPanel = new Ext.form.FormPanel({
+	var headPanel = new Ext.FormPanel({
 		//baseCls: 'x-plain',
 		id: 'login-head-logo',
 		region: 'north',
 		contentEl: 'headTitle'
 	});
-	var logoPanel = new Ext.form.FormPanel({
+	var logoPanel = new Ext.FormPanel({
 			baseCls: 'x-plain',
 			id: 'login-logo',
 			height: 108,
 			region: 'center'
 	});
-	var formPanel = new Ext.form.FormPanel({
+	var formPanel = new Ext.FormPanel({
 		id: 'login-form',
 		region: 'south',
 		baseCls: 'x-plain',

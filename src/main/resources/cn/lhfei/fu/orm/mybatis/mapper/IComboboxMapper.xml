@@ -13,9 +13,37 @@
 		
 		 WHERE hb.ACADEMIC_YEAR = #{academicYear}
 		   and hb.SEMESTER = #{semester}
-		   and hb.TEACHER_ID = #{teacherId}
+		   
+			<if test="teacherId != null  and teacherId != ''">
+		   
+				and hb.TEACHER_ID = #{teacherId}
+				
+		   	</if>
+		   
 
 		order by label asc
 	</select>
+	
+	
+	<select id="getAllTeacher" resultType="combobox">
+	    SELECT tb.TEACHER_NAME as label,
+	           tb.TEACHER_ID   as code,
+	           tb.TEACHER_ID   as key
+	    
+	      FROM TEACHER_BASE tb
+	    
+	     GROUP BY tb.TEACHER_NAME, tb.TEACHER_ID
+	
+	</select>
+	
+	<update id="updateTeacherIdByName" parameterType = "map">
+
+		UPDATE HOMEWORK_BASE hb
+		
+		   SET hb.teacher_id = #{teacherId}
+		
+		 WHERE hb.teacher_name = #{teacherName}
+
+	</update>
 
 </mapper>

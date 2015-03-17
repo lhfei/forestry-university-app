@@ -121,6 +121,8 @@ public class TeacherController extends AbstractController {
 			@RequestParam("courseName")String courseName,
 			@RequestParam("className")String className,
 			@RequestParam("status")Integer status,
+			@RequestParam("studentId")String studentId,
+			@RequestParam("studentName")String studentName,
 			@RequestParam("name")String name,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
@@ -133,6 +135,9 @@ public class TeacherController extends AbstractController {
 		
 		if(null != name && name.trim().length() > 0){
 			name = "%" +name+ "%";
+		}
+		if(null != studentName && studentName.trim().length() > 0){
+			studentName = "%" +studentName+ "%";
 		} 
 		
 		HomeworkBaseModel homework = new HomeworkBaseModel();
@@ -140,6 +145,8 @@ public class TeacherController extends AbstractController {
 		homework.setCourseName(courseName);
 		homework.setName(name);
 		homework.setStatus(status);
+		homework.setStudentId(studentId);
+		homework.setStudentName(studentName);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
 		

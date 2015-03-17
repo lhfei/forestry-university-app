@@ -16,6 +16,7 @@
 package cn.lhfei.fu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.lhfei.fu.orm.domain.ApproveStatus;
 import cn.lhfei.fu.orm.domain.ClassBase;
@@ -86,6 +87,22 @@ public interface ComboboxService {
 	boolean deleteApproveStatus(Integer[] ids);
 	
 	boolean deleteThesisOrigin(Integer[] ids);
+	
+	/**
+	 * @return
+	 */
+	List<Combobox> getAllTeacher() ;
+	
+	
+	/**
+	 * @param map
+	 */
+	void updateTeacherIdByName(Map<String, Object> map);
+	
+	/**
+	 * 
+	 */
+	void batchUpdateTeacherIdByName();
 	
 	
 }

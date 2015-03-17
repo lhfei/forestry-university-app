@@ -16,11 +16,13 @@
 package cn.lhfei.fu.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +40,7 @@ import cn.lhfei.fu.service.HomeworkBaseService;
 import cn.lhfei.fu.service.ISystemService;
 import cn.lhfei.fu.web.model.CourseBaseModel;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.identity.util.JSONReturn;
 import cn.lhfei.identity.web.model.JsonReturnModel;
 
 import com.googlecode.genericdao.search.SearchResult;
@@ -54,7 +57,7 @@ import com.googlecode.genericdao.search.SearchResult;
 public class AdminController extends AbstractController {
 
 	// ///////////////////////////////////////////////////////////////////////////////
-	// // Course Configuration
+	// // Homework List View
 	// ///////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value="homeworkIndex", method=RequestMethod.GET)
 	public ModelAndView homeworkIndex(HttpSession session) throws Exception {
@@ -64,11 +67,9 @@ public class AdminController extends AbstractController {
 		List<Combobox> xqList = comboboxService.getCombobo(XQ);
 		List<CourseBase> courseList = comboboxService.getCourse();
 		
-		String teacherId = getUserId(session);
-		
 		TeachingPeriods teachingPeriod = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
 		
-		List<Combobox> classList = comboboxService.getClassByTeacher(teacherId, teachingPeriod);
+		List<Combobox> classList = comboboxService.getClassByTeacher(null, teachingPeriod);
 		
 		view.addObject(SPZT, list);
 		view.addObject(XN, xnList);
@@ -101,6 +102,8 @@ public class AdminController extends AbstractController {
 			@RequestParam("className")String className,
 			@RequestParam("name")String name,
 			@RequestParam("status")Integer status,
+			@RequestParam("studentId")String studentId,
+			@RequestParam("studentName")String studentName,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
 			@RequestParam("limit")int limit, HttpSession session) throws Exception {
@@ -113,14 +116,19 @@ public class AdminController extends AbstractController {
 		if(null != name && name.trim().length() > 0){
 			name = "%" +name+ "%";
 		} 
+		if(null != studentName && studentName.trim().length() > 0){
+			studentName = "%" +studentName+ "%";
+		} 
 		
 		HomeworkBaseModel homework = new HomeworkBaseModel();
 		homework.setClassName(className);
 		homework.setCourseName(courseName);
 		homework.setName(name);
+		homework.setStatus(status);
+		homework.setStudentId(studentId);
+		homework.setStudentName(studentName);
 		homework.setPageNum(start);
 		homework.setPageSize(limit);
-		homework.setStatus(status);
 		
 		if(COMBOBOX_DEFAULT_VALUE.equals(academicYear)){
 			if(period == null) {
@@ -140,6 +148,7 @@ public class AdminController extends AbstractController {
 			homework.setSemester(semester);
 		}
 		
+		// very impotent!
 		homework.setTeacherId(null);
 		
 		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
@@ -156,8 +165,6 @@ public class AdminController extends AbstractController {
 		
 	}	
 	
-	
-	
 	// ///////////////////////////////////////////////////////////////////////////////
 	// // Course Configuration
 	// ///////////////////////////////////////////////////////////////////////////////
@@ -172,15 +179,33 @@ public class AdminController extends AbstractController {
 
 	@RequestMapping(value = "/course", method = RequestMethod.GET)
 	public ModelAndView course(HttpSession session) {
-		ModelAndView view = new ModelAndView("admin/course");
+		List<Combobox> xnList = comboboxService.getCombobo(XN);
+		List<Combobox> xqList = comboboxService.getCombobo(XQ);
+		
+		ModelAndView view = new ModelAndView("admin/course/course");
 		String userId = getUserId(session);
+		
 		view.addObject(USER_ID, userId);
+		view.addObject(XN, xnList);
+		view.addObject(XQ, xqList);
 		
 		return view;
 	}
 
-	public void courseCreate() {
-
+	@RequestMapping(value = "/courseCreate", produces = "application/json",
+			method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> courseCreate(@RequestBody CourseBase course) {
+		try {
+			
+			courseService.create(course);
+			
+			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			
+			return JSONReturn.mapError("\u64cd\u4f5c\u5931\u8d25! \u8bf7\u7a0d\u540e\u91cd\u8bd5.");
+		}
 	}
 	
 	@RequestMapping(value = "/courseRead")
@@ -217,9 +242,56 @@ public class AdminController extends AbstractController {
 
 	}
 
-	public void courseDelete() {
+	@RequestMapping(value = "/courseDelete", produces = "application/json",
+			method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> courseDelete(@RequestBody CourseBase course) {
+		try {
 
+			courseService.delete(course);
+
+			return JSONReturn.mapOK("\u64cd\u4f5c\u6210\u529f!");
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+
+			return JSONReturn
+					.mapError("\u64cd\u4f5c\u5931\u8d25! \u8bf7\u7a0d\u540e\u91cd\u8bd5.");
+		}
 	}
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // Course bing Homework
+	// ///////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="hwBind", method=RequestMethod.GET)
+	public ModelAndView hwBind(HttpSession session) throws Exception {
+		ModelAndView view = new ModelAndView("admin/course/hwBind");
+		List<ApproveStatus> list = comboboxService.getApproveStatus();
+		List<Combobox> xnList = comboboxService.getCombobo(XN);
+		List<Combobox> xqList = comboboxService.getCombobo(XQ);
+		List<CourseBase> courseList = comboboxService.getCourse();
+		
+		String teacherId = getUserId(session);
+		
+		TeachingPeriods teachingPeriod = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
+		
+		List<Combobox> classList = comboboxService.getClassByTeacher(teacherId, teachingPeriod);
+		
+		view.addObject(SPZT, list);
+		view.addObject(XN, xnList);
+		view.addObject(XQ, xqList);
+		view.addObject(COURSE, courseList);
+		view.addObject(CLASS, classList);
+		
+		return view;
+	}
+	
+	@RequestMapping(value = "/courseCof", method = RequestMethod.GET)
+	public ModelAndView courseCof() {
+		ModelAndView view = new ModelAndView("admin/course/courseCof");
+		
+		return view;
+	}
+	
 	
 	@Autowired
 	private CourseService courseService;

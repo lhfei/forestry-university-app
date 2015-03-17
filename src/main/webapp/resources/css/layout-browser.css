@@ -22,15 +22,7 @@ body {
     padding: 5px 10px;
     margin: 0;
 }
-#start-div h2 {
-    font-size: 12px;
-    color: #555;
-    padding-bottom:5px;
-    border-bottom:1px solid #C3D0DF;
-}
-#start-div p {
-    margin: 10px 0;
-}
+
 #details-panel h2 {
     padding:10px 10px 0;
     font-size:12px;
@@ -94,21 +86,6 @@ body {
     vertical-align:top;
     padding:5px;
     font-size: 11px;
-}
-.icon-send {
-    background-image:url(images/email_go.png) !important;
-}
-.icon-save {
-    background-image:url(images/disk.png) !important;
-}
-.icon-print {
-    background-image:url(images/printer.png) !important;
-}
-.icon-spell {
-    background-image:url(images/spellcheck.png) !important;
-}
-.icon-attach {
-    background-image:url(images/page_attach.png) !important;
 }
 .email-form .x-panel-mc .x-panel-tbar .x-toolbar {
     border-top:1px solid #C2D6EF;

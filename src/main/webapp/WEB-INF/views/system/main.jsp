@@ -26,5 +26,25 @@
 	</div>
 	
 	<input id="_userName" type="hidden" value='<c:out value="${userName }"></c:out>' />
+	
+	<!-- Start page content -->
+    <div id="start-div" class="x-hide-display" style="width: 100%; ">
+        <div style="float:left;" ><img src="${basePath }/resources/images/icon/layout-icon.gif" /></div>
+        <div style="margin-left:100px;">
+            <h2>Welcome!</h2>
+            <p>There are many sample layouts to choose from that should give you a good head start in building your own
+            application layout.  Just like the combination examples, you can mix and match most layouts as
+            needed, so don't be afraid to experiment!</p>
+            <p>Select a layout from the tree to the left to begin.</p>
+        </div>
+    </div>
+    
+     <div id="script" class="x-hide-display">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed metus nibh, sodales a, porta at, vulputate
+            eget, dui. Pellentesque ut nisl. Maecenas tortor turpis, interdum non, sodales non, iaculis ac, lacus.
+            <br/><br/>
+            Vestibulum auctor, tortor quis iaculis malesuada, libero lectus bibendum purus, sit amet tincidunt quam turpis
+            vel lacus. In pellentesque nisl non sem. Suspendisse nunc sem, pretium eget, cursus a, fringilla vel, urna.</p>
+        </div>
 </body>
 </html>

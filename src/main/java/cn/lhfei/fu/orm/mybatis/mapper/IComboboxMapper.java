@@ -39,4 +39,16 @@ public interface IComboboxMapper {
 	 * @return
 	 */
 	List<Combobox> getClassByTeacher(Map<String, Object> model);
+	
+	
+	/**
+	 * @return
+	 */
+	List<Combobox> getAllTeacher() ;
+	
+	
+	/**
+	 * @param map
+	 */
+	void updateTeacherIdByName(Map<String, Object> map);
 }

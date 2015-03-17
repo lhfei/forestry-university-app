@@ -50,13 +50,11 @@ Ext.define('course.controller.CourseController', {
             record = form.getRecord(),
             values = form.getValues();
         
-        
-		if (values.id > 0){
+		if (values.baseId > 0){
 			record.set(values);
 		} else{
 			record = Ext.create('course.model.CourseModel');
 			record.set(values);
-			record.setId(0);
 			this.getCourseStoreStore().add(record);
 		}
         

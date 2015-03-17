@@ -189,6 +189,10 @@ Ext.define('hwork.controller.HWController', {
 				click: this.doSearch
 			},
 			
+			'hwSearchForm button[action=doReset]': {
+				click: this.doReset
+			},
+			
 			'hwGrid actioncolumn': {
 				click: this.completeTask
 			},
@@ -218,6 +222,14 @@ Ext.define('hwork.controller.HWController', {
 		store.getProxy().setExtraParam('className', searchModel.className);		
 		store.getProxy().setExtraParam('name', ''+searchModel.name);
 		store.getProxy().setExtraParam('status', ''+searchModel.status);
+		store.getProxy().setExtraParam('studentId', ''+searchModel.studentId);
+		store.getProxy().setExtraParam('studentName', ''+searchModel.studentName);
+	},
+
+	doReset: function() {
+		var form = this.getHwSearchForm().getForm();
+		
+		form.reset();
 	},
 	
 	doSearch: function() {

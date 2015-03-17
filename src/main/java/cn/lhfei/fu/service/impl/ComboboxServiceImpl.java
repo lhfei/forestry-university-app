@@ -15,6 +15,7 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +158,28 @@ public class ComboboxServiceImpl implements ComboboxService {
 		return comboboxMapper.getClassByTeacher(model);
 	}
 
+	@Override
+	public List<Combobox> getAllTeacher() {
+		return comboboxMapper.getAllTeacher();
+	}
+
+	@Override
+	public void updateTeacherIdByName(Map<String, Object> map) {
+		comboboxMapper.updateTeacherIdByName(map);
+	}
+	
+	@Override
+	public void batchUpdateTeacherIdByName() {
+		List<Combobox> teachers = this.getAllTeacher();
+		for(Combobox teacher : teachers){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("teacherId", teacher.getCode());
+			map.put("teacherName", teacher.getLabel());
+			
+			this.updateTeacherIdByName(map);
+		}
+	}
+	
 	@Autowired
 	private ApproveStatusDAO approveStatusDAO;
 

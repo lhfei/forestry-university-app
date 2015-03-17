@@ -181,6 +181,10 @@ public class ComboboxServiceImplTest {
 		}
 	}
 	
+	@Test
+	public void batchUpdateTeacherIdByName() {
+		comboboxService.batchUpdateTeacherIdByName();
+	}
 
 	@Autowired
 	private ComboboxService comboboxService;

@@ -21,15 +21,21 @@
 	expanded: true,
 	children:[{
 		id: '../admin/course.do',
-		text: '课程设置',
+		text: '新增课程',
 		iconCls: 'tree-leaf',
 		url: '../admin/course.do',
 		leaf: true	
 	},{
-		id: '../admin/homework.do',
+		id: '../admin/courseCof.do',
+		text: '课程设置',
+		iconCls: 'tree-leaf',
+		url: '../admin/courseCof.do',
+		leaf: true	
+	},{
+		id: '../admin/hwBind.do',
 		text: '作业设置',
 		iconCls: 'tree-leaf',
-		url: '../admin/homework.do',
+		url: '../admin/hwBind.do',
 		leaf: true		
 	}]
 },{
