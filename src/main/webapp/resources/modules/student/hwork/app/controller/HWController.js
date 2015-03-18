@@ -70,6 +70,28 @@ var tpl,
 	        buttonConfig: {
 	            iconCls: 'upload-icon'
 	        }
+	    },{// 附件4
+	        xtype: 'filefield',
+	        id: 'form-file4',
+	        emptyText: '若需上传多个附件，请继续请选择上传',
+	        fieldLabel: '作业附件',
+	        name: 'files',
+	        buttonText: '',
+	        allowBlank: true,
+	        buttonConfig: {
+	            iconCls: 'upload-icon'
+	        }
+	    },{// 附件5
+	        xtype: 'filefield',
+	        id: 'form-file5',
+	        emptyText: '若需上传多个附件，请继续请选择上传',
+	        fieldLabel: '作业附件',
+	        name: 'files',
+	        buttonText: '',
+	        allowBlank: true,
+	        buttonConfig: {
+	            iconCls: 'upload-icon'
+	        }
 	    },{
 	        xtype: 'textfield',
 	        fieldLabel: '作业主键',
