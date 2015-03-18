@@ -15,6 +15,7 @@
  */
 package cn.lhfei.fu.orm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @MappedSuperclass
 @JsonAutoDetect
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable{
 	@Column(name="CREATE_TIME")
 	private Date createTime;
 	

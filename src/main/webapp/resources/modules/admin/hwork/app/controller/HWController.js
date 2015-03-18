@@ -334,7 +334,7 @@ Ext.define('hwork.controller.HWController', {
                     break;
                 	
                 case 'download':
-                	if(record.homeworkArahiveId == null){
+                	if(record.status == 0){
                 		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
                 		return false;
                 	};  
@@ -390,7 +390,32 @@ Ext.define('hwork.controller.HWController', {
                 			iconCls: 'icon-download',
                 			scope: this,
                 			handler: function(){
-                				document.location.href = '../teacher/downloadImg.do?id='+record.homeworkArahiveId;
+                				Ext.Ajax.request({
+		            				url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
+		            				waitMsg: 'Loading ...',
+		            				method: 'get',
+		            				success: function (response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					if(result.success){
+		            						var total = result.total;
+		            						var archives = result.data;
+		            						for(var i = 0; i < total; i++) {
+		            							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
+		            						}
+		            						
+		            						downloadWin.hide();
+		            					}
+		            				},
+		            				failure: function(response, opts){
+		            					var result = Ext.decode(response.responseText); 
+		            					Ext.MessageBox.alert({
+		            						title: 'System Message',
+		            						msg: result.message
+		            					});
+		            					
+		            					downloadWin.hide();
+		            				}
+		            			});
                 			}
                 		},{
                 			text: '审批',

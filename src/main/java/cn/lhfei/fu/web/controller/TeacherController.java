@@ -246,6 +246,32 @@ public class TeacherController extends AbstractController {
 	}
 	
 	/**
+	 * 加载作业附件
+	 * @param homeworkBaseId	作业ID
+	 * @param studentId			学生编号
+	 * @return
+	 */
+	@RequestMapping(value = "/preloadImg", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Map<String, Object> preloadImg(
+			@RequestParam("homeworkBaseId") String homeworkBaseId,
+			@RequestParam("studentId") String studentId) {
+		
+		try {
+			
+			List<HomeworkArchive> archives = homeworkArchiveService.findArchive(homeworkBaseId, studentId);
+			
+			return JSONReturn.mapOK(archives);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			
+			return JSONReturn.mapError(e.getMessage());
+		}
+
+	}
+	
+	
+	/**
 	 * Method for handling file download request from client
 	 */
 	@RequestMapping(value="downloadImg", method = RequestMethod.GET)

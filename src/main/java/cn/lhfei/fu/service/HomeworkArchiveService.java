@@ -15,6 +15,8 @@
  */
 package cn.lhfei.fu.service;
 
+import java.util.List;
+
 import cn.lhfei.fu.orm.domain.HomeworkArchive;
 
 /**
@@ -32,5 +34,8 @@ public interface HomeworkArchiveService {
 	String updateArachive(Integer id, String status, String desc, String userType) throws Exception;
 	
 	void saveHomeWorkArchive(Integer baseId, String teacherId, String studentId, String fileName, String filePath, String homeworkName);
+	
+	
+	List<HomeworkArchive> findArchive(String homeworkBaseId, String studentId) throws Exception;
 
 }

@@ -17,6 +17,7 @@ package cn.lhfei.fu.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -32,6 +33,8 @@ import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.HomeworkArchiveDAO;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 import cn.lhfei.fu.web.model.rest.Student;
+
+import com.googlecode.genericdao.search.Search;
 
 
 /**
@@ -104,6 +107,17 @@ public class HomeworkArchiveServiceImpl implements HomeworkArchiveService{
 		homeworkArchiveDAO.save(archive);
 	}
 	
+	@Override
+	public List<HomeworkArchive> findArchive(String homeworkBaseId, String studentId)
+			throws Exception {
+		Search search = new Search();
+		search.setSearchClass(HomeworkArchive.class);
+		
+		search.addFilterEqual("homeworkBaseId", homeworkBaseId);
+		search.addFilterEqual("studentId", studentId);
+		
+		return homeworkArchiveDAO.search(search);
+	}
 	
 	@Autowired
 	private  HomeworkArchiveDAO  homeworkArchiveDAO;
@@ -113,4 +127,5 @@ public class HomeworkArchiveServiceImpl implements HomeworkArchiveService{
 	
 	@Autowired
 	private IStudentMapper studentMapper;
+
 }

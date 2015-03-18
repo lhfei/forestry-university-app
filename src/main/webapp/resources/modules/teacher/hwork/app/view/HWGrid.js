@@ -33,7 +33,7 @@ Ext.define('hwork.view.HWGrid', {
         		switch(val) {
         		
         		case 0:
-        			return '<span style="color:green;">未提交</span>';
+        			return '<span style="color:red;">未提交</span>';
         			break;
         			
         		case 1: 
@@ -41,11 +41,11 @@ Ext.define('hwork.view.HWGrid', {
         			break;
 
         		case 2:
-        			return '<span style="color:green;">已审核</span>';
+        			return '<span style="color:blue;">已审核</span>';
         			break;
         			
         		case 3: 
-        			return '<span style="color:green;">未通过</span>';
+        			return '<span style="color:red;">未通过</span>';
         			break;
         		}
         	}
