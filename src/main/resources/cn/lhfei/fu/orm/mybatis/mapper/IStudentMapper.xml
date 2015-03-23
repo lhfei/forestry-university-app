@@ -41,7 +41,7 @@
 		hb.desc_info           as description
 	</sql>
 
-	<sql id="get_homework_where">
+	<sql id="get_homework_where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">			
 			<if test="academicYear != null and academicYear != '-1'">
 				AND hb.academic_year = #{academicYear}
@@ -60,7 +60,8 @@
 			</if>
 			<if test="name != null and name != ''">
 				AND hb.hw_name like  #{name}
-			</if>
+			</if>           	
+           	
 		</trim>	
 	</sql>
 
@@ -75,9 +76,9 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
-				       ha.homework_archive_id as homeworkArahiveId,
 				       hk.student_id          as studentId,
-				       ha.status              as STATUS,
+				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
+				       hat.status              as STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -119,22 +120,38 @@
 				                            hb.desc_info        as description
 				                      from homework_base hb
 				                     
-				                     <include refid="get_homework_where"/>
+				                     <include refid="get_homework_where_condition"/> 
 				                     
 				                     ) homework
 				        
 				            on sb.class_name = homework.className
 				        
-				         where sb.student_id = #{studentId}
+				         where sb.class_name = #{className}
+				               
+								<if test="studentId != null and studentId != ''">
+									AND sb.STUDENT_ID = #{studentId}
+				               	</if>
+				               
+				               	<if test="studentName != null and studentName != ''">
+					               	AND sb.NAME LIKE  #{studentName}
+				               	</if>
+				        	
 				        ) hk
 				
-				  LEFT JOIN homework_archive ha
-				
-				    ON hk.baseId = ha.homework_base_id
+				  LEFT JOIN 
+
+					(
+						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
+						FROM HOMEWORK_ARCHIVE ha
+						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
+					)hat
+					
+					ON hk.baseId = hat.homework_base_id
+					AND hk.STUDENT_ID = hat.STUDENT_ID
 				    
 					<if test="status != null and status != -1">
-						WHERE ha.status = #{status}
-					</if>					    
+						WHERE hat.status is null or  hat.status = #{status}
+					</if>		    
 				
 				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			) A
@@ -142,11 +159,12 @@
 			WHERE ROWNUM &lt;= #{end}
 		)
 		
-		WHERE row_num &gt; #{pageNum}	
+		WHERE row_num &gt; #{pageNum}
+		
 	</select>
 	
 	<select id="countHomeworkByStudent" resultType="int" parameterType="homeworkBaseModel">
-		SELECT COUNT(*) FROM
+		SELECT COUNT(*) FROM 
 			(
 				select hk.baseId,
 				       hk.homeWork as name,
@@ -154,9 +172,8 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
-				       ha.homework_archive_id as homeworkArahiveId,
-				       hk.student_id          as studentId,
-				       ha.status              as STATUS,
+				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
+				       hat.status              AS STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -198,24 +215,36 @@
 				                            hb.desc_info        as description
 				                      from homework_base hb
 				                     
-				                     <include refid="get_homework_where"/>
-				                     
-				                     ) homework
+				                     <include refid="get_homework_where_condition"/> ) homework
 				        
 				            on sb.class_name = homework.className
 				        
-				         where sb.student_id = #{studentId}
+				         where sb.class_name = #{className}
+				               
+								<if test="studentId != null and studentId != ''">
+									AND sb.STUDENT_ID = #{studentId}
+				               	</if>
+				               
+				               	<if test="studentName != null and studentName != ''">
+					               	AND sb.NAME LIKE  #{studentName}
+				               	</if>
+				         			               
 				        ) hk
 				
-				  LEFT JOIN homework_archive ha
-				
-				    ON hk.baseId = ha.homework_base_id
+				  LEFT JOIN 
+				  
+					(
+						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
+						FROM HOMEWORK_ARCHIVE ha
+						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
+					)hat
+					
+					ON hk.baseId = hat.homework_base_id
+					AND hk.STUDENT_ID = hat.STUDENT_ID				  
 				    
 					<if test="status != null and status != -1">
-						WHERE ha.status = #{status}
-					</if>				    
-				
-				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
-			)
+						WHERE hat.status is null or  hat.status = #{status}
+					</if>	
+			) 	
 	</select>
 </mapper>

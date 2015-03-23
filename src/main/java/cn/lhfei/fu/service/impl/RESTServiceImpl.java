@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.orm.domain.StudentBase;
 import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.orm.mybatis.mapper.IStudentMapper;
@@ -91,6 +92,7 @@ public class RESTServiceImpl implements IRESTService {
 			homework.setPageNum(0);
 			homework.setPageSize(Integer.MAX_VALUE);
 			homework.setStudentId(studentId);
+			homework.setStatus(ApproveStatusEnum.WTJ.getCode());		
 			
 			List<HomeworkBaseModel> result = homeworkBaseService
 					.getHomeworkByStudent(homework);
