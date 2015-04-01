@@ -18,9 +18,9 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
-				       hk.student_id           as studentId,
-				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
-				       hat.status              as STATUS,
+				       ha.homework_archive_id as homeworkArahiveId,
+				       hk.student_id          as studentId,
+				       ha.status              as STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -83,22 +83,15 @@
 				               
 				        ) hk
 				
-				  LEFT JOIN 
-
-					(
-						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-						FROM HOMEWORK_ARCHIVE ha
-						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-					)hat
-					
-					ON hk.baseId = hat.homework_base_id
-					AND hk.STUDENT_ID = hat.STUDENT_ID
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
 				    
 				    <if test="status != null and status != -1">
-						WHERE hat.status = #{status}
+						WHERE ha.status = #{status}
 					</if>
 				
-				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.homeWork, hk.className, hk.studentName
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			) A
 			
 			WHERE ROWNUM &lt;= #{end}
@@ -116,8 +109,9 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
-				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
-				       hat.status              AS STATUS,
+				       ha.homework_archive_id as homeworkArahiveId,
+				       ha.student_base_id     as studentId,
+				       ha.status              AS STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -178,19 +172,12 @@
 				               </if>
 				        ) hk
 				
-				  LEFT JOIN 
-
-					(
-						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-						FROM HOMEWORK_ARCHIVE ha
-						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-					)hat
-					
-					ON hk.baseId = hat.homework_base_id
-					AND hk.STUDENT_ID = hat.STUDENT_ID
-					
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
+				    
 					<if test="status != null and status != -1">
-						WHERE hat.status = #{status}
+						WHERE ha.status = #{status}
 					</if>
 			) 
 
@@ -208,9 +195,9 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
+				       ha.homework_archive_id as homeworkArahiveId,
 				       hk.student_id          as studentId,
-				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
-				       hat.status              as STATUS,
+				       ha.status              as STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -274,22 +261,15 @@
 				               	</if>
 				        ) hk
 				
-				  LEFT JOIN 
-
-					(
-						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-						FROM HOMEWORK_ARCHIVE ha
-						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-					)hat
-					
-					ON hk.baseId = hat.homework_base_id
-					AND hk.STUDENT_ID = hat.STUDENT_ID
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
 				    
 					<if test="status != null and status != -1">
-						WHERE hat.status = #{status}
+						WHERE ha.status = #{status}
 					</if>		    
 				
-				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.homeWork, hk.className, hk.studentName
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.studentName
 			) A
 			
 			WHERE ROWNUM &lt;= #{end}
@@ -307,8 +287,9 @@
 				       hk.semester,
 				       hk.className,
 				       hk.studentName,     
-				       <!-- hat.homework_archive_id as homeworkArahiveId, -->
-				       hat.status              AS STATUS,
+				       ha.homework_archive_id as homeworkArahiveId,
+				       ha.student_base_id     as studentId,
+				       ha.status              AS STATUS,
 				       hk.operationTime,
 				       hk.actionType,
 				       hk.teacherId,
@@ -370,19 +351,12 @@
 				               	</if>				               
 				        ) hk
 				
-				  LEFT JOIN 
-				  
-					(
-						SELECT ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-						FROM HOMEWORK_ARCHIVE ha
-						GROUP BY ha.HOMEWORK_BASE_ID, ha.STUDENT_ID, ha.STATUS
-					)hat
-					
-					ON hk.baseId = hat.homework_base_id
-					AND hk.STUDENT_ID = hat.STUDENT_ID				  
+				  LEFT JOIN homework_archive ha
+				
+				    ON hk.baseId = ha.homework_base_id
 				    
 					<if test="status != null and status != -1">
-						WHERE hat.status = #{status}
+						WHERE ha.status = #{status}
 					</if>	
 			) 
 
