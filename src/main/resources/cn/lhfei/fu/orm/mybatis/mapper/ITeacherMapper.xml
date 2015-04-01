@@ -98,7 +98,7 @@
 						WHERE hat.status = #{status}
 					</if>
 				
-				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.homeWork, hk.className, hk.studentName
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.studentName, hk.homeWork, hk.className
 			) A
 			
 			WHERE ROWNUM &lt;= #{end}
@@ -289,7 +289,7 @@
 						WHERE hat.status = #{status}
 					</if>		    
 				
-				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.homeWork, hk.className, hk.studentName
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.courseName, hk.studentName, hk.homeWork, hk.className
 			) A
 			
 			WHERE ROWNUM &lt;= #{end}
