@@ -375,8 +375,8 @@ Ext.define('hwork.controller.HWController', {
                 		stateful: true,
                 		autoScroll : true,
                 		closeAction: 'hide',
-                		width: Ext.getBody().getViewSize().width*.95,
-                		height: Ext.getBody().getViewSize().height*.95,
+                		width: 980,
+                		height: 420,
                 		tools: [{type: 'pin'}],
                 		layout: {
                 			type: 'border',
@@ -475,10 +475,10 @@ Ext.define('hwork.controller.HWController', {
                     	}else {
                     		status = '0'
                     	}
-                    		form.setValues({
-                    			status: status,
-                    			approveDesc: record.extend
-                    		});
+                		form.setValues({
+                			status: status,
+                			approveDesc: record.extend
+                		});
                 	}
                 	
                     downloadWin.show();
@@ -487,5 +487,4 @@ Ext.define('hwork.controller.HWController', {
             }
         }
     }
-	
 });
