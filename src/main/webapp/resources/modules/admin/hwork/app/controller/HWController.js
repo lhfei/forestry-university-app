@@ -352,41 +352,14 @@ Ext.define('hwork.controller.HWController', {
         						archiveTotal = response.total;
         						archives = response.data;
         						
-        						archiveHTML += '<h1> 附件列表   </h1> <h3>附件总数: ' +archiveTotal+ '张.</h3>';
+        						archiveHTML += '<h1>附件总数: ' +archiveTotal+ '张.</h1>';
         						
         						for(var i=0; i<archiveTotal; i++) {
-        							archiveHTML += '<p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
+        							archiveHTML += '<h3>附件['+i+']: '+archives[i].name+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
         						}
         					}
         				}
                 	});                	
-                	
-                	/*Ext.Ajax.request({
-        				url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
-        				waitMsg: 'Loading ...',
-        				method: 'get',
-        				success: function (response, opts){
-        					var result = Ext.decode(response.responseText); 
-        					if(result.success){
-        						var total = result.total;
-        						var archives = result.data;
-        						for(var i = 0; i < total; i++) {
-        							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
-        						}
-        						
-        						downloadWin.hide();
-        					}
-        				},
-        				failure: function(response, opts){
-        					var result = Ext.decode(response.responseText); 
-        					Ext.MessageBox.alert({
-        						title: 'System Message',
-        						msg: result.message
-        					});
-        					
-        					downloadWin.hide();
-        				}
-        			});*/
                 	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
@@ -402,7 +375,7 @@ Ext.define('hwork.controller.HWController', {
                 		stateful: true,
                 		autoScroll : true,
                 		closeAction: 'hide',
-                		width: 800,
+                		width: 1024,
                 		minWidth: 350,
                 		height: 450,
                 		tools: [{type: 'pin'}],
@@ -410,6 +383,7 @@ Ext.define('hwork.controller.HWController', {
                 			type: 'border',
                 			margin: 30
                 		},
+                		defaults: {autoScroll: true},
                 		items: [{
                 			region: 'east',
                 			title: 'Navigation',
@@ -427,6 +401,7 @@ Ext.define('hwork.controller.HWController', {
                 		}, {
                 			region: 'center',
                 			xtype: 'tabpanel',
+                			defaults: {autoScroll: true},
                 			items: [{
                 				rtl: false,
                 				title: record.name,
