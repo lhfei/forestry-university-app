@@ -352,10 +352,10 @@ Ext.define('hwork.controller.HWController', {
         						archiveTotal = response.total;
         						archives = response.data;
         						
-        						archiveHTML += '<h1>附件总数: ' +archiveTotal+ '张.</h1>';
+        						archiveHTML += '<h1>作业名称: ['+record.name+'] -- 附件总张数: [' +archiveTotal+ '张]</h1>';
         						
         						for(var i=0; i<archiveTotal; i++) {
-        							archiveHTML += '<h3>附件['+i+']: '+archives[i].name+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
+        							archiveHTML += '<h3>附件['+i+']: '+archives[i].archiveName+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
         						}
         					}
         				}
@@ -375,9 +375,8 @@ Ext.define('hwork.controller.HWController', {
                 		stateful: true,
                 		autoScroll : true,
                 		closeAction: 'hide',
-                		width: 1024,
-                		minWidth: 350,
-                		height: 450,
+                		width: Ext.getBody().getViewSize().width*.95,
+                		height: Ext.getBody().getViewSize().height*.95,
                 		tools: [{type: 'pin'}],
                 		layout: {
                 			type: 'border',
@@ -414,7 +413,9 @@ Ext.define('hwork.controller.HWController', {
                 			iconCls: 'icon-download',
                 			scope: this,
                 			handler: function(){
-                				
+                				for(var i = 0; i < archiveTotal; i++) {
+        							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
+        						}
                 			}
                 		},{
                 			text: '审批',
