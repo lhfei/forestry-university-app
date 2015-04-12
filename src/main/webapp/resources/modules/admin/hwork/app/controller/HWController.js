@@ -288,6 +288,10 @@ Ext.define('hwork.controller.HWController', {
         
         var approveButtonIsValid = (record.status != '1');
         
+        var archiveTotal = 0,	// 附件总数
+        	archives = [],		// 附件路径列表
+        	archiveHTML = '';	// 附件下载链接
+        
         if(m){
             switch(m[1]){
                 case 'upload':
@@ -337,7 +341,52 @@ Ext.define('hwork.controller.HWController', {
                 	if(record.status == 0){
                 		Ext.MessageBox.alert('Status', '作业尚未上传,\r\n请先上传附件!');
                 		return false;
-                	};  
+                	};
+                	
+                	$.ajax({
+                		async: false,
+                		url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
+                		method: 'get',
+                		success: function (response){
+        					if(response.success){
+        						archiveTotal = response.total;
+        						archives = response.data;
+        						
+        						archiveHTML += '<h1> 附件列表   </h1> <h3>附件总数: ' +archiveTotal+ '张.</h3>';
+        						
+        						for(var i=0; i<archiveTotal; i++) {
+        							archiveHTML += '<p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
+        						}
+        					}
+        				}
+                	});                	
+                	
+                	/*Ext.Ajax.request({
+        				url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
+        				waitMsg: 'Loading ...',
+        				method: 'get',
+        				success: function (response, opts){
+        					var result = Ext.decode(response.responseText); 
+        					if(result.success){
+        						var total = result.total;
+        						var archives = result.data;
+        						for(var i = 0; i < total; i++) {
+        							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
+        						}
+        						
+        						downloadWin.hide();
+        					}
+        				},
+        				failure: function(response, opts){
+        					var result = Ext.decode(response.responseText); 
+        					Ext.MessageBox.alert({
+        						title: 'System Message',
+        						msg: result.message
+        					});
+        					
+        					downloadWin.hide();
+        				}
+        			});*/
                 	
                 	downloadWin = Ext.create('Ext.window.Window', {
                 		title: '<em>作业预览</em>',
@@ -381,7 +430,7 @@ Ext.define('hwork.controller.HWController', {
                 			items: [{
                 				rtl: false,
                 				title: record.name,
-                				html: '<img src="../teacher/downloadImg.do?id='+record.homeworkArahiveId+ '" style="width:100%, height: 100%" />'
+                				html: archiveHTML
                 			}]
                 		}],
                 		
@@ -390,32 +439,7 @@ Ext.define('hwork.controller.HWController', {
                 			iconCls: 'icon-download',
                 			scope: this,
                 			handler: function(){
-                				Ext.Ajax.request({
-		            				url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
-		            				waitMsg: 'Loading ...',
-		            				method: 'get',
-		            				success: function (response, opts){
-		            					var result = Ext.decode(response.responseText); 
-		            					if(result.success){
-		            						var total = result.total;
-		            						var archives = result.data;
-		            						for(var i = 0; i < total; i++) {
-		            							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
-		            						}
-		            						
-		            						downloadWin.hide();
-		            					}
-		            				},
-		            				failure: function(response, opts){
-		            					var result = Ext.decode(response.responseText); 
-		            					Ext.MessageBox.alert({
-		            						title: 'System Message',
-		            						msg: result.message
-		            					});
-		            					
-		            					downloadWin.hide();
-		            				}
-		            			});
+                				
                 			}
                 		},{
                 			text: '审批',
