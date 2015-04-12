@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="${extRoot}/shared/include-ext.js?theme=neptune"></script>
     <script type="text/javascript" src="${extRoot}/locale/ext-lang-zh_CN.js"></script>
 	
+	<script type="text/javascript" src="${basePath}/resources/easyui/jquery.min.js"></script>
 
 	<!-- Common Styles for the examples -->
 	<link rel="stylesheet" type="text/css" href="${basePath }/resources/css/btn-icon.css">
