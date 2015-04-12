@@ -414,7 +414,8 @@ Ext.define('hwork.controller.HWController', {
                 			scope: this,
                 			handler: function(){
                 				for(var i = 0; i < archiveTotal; i++) {
-        							document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
+        							//document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
+                					window.open('../teacher/downloadImg.do?id='+archives[i].id, "_blank", "toolbar=no, scrollbars=no, resizable=no");
         						}
                 			}
                 		},{
