@@ -355,7 +355,7 @@ Ext.define('hwork.controller.HWController', {
         						archiveHTML += '<h1>作业名称: ['+record.name+'] -- 附件总张数: [' +archiveTotal+ '张]</h1>';
         						
         						for(var i=0; i<archiveTotal; i++) {
-        							archiveHTML += '<h3>附件['+i+']: '+archives[i].archiveName+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width:100%, height: 100%" /></p>';
+        							archiveHTML += '<h3>附件['+i+']: '+archives[i].archiveName+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width: 40%, height: 30%" /></p>';
         						}
         					}
         				}
