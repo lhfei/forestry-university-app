@@ -41,6 +41,9 @@ public interface IComboboxMapper {
 	List<Combobox> getClassByTeacher(Map<String, Object> model);
 	
 	
+	List<Combobox> getClassByAdmin();
+	
+	
 	/**
 	 * @return
 	 */

@@ -24,6 +24,14 @@
 		order by label asc
 	</select>
 	
+		<!-- 获取教师当前学年教授的全部班级 -->
+	<select id="getClassByAdmin" resultType="combobox">
+		SELECT DISTINCT (hb.CLASS_NAME) as label 
+				
+		  FROM HOMEWORK_BASE hb
+
+		ORDER BY label ASC
+	</select>
 	
 	<select id="getAllTeacher" resultType="combobox">
 	    SELECT tb.TEACHER_NAME as label,

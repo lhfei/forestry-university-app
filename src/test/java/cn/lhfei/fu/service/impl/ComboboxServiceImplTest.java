@@ -30,6 +30,7 @@ import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.common.constant.ConstantCode;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.TeachingPeriods;
+import cn.lhfei.fu.orm.persistence.ClassBaseDAO;
 import cn.lhfei.fu.service.ComboboxService;
 import cn.lhfei.fu.service.ISystemService;
 
@@ -182,12 +183,21 @@ public class ComboboxServiceImplTest {
 	}
 	
 	@Test
+	public void extractAllCallFromHomework() {
+		comboboxService.extractAllCallFromHomework();
+	}
+	
+	@Test
 	public void batchUpdateTeacherIdByName() {
 		comboboxService.batchUpdateTeacherIdByName();
 	}
 
+	
 	@Autowired
 	private ComboboxService comboboxService;
 	@Autowired
 	private ISystemService systemService;
+	
+	@Autowired
+	private ClassBaseDAO classBaseDAO;
 }

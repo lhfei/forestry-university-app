@@ -53,6 +53,7 @@ import cn.lhfei.fu.orm.persistence.HomeworkBaseDAO;
 import cn.lhfei.fu.service.HomeworkBaseService;
 import cn.lhfei.fu.service.IFilePathBuilder;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.HomeworkConfModel;
 import cn.lhfei.fu.web.model.SearchAndCountModel;
 import cn.lhfei.fu.web.model.TeacherBaseModel;
 
@@ -69,8 +70,7 @@ import com.googlecode.genericdao.search.SearchResult;
 @Transactional
 public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(HomeworkBaseService.class);
+	private static final Logger log = LoggerFactory.getLogger(HomeworkBaseService.class);
 
 	@Override
 	public boolean save(HomeworkBase homework) {
@@ -80,9 +80,58 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 		homework.setCreateTime(currentDate);
 		homework.setModifyTime(currentDate);
 		homework.setOperationTime(currentDate);
-//		homework.setStatus("" + ApproveStatusEnum.WTJ.getCode());
+		// homework.setStatus("" + ApproveStatusEnum.WTJ.getCode());
 
 		return homeworkBaseDAO.save(homework);
+	}
+	
+	@Override
+	public void create(HomeworkConfModel confModel) throws Exception {
+		Date currentDate = new Date();
+		
+		List<String> courseIds = confModel.getCourseId();
+		List<String> classIds = confModel.getClassId();
+		List<String> teacherIds = confModel.getTeacherId();
+		List<String> teacherNames = confModel.getTeacherName();
+		
+		for(String courseId : courseIds) {
+			for(String classId : classIds){
+				for(int i = 0; i < teacherIds.size(); i++){
+					String teacherId = teacherIds.get(i);
+					
+					HomeworkBase homework = new HomeworkBase ();
+					
+					homework.setAcademicYear(confModel.getAcademicYear());
+					homework.setSemester(confModel.getSemester());
+					homework.setName(confModel.getName());
+					homework.setDesc(confModel.getDesc());
+					
+					homework.setCourseName(courseId);
+					homework.setCourseCode(courseId);
+					homework.setClassName(classId);
+					homework.setTeacherId(teacherId);
+					homework.setTeacherName(teacherNames.get(i));
+					homework.setStatus("" +ApproveStatusEnum.DSH.getCode());
+					
+					homework.setActionType("" + OperationTypeEnum.XJ.getCode());
+					homework.setCreateTime(currentDate);
+					homework.setModifyTime(currentDate);
+					homework.setOperationTime(currentDate);
+					
+					homeworkBaseDAO.save(homework);
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public List<HomeworkBaseModel> getLatestHomework() throws Exception {
+		List<HomeworkBaseModel> list = new ArrayList<HomeworkBaseModel>();
+		
+		list = teacherMapper.getLatestHomework();
+		
+		return list;
 	}
 
 	@Override
@@ -129,6 +178,7 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	@Override
 	public boolean update(HomeworkBaseModel model, String userType) throws NullPointerException {
 		OutputStream out = null;
+		BufferedOutputStream bf = null;
 		Date currentTime = new Date();
 
 		List<MultipartFile> files = model.getFiles();
@@ -159,7 +209,7 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 					
 					out = new FileOutputStream(new File(fullPath));
 					
-					BufferedOutputStream bf = new BufferedOutputStream(out);
+					bf = new BufferedOutputStream(out);
 					
 					IOUtils.copyLarge(file.getInputStream(), bf);
 					
@@ -198,6 +248,23 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 			log.error("File name arguments missed.", e);
 
 			throw new NullPointerException(e.getMessage());
+		} finally {
+			if(out != null){
+				try {
+					out.flush();
+					out.close();
+				} catch (IOException e) {
+					log.error(e.getMessage(), e);
+				}
+			}
+			if(bf != null){
+				try {
+					bf.flush();
+					bf.close();
+				} catch (IOException e) {
+					log.error(e.getMessage(), e);
+				}
+			}
 		}
 
 		return false;
@@ -359,5 +426,4 @@ public class HomeworkBaseServiceImpl implements HomeworkBaseService {
 	
 	@Autowired
 	private IExcelFactoryMapper excelFactoryMapper;
-
 }

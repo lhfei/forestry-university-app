@@ -6,6 +6,34 @@
 	
 	<!-- <cache /> -->
 
+	<!-- 作业列表 where 条件 -->
+	<sql id="get_homework_where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="teacherId != null  and teacherId != ''">
+				hb.TEACHER_ID = #{teacherId}
+			</if>
+			
+			<if test="academicYear != null and academicYear != '-1'">
+				AND hb.academic_year = #{academicYear}
+			</if>
+			
+			<if test="semester != null and semester != '-1'">
+				AND hb.semester = #{semester}
+			</if>	
+					
+			<if test="courseName != null and courseName != '-1'">
+				AND hb.course_name = #{courseName}
+			</if>			
+			
+			<if test="className != null and className != '-1'">
+				AND hb.class_name = #{className}
+			</if>
+			<if test="name != null and name != ''">
+				AND hb.hw_name like  #{name}
+			</if>
+		</trim>	
+	</sql>
+
 	<!-- Admin -->
 	<select id="getHomeworkByAdmin" resultType="homeworkBaseModel" parameterType="homeworkBaseModel">
 		SELECT * FROM 
@@ -404,34 +432,28 @@
 	</update>
 	
 	
-	
-	<!-- 作业列表 where 条件 -->
-	<sql id="get_homework_where_condition">
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="teacherId != null  and teacherId != ''">
-				hb.TEACHER_ID = #{teacherId}
-			</if>
-			
-			<if test="academicYear != null and academicYear != '-1'">
-				AND hb.academic_year = #{academicYear}
-			</if>
-			
-			<if test="semester != null and semester != '-1'">
-				AND hb.semester = #{semester}
-			</if>	
-					
-			<if test="courseName != null and courseName != '-1'">
-				AND hb.course_name = #{courseName}
-			</if>			
-			
-			<if test="className != null and className != '-1'">
-				AND hb.class_name = #{className}
-			</if>
-			<if test="name != null and name != ''">
-				AND hb.hw_name like  #{name}
-			</if>
-		</trim>	
-	</sql>
+	<select id="getLatestHomework" resultType="homeworkBaseModel">
+	    SELECT hb.HOMEWORK_BASE_ID as baseId,
+	           hb.HW_NAME          as name,
+	           hb.ACADEMIC_YEAR    as academicYear,
+	           hb.SEMESTER         as semester,
+	           hb.OPERATION_TIME   as operationTime,
+	           hb.ACTION_TYPE      as actionType,
+	           hb.TEACHER_ID       as teacherId,
+	           hb.TEACHER_NAME     as teacherName,
+	           hb.MODIFY_TIME      as modifyTime,
+	           hb.CREATE_TIME      as createTime,
+	           hb.EXTEND           as extend,
+	           hb.EXTEND1          as extend1,
+	           hb.CLASS_NAME       as className,
+	           hb.COURSE_CODE      as courseCode,
+	           hb.COURSE_NAME      as courseName,
+	           hb.MAJOR_CODE       as majorCode,
+	           hb.MAJOR_NAME       as majorName,
+	           hb.DESC_INFO        as description
+	           
+	      FROM HOMEWORK_BASE hb	
+	</select>
 	
 	
 	

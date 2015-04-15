@@ -70,6 +70,8 @@ public class CourseBaseModel extends AbstractPaginationModel {
 			search.addFilterEqual("semester", semester.trim());
 		}
 		
+		search.addSortAsc("courseName");
+		
 		return search;
 	}
 	

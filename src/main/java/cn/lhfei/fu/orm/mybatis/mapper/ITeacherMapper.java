@@ -30,6 +30,8 @@ import cn.lhfei.fu.web.model.HomeworkBaseModel;
 
 public interface ITeacherMapper {
 
+	List<HomeworkBaseModel> getLatestHomework() throws Exception;
+	
 	List<HomeworkBaseModel> getHomeworkByTeacher(HomeworkBaseModel homeworkBaseModel);
 	
 	List<HomeworkBaseModel> getHomeworkByAdmin(HomeworkBaseModel homeworkBaseModel);

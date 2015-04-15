@@ -15,6 +15,10 @@
  */
 package cn.lhfei.fu.service;
 
+import java.util.List;
+
+import cn.lhfei.fu.orm.domain.TeacherBase;
+
 /**
  * @version 1.0.0
  *
@@ -25,4 +29,5 @@ package cn.lhfei.fu.service;
 
 public interface TeacherService {
 
+	List<TeacherBase> findAll();
 }

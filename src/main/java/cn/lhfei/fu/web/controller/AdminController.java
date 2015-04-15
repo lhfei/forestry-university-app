@@ -15,6 +15,7 @@
  */
 package cn.lhfei.fu.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -30,16 +31,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.lhfei.fu.orm.domain.ApproveStatus;
+import cn.lhfei.fu.orm.domain.ClassBase;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.CourseBase;
+import cn.lhfei.fu.orm.domain.TeacherBase;
 import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.service.ComboboxService;
 import cn.lhfei.fu.service.CourseService;
 import cn.lhfei.fu.service.HomeworkArchiveService;
 import cn.lhfei.fu.service.HomeworkBaseService;
 import cn.lhfei.fu.service.ISystemService;
+import cn.lhfei.fu.service.TeacherService;
 import cn.lhfei.fu.web.model.CourseBaseModel;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.HomeworkConfModel;
+import cn.lhfei.fu.web.model.SearchAndCountModel;
 import cn.lhfei.identity.util.JSONReturn;
 import cn.lhfei.identity.web.model.JsonReturnModel;
 
@@ -285,13 +291,233 @@ public class AdminController extends AbstractController {
 		return view;
 	}
 	
+	/**
+	 * 课程设置 </p>
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/courseCof", method = RequestMethod.GET)
 	public ModelAndView courseCof() {
 		ModelAndView view = new ModelAndView("admin/course/courseCof");
 		
+		List<Combobox> xnList = comboboxService.getCombobo(XN);
+		List<Combobox> xqList = comboboxService.getCombobo(XQ);
+		view.addObject(XN, xnList);
+		view.addObject(XQ, xqList);
+		
 		return view;
 	}
 	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // Combobox remote data handler. 
+	// ///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 读取课程列表</p>
+	 * 
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping(value = "/readCourse")
+	public @ResponseBody SearchAndCountModel<CourseBase> readCourse(
+			@RequestParam(required = false) int start, @RequestParam(required = false) int limit) {
+		SearchAndCountModel<CourseBase> json = new SearchAndCountModel<CourseBase>();
+		CourseBaseModel model = new CourseBaseModel();
+		model.setPageNum(start);
+		model.setPageSize(limit);
+		
+		try {
+			SearchResult<CourseBase> result = courseService.read(model);
+			
+			json.setRows(result.getResult());
+			json.setTotal(result.getTotalCount());
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			json.setTotal(0);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/readClass")
+	public @ResponseBody SearchAndCountModel<ClassBase> readClass(HttpSession session,
+			@RequestParam(required = false) int start, @RequestParam(required = false) int limit) {
+		
+		SearchAndCountModel<ClassBase> json = new SearchAndCountModel<ClassBase>();
+		
+		try {
+			
+			List<ClassBase> classList = comboboxService.getAllClass();
+			
+			json.setRows(classList);
+			json.setTotal(classList.size());
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			json.setTotal(0);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/readTeacher")
+	public @ResponseBody SearchAndCountModel<TeacherBase> readTeacher(HttpSession session,
+			@RequestParam(required = false) int start, @RequestParam(required = false) int limit) {
+		
+		SearchAndCountModel<TeacherBase> json = new SearchAndCountModel<TeacherBase>();
+		
+		try {
+			
+			List<TeacherBase> classList = teacherService.findAll();
+			
+			json.setRows(classList);
+			json.setTotal(classList.size());
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			json.setTotal(0);
+		}
+		
+		return json;
+	}
+	
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // Combobox remote data handler. -- End
+	// ///////////////////////////////////////////////////////////////////////////////
+	
+	
+	@RequestMapping(value = "/createHomework", method = RequestMethod.GET,produces = "application/json")
+	public Map<String, Object> createHomework(HttpSession session,	
+			@RequestParam("academicYear") String academicYear,		// 
+			@RequestParam("semester") String semester,				// 
+			@RequestParam("name") String name,						// 
+			@RequestParam("desc") String desc,						//  
+			@RequestParam("courseId") String courseId,				// 
+			@RequestParam("classId") String classId,				// 
+			@RequestParam("teacherId") String teacherId,
+			@RequestParam("teacherName") String teacherName) {
+		
+		try {
+			HomeworkConfModel confModel = new HomeworkConfModel();
+			confModel.setAcademicYear(academicYear);
+			confModel.setSemester(semester);
+			confModel.setName(name);
+			confModel.setDesc(desc);
+			confModel.setCourseId(Arrays.asList(courseId.split(",")));
+			confModel.setClassId(Arrays.asList(classId.split(",")));
+			confModel.setTeacherId(Arrays.asList(teacherId.split(",")));
+			confModel.setTeacherName(Arrays.asList(teacherName.split(",")));
+			
+			homeworkBaseService.create(confModel);
+			
+			return JSONReturn.mapOK("\u5ba1\u6279\u6210\u529f!");
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			
+			return JSONReturn.mapError("\u5ba1\u6279\u5931\u8d25!"); 
+		}
+	}
+	
+	@RequestMapping(value = "/getLatestHomework")
+	public @ResponseBody SearchAndCountModel<HomeworkBaseModel> getLatestHomework(HttpSession session,
+			@RequestParam(required = false) int start, @RequestParam(required = false) int limit) {
+		
+		SearchAndCountModel<HomeworkBaseModel> json = new SearchAndCountModel<HomeworkBaseModel>();
+		
+		try {
+			
+			List<HomeworkBaseModel> classList = homeworkBaseService.getLatestHomework();
+			
+			json.setRows(classList);
+			json.setTotal(classList.size());
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			json.setTotal(0);
+		}
+		
+		return json;
+	}
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // 论文管理. -- Start													++++++++++
+	// ///////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="/thesiskRead", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JsonReturnModel<HomeworkBaseModel> thesiskRead(
+			@RequestParam("academicYear")String academicYear,
+			@RequestParam("semester")String semester,
+			@RequestParam("courseName")String courseName,
+			@RequestParam("className")String className,
+			@RequestParam("name")String name,
+			@RequestParam("status")Integer status,
+			@RequestParam("studentId")String studentId,
+			@RequestParam("studentName")String studentName,
+			@RequestParam("start")int start,
+			@RequestParam("page")int page,
+			@RequestParam("limit")int limit, HttpSession session) throws Exception {
+		
+		//UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
+		
+		TeachingPeriods period = (TeachingPeriods)session.getAttribute(CURRENT_ACADEMICYEAR_SEMESTER);
+		
+		
+		if(null != name && name.trim().length() > 0){
+			name = "%" +name+ "%";
+		} 
+		if(null != studentName && studentName.trim().length() > 0){
+			studentName = "%" +studentName+ "%";
+		} 
+		
+		HomeworkBaseModel homework = new HomeworkBaseModel();
+		homework.setClassName(className);
+		homework.setCourseName(courseName);
+		homework.setName(name);
+		homework.setStatus(status);
+		homework.setStudentId(studentId);
+		homework.setStudentName(studentName);
+		homework.setPageNum(start);
+		homework.setPageSize(limit);
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(academicYear)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setAcademicYear(period.getAcademicYear());
+			}
+		}else {		
+			homework.setAcademicYear(academicYear);
+		}
+		
+		if(COMBOBOX_DEFAULT_VALUE.equals(semester)){
+			if(period == null) {
+				period = systemService.searchCurrentTeachingPeriods();
+				homework.setSemester(period.getSemester());;
+			}
+		}else{			
+			homework.setSemester(semester);
+		}
+		
+		// very impotent!
+		homework.setTeacherId(null);
+		
+		JsonReturnModel<HomeworkBaseModel> json = new JsonReturnModel<HomeworkBaseModel>();
+		
+		json.setResult(true);
+		
+		List<HomeworkBaseModel> result = homeworkBaseService.getHomeworkByAdmin(homework);
+		int total = homeworkBaseService.countHomeworkByAdmin(homework);
+		
+		json.setTotal(total);
+		json.setRows(result);
+		
+		return json;	
+		
+	}		
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // 论文管理. -- End														++++++++++
+	// ///////////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
 	private CourseService courseService;
@@ -301,6 +527,9 @@ public class AdminController extends AbstractController {
 	
 	@Autowired
 	private ISystemService systemService;
+	
+	@Autowired
+	private TeacherService teacherService;
 	
 	@Autowired
 	private HomeworkBaseService homeworkBaseService;

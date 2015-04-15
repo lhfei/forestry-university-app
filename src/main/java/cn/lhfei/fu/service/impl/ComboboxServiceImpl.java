@@ -157,6 +157,24 @@ public class ComboboxServiceImpl implements ComboboxService {
 		
 		return comboboxMapper.getClassByTeacher(model);
 	}
+	
+	@Override
+	public List<Combobox> getClassByAdmin() {
+		List<Combobox> list = new ArrayList<Combobox>();
+		list = comboboxMapper.getClassByAdmin();
+		
+		return list;
+	}
+	
+	@Override
+	public List<ClassBase> getAllClass() {
+		List<ClassBase> list = new ArrayList<ClassBase>();
+		
+		list = classBaseDAO.findAll();
+		
+		return list;
+		
+	}
 
 	@Override
 	public List<Combobox> getAllTeacher() {
@@ -177,6 +195,20 @@ public class ComboboxServiceImpl implements ComboboxService {
 			map.put("teacherName", teacher.getLabel());
 			
 			this.updateTeacherIdByName(map);
+		}
+	}
+	
+	@Override
+	public void extractAllCallFromHomework() {
+		List<Combobox> classList = this.getClassByAdmin();
+		
+		log.info("Length: {}", classList.size());
+		
+		for(Combobox combobox : classList){
+			ClassBase entity = new ClassBase();
+			entity.setClassName(combobox.getLabel());
+			
+			classBaseDAO.save(entity);
 		}
 	}
 	

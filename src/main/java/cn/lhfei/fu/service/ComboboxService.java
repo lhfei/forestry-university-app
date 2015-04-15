@@ -81,6 +81,11 @@ public interface ComboboxService {
 	 */
 	List<Combobox> getClassByTeacher(String teacherId, TeachingPeriods teachingPeriod);
 	
+	/**
+	 * @return
+	 */
+	List<Combobox> getClassByAdmin();
+	
 	void createCombobox(Combobox combobox);
 	
 	
@@ -104,5 +109,14 @@ public interface ComboboxService {
 	 */
 	void batchUpdateTeacherIdByName();
 	
+	/**
+	 * @return
+	 */
+	List<ClassBase> getAllClass();
+	
+	/**
+	 * 
+	 */
+	void extractAllCallFromHomework();
 	
 }

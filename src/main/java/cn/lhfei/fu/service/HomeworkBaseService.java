@@ -19,6 +19,7 @@ import java.util.List;
 
 import cn.lhfei.fu.orm.domain.HomeworkBase;
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.HomeworkConfModel;
 import cn.lhfei.fu.web.model.SearchAndCountModel;
 
 import com.googlecode.genericdao.search.SearchResult;
@@ -34,6 +35,10 @@ import com.googlecode.genericdao.search.SearchResult;
 public interface HomeworkBaseService {
 
 	boolean save(HomeworkBase role);
+	
+	void create(HomeworkConfModel confModel) throws Exception ;
+	
+	List<HomeworkBaseModel> getLatestHomework() throws Exception ;
 
 	List<HomeworkBase> findAll(HomeworkBaseModel homeworkModel);
 

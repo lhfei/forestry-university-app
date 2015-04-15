@@ -15,10 +15,14 @@
  */
 package cn.lhfei.fu.web.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.SimpleExpression;
 
+import cn.lhfei.identity.web.convert.JsonDateSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.ISearch;
 
@@ -44,8 +48,19 @@ public class ThesisBaseModel extends AbstractPaginationModel {
 
 	@Override
 	public List<SimpleExpression> wrapperFilter() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	private Integer baseId;
+	private String origin; // '论文来源，枚举值包括： [ 科研（1）生产（2） 模拟（3）其它（0）]
+	private String thesisTitle; // '论文标题thesis'
+	@JsonSerialize(using=JsonDateSerializer.class)
+	private Date operationTime;
+	private String actionType; // '操作类型,枚举值包括【上传|下载|批量上传|批量下载|审核|修改】'
+	private String thesisType; // '论文类别，枚举值包括： [ 设计（0） 论文（1） ]',
+	private String teacherId; // 教师编号
+	private String teacherName; // 教师姓名
+	private String desc;
 
 }

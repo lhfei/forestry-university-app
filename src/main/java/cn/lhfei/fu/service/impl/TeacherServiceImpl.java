@@ -15,11 +15,18 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.lhfei.fu.orm.domain.TeacherBase;
+import cn.lhfei.fu.orm.persistence.TeacherBaseDAO;
 import cn.lhfei.fu.service.TeacherService;
+
+import com.googlecode.genericdao.search.Search;
 
 /**
  * @version 1.0.0
@@ -32,4 +39,16 @@ import cn.lhfei.fu.service.TeacherService;
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
 
+	@Override
+	public List<TeacherBase> findAll() {
+		Search search = new Search();
+		search.setSearchClass(TeacherBase.class);
+		
+		search.addSortAsc("teacherName");
+		
+		return teacherBaseDAO.search(search);
+	}
+
+	@Autowired
+	private TeacherBaseDAO teacherBaseDAO;
 }
