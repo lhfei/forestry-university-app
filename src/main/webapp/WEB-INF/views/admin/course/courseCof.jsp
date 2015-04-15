@@ -259,7 +259,7 @@
 	        
 	        items: [{
 	            xtype:'fieldset',
-	            title: 'Phone Number',
+	            title: '作业基本信息',
 	            collapsible: true,
 	            defaultType: 'textfield',
 	            layout: 'anchor',
