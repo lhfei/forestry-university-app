@@ -16,6 +16,7 @@
 package cn.lhfei.fu.service;
 
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.ThesisBaseModel;
 
 /**
  * @version 1.0.0
@@ -56,5 +57,38 @@ public interface IFilePathBuilder {
 	 */
 	String buildFilePath(HomeworkBaseModel model, String studentName);
 
+	/**
+	 * Make homework archives persistence full directory.
+	 * @param model
+	 * @param studentName
+	 * @return
+	 * @throws NullPointerException
+	 */
 	String buildFullPath(HomeworkBaseModel model, String studentName) throws NullPointerException;
+	
+	
+	// ======================== Thesis =============================
+	
+	/**
+	 * @param model
+	 * @param studentName
+	 * @param num
+	 * @return
+	 */
+	String buildThesisFileName(ThesisBaseModel model, String studentName, int num);
+	
+	/**
+	 * @param model
+	 * @param studentName
+	 * @return
+	 */
+	String buildThesisFilePath(ThesisBaseModel model, String studentName);
+	
+	/**
+	 * @param model
+	 * @param studentName
+	 * @return
+	 * @throws NullPointerException
+	 */
+	String buildThesisFullPath(ThesisBaseModel model, String studentName) throws NullPointerException;
 }

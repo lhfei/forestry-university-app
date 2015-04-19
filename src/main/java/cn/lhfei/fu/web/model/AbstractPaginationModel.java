@@ -36,14 +36,14 @@ import com.googlecode.genericdao.search.ISearch;
 
 public abstract class AbstractPaginationModel {
 	
+	
+	public abstract ISearch buildSearch();
+	
 	/**
 	 * @deprecated
 	 * @return
 	 */
 	public abstract List<Filter> getFilters();
-	
-	public abstract ISearch buildSearch();
-	
 	
 	/**
 	 * @deprecated

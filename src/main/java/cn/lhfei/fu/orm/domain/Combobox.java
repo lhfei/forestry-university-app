@@ -15,6 +15,8 @@
  */
 package cn.lhfei.fu.orm.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
@@ -34,7 +36,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "COMBOBOX")
 @Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
-public class Combobox {
+public class Combobox implements Serializable {
+
+	private static final long serialVersionUID = -5995674253511279896L;
 
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)

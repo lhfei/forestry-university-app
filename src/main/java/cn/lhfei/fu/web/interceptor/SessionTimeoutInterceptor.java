@@ -48,8 +48,10 @@ public class SessionTimeoutInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		UserSession userSession = (UserSession)session.getAttribute(AbstractController.USER_SESSION);
 		
+		log.info("Request URL: {}", request.getRequestURL());
+		
 		if(userSession == null){
-			response.sendRedirect("login.do");
+			response.sendRedirect("../system/login.do");
 			
 			log.info("Session expired. Then will redirect to home page.");
 			

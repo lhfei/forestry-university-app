@@ -15,6 +15,10 @@
  */
 package cn.lhfei.fu.service;
 
+import java.util.List;
+
+import cn.lhfei.fu.orm.domain.ThesisArchive;
+
 /**
  * @version 1.0.0
  *
@@ -24,5 +28,17 @@ package cn.lhfei.fu.service;
  */
 
 public interface ThesisArchiveService {
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	ThesisArchive read(Integer id);
 
+	/**
+	 * @param thesisBaseId
+	 * @param studentId
+	 * @return
+	 */
+	List<ThesisArchive> findArchive(String thesisBaseId, String studentId);
 }

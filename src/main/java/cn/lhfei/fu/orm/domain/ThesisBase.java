@@ -19,8 +19,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -35,8 +37,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "THESIS_BASE")
 public class ThesisBase extends AbstractEntity {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(sequenceName="SEQ_THESIS_BASE", name = "SEQ_THESIS_BASE")
 	@Column(name = "THESIS_BASE_ID")
 	private Integer id;
 
@@ -45,6 +51,9 @@ public class ThesisBase extends AbstractEntity {
 
 	@Column(name = "THESIS_TITLE")
 	private String thesisTitle; // '论文标题thesis'
+	
+	@Column(name = "THESIS_EN_TITLE")
+	private String thesisEnTitle; // '论文英文标题thesis'
 
 	@Column(name = "OPERATION_TIME")
 	private Date operationTime;
@@ -54,15 +63,39 @@ public class ThesisBase extends AbstractEntity {
 
 	@Column(name = "THESIS_TYPE")
 	private String thesisType; // '论文类别，枚举值包括： [ 设计（0） 论文（1） ]',
+	
+	@Column(name = "STUDENT_NAME")
+	private String studentName; // '学生姓名',
+	
+	@Column(name = "STUDENT_ID")
+	private String studentId; // '学生编号',
 
 	@Column(name = "TEACHER_ID")
 	private String teacherId; // 教师编号
 
 	@Column(name = "TEACHER_NAME")
 	private String teacherName; // 教师姓名
+	
+	@Column(name = "DEGREE")
+	private int degree;			//学历
+	
+	@Column(name = "ACADEMIC_YEAR")
+	private String academicYear; // '学年 academic year'
+
+	@Column(name = "SEMESTER")
+	private String semester; // '学期(semester)'
+	
+	@Column(name = "CLASS_NAME")
+	private String className; // '班级名称'
 
 	@Column(name = "DESC_INFO")
 	private String desc;
+	
+	@Column(name = "TEACHER_TITLE")
+	private String teacherTitle;
+	
+	@Column(name = "SCORE")
+	private String score;
 
 	public Integer getId() {
 		return id;
@@ -86,6 +119,14 @@ public class ThesisBase extends AbstractEntity {
 
 	public void setThesisTitle(String thesisTitle) {
 		this.thesisTitle = thesisTitle;
+	}
+
+	public String getThesisEnTitle() {
+		return thesisEnTitle;
+	}
+
+	public void setThesisEnTitle(String thesisEnTitle) {
+		this.thesisEnTitle = thesisEnTitle;
 	}
 
 	public Date getOperationTime() {
@@ -112,6 +153,22 @@ public class ThesisBase extends AbstractEntity {
 		this.thesisType = thesisType;
 	}
 
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
 	public String getTeacherId() {
 		return teacherId;
 	}
@@ -128,6 +185,38 @@ public class ThesisBase extends AbstractEntity {
 		this.teacherName = teacherName;
 	}
 
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
+	public String getAcademicYear() {
+		return academicYear;
+	}
+
+	public void setAcademicYear(String academicYear) {
+		this.academicYear = academicYear;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
 	public String getDesc() {
 		return desc;
 	}
@@ -136,4 +225,19 @@ public class ThesisBase extends AbstractEntity {
 		this.desc = desc;
 	}
 
+	public String getTeacherTitle() {
+		return teacherTitle;
+	}
+
+	public void setTeacherTitle(String teacherTitle) {
+		this.teacherTitle = teacherTitle;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
 }

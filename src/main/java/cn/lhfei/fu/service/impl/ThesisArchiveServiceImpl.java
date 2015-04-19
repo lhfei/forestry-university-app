@@ -15,13 +15,18 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.lhfei.fu.orm.domain.ThesisArchive;
 import cn.lhfei.fu.orm.persistence.ThesisArchiveDAO;
 import cn.lhfei.fu.service.ThesisArchiveService;
+
+import com.googlecode.genericdao.search.Search;
 
 /**
  * @version 1.0.0
@@ -34,8 +39,26 @@ import cn.lhfei.fu.service.ThesisArchiveService;
 @Transactional
 public class ThesisArchiveServiceImpl implements ThesisArchiveService {
 
+	@Override
+	public List<ThesisArchive> findArchive(String thesisBaseId, String studentId) {
+		Search search = new Search();
+		search.setSearchClass(ThesisArchive.class);
+		
+		search.addFilterEqual("thesisBaseId", thesisBaseId);
+		search.addFilterEqual("studentId", studentId);
+		
+		return thesisArchiveDAO.search(search);
+	}
 	
+	@Override
+	public ThesisArchive read(Integer id) {
+		return thesisArchiveDAO.find(id);
+	}
 	
 	@Autowired
-	private  ThesisArchiveDAO  thesisArchive;
+	private  ThesisArchiveDAO  thesisArchiveDAO;
+
+
+
+
 }

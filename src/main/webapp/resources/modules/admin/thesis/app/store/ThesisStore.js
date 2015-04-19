@@ -1,13 +1,13 @@
-Ext.define('hwork.store.HWStore', {
+Ext.define('thesis.store.ThesisStore', {
     extend: 'Ext.data.Store',
-    alias: 'widget.hwStore',
-    model: 'hwork.model.HWModel',
+    alias: 'widget.thesisStore',
+    model: 'thesis.model.ThesisModel',
     autoLoad: true,
     pageSize: 10,
     proxy: {
         type: 'ajax',
         api: {
-        	read: 'homeworkRead.do',
+        	read: 'thesisRead.do',
             update: 'data/updateUsers.json'
         },
         reader: {

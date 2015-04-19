@@ -34,4 +34,29 @@ public final class ConstantCode {
 	 * 学期<code>code</code>编码
 	 */
 	public static final String XQ_CODE = "XQ";
+	
+	/**
+	 * 全部课程列表
+	 */
+	public static final String KC_CODE = "KC";
+	
+	/**
+	 * 教师当前学年教授的全部班级
+	 */
+	public static final String BJ_CODE = "CLASS";
+	
+	/**
+	 * 教师当前学年教授的全部班级名称
+	 */
+	public static final String BJMC_CODE = "className";
+	
+	/**
+	 * 用户类型
+	 */
+	public static final String YHLX_CODE = "userType";
+	
+	/**
+	 * 用户<tt>ID</tt>
+	 */
+	public static final String YHID_CODE = "userId";
 }

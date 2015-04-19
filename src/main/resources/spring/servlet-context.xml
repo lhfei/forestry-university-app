@@ -37,6 +37,7 @@
 			
 			<mvc:exclude-mapping path="/system/login.do" />
 			<mvc:exclude-mapping path="/teacher/downloadImg.do" />
+			<mvc:exclude-mapping path="/admin/thesisRead.do" />
 			
 			<mvc:exclude-mapping path="/rest/**" />
 			<mvc:exclude-mapping path="/resources/**" />

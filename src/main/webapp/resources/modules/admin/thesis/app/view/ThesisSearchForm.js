@@ -15,22 +15,6 @@ var s_academicYear = Ext.create('Ext.form.field.ComboBox', {
     forceSelection: true
 });
 
-var s_semester = Ext.create('Ext.form.field.ComboBox', {
-    typeAhead: true,
-    transform: 's_semester',
-    fieldLabel: '学期',
-    labelWidth:  60,
-    forceSelection: true
-});
-
-var s_courseName = Ext.create('Ext.form.field.ComboBox', {
-    typeAhead: true,
-    transform: 's_courseName',
-    fieldLabel: '课程名称',
-    labelWidth:  60,
-    forceSelection: true
-});
-
 var s_className = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
     fieldLabel: '班级名称',
@@ -39,9 +23,33 @@ var s_className = Ext.create('Ext.form.field.ComboBox', {
     forceSelection: true
 });
 
+var s_thesisType = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 's_thesisType',
+    fieldLabel: '论文类型',
+    labelWidth:  60,
+    forceSelection: true
+});
+
+var s_origin = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 's_origin',
+    fieldLabel: '论文来源',
+    labelWidth:  60,
+    forceSelection: true
+});
+
+var s_degree = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    fieldLabel: '学科阶段',
+    transform: 's_degree',
+    labelWidth:  60,
+    forceSelection: true
+});
+
 var s_status = Ext.create('Ext.form.field.ComboBox', {
     typeAhead: true,
-    fieldLabel: '作业状态',
+    fieldLabel: '论文状态',
     transform: 's_status',
     labelWidth:  60,
     forceSelection: true
@@ -49,9 +57,9 @@ var s_status = Ext.create('Ext.form.field.ComboBox', {
 
 // =============================================================
 
-Ext.define('hwork.view.HWSearchForm', {
+Ext.define('thesis.view.ThesisSearchForm', {
 	extend: 'Ext.form.Panel',
-	alias: 'widget.hwSearchForm',
+	alias: 'widget.thesisSearchForm',
 	
 	frame: true,
 	width: '100%',
@@ -83,16 +91,16 @@ Ext.define('hwork.view.HWSearchForm', {
         	items: [s_academicYear]
         },{
         	anchor: '-5',
-        	items: [s_semester]
+        	items: [s_className]
         }]
     },{
     	padding: '3 3 3 3',
         items: [{
         	anchor: '-5',
-        	items: [s_courseName]
+        	items: [s_thesisType]
         },{
         	anchor: '-5',
-        	items: [s_className]
+        	items: [s_origin]
         }]
     },{
     	padding: '3 3 3 3',
@@ -101,11 +109,7 @@ Ext.define('hwork.view.HWSearchForm', {
         	items: [s_status]
         },{
         	anchor: '-5',
-            xtype: 'textfield',
-            labelWidth: 65,
-            labelAlign: 'left',
-            fieldLabel: '作业名称',
-            name: 'name'
+        	items: [s_degree]
         }]    	
     },{
     	padding: '3 3 3 3',
@@ -113,9 +117,9 @@ Ext.define('hwork.view.HWSearchForm', {
         items: [{
             xtype: 'textfield',
             labelWidth: 60,
-            fieldLabel: '学生编号',
+            fieldLabel: '论文标题',
             anchor: '100%',
-            name: 'studentId'
+            name: 'thesisTitle'
         },{
         	xtype: 'textfield',
             labelWidth: 60,

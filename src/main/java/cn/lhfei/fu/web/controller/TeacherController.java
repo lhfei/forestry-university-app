@@ -203,7 +203,7 @@ public class TeacherController extends AbstractController {
 		
 		String userType = (String)session.getAttribute(USER_TYPE);
 		
-		UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
+		//UserSession userSession = (UserSession)session.getAttribute(USER_SESSION);
 		
 		//uploadForm.setStudentId(userSession.getUser().getUserId());
 		//uploadForm.setStudentName(userSession.getUser().getUserName());
@@ -294,7 +294,8 @@ public class TeacherController extends AbstractController {
 				response.flushBuffer();
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException("IOError writing file to output stream");
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException("IOError writing file to output stream", ex);
 		}
 	}
 	

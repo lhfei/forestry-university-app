@@ -38,6 +38,14 @@ public class TeacherBaseModel {
 		this.teacherName = teacherName;
 	}
 	
+	public String getTeacherTitle() {
+		return teacherTitle;
+	}
+	public void setTeacherTitle(String teacherTitle) {
+		this.teacherTitle = teacherTitle;
+	}
+
 	private String teacherId;
 	private String teacherName;
+	private String teacherTitle;
 }

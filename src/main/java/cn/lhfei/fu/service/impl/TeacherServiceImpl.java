@@ -15,7 +15,9 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.lhfei.fu.orm.domain.TeacherBase;
+import cn.lhfei.fu.orm.mybatis.mapper.ITeacherMapper;
 import cn.lhfei.fu.orm.persistence.TeacherBaseDAO;
 import cn.lhfei.fu.service.TeacherService;
 
@@ -38,6 +41,15 @@ import com.googlecode.genericdao.search.Search;
 @Service("teacherService")
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
+	
+	@Override
+	public void updateTeacherTitle(String teacherId, String teacherTitle) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("teacherId", teacherId);
+		map.put("teacherTitle", teacherTitle);
+		
+		teacherMapper.updateTeacherTitle(map);
+	}
 
 	@Override
 	public List<TeacherBase> findAll() {
@@ -51,4 +63,8 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Autowired
 	private TeacherBaseDAO teacherBaseDAO;
+	
+	@Autowired
+	private ITeacherMapper teacherMapper;
+
 }

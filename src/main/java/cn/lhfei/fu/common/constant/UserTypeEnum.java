@@ -31,13 +31,17 @@ public enum UserTypeEnum implements AbstractDictEnum<String> {
 	
 	STUDENT("2", "\u5b66\u751f");
 	
+	/**
+	 * 数据库<tt>KEY</tt>值
+	 */
+	public static final String ENUM_KEY = "YHLX";
 	
 	UserTypeEnum(String userType, String label) {
 		this.userType = userType;
 	}
 	
 	@Override
-	public String getLabel(int code) {
+	public String getLabel(String code) {
 		
 		return label;
 	}

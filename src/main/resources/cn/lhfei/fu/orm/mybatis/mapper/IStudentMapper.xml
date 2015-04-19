@@ -10,7 +10,8 @@
 			s.STUDENT_ID      as studentId, 
 			s.NAME            as name, 
 			s.GENDER          as gender, 
-			s.CLASS_NAME      as className 
+			s.CLASS_NAME      as className ,
+			s.DEGREE		  as degree
 		FROM STUDENT_BASE s  
 		WHERE s.STUDENT_ID = #{studentId}
 	</select>

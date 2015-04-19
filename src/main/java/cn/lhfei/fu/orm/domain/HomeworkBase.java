@@ -45,6 +45,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonAutoDetect
 public class HomeworkBase extends AbstractEntity {
 
+	private static final long serialVersionUID = -7186887653660619857L;
+
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "HOMEWORK_BASE_ID")

@@ -23,11 +23,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import cn.lhfei.fu.common.constant.UserTypeEnum;
 import cn.lhfei.identity.web.convert.JsonDateSerializer;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * 学生基本信息</p>
@@ -42,6 +42,9 @@ import cn.lhfei.identity.web.convert.JsonDateSerializer;
 @Table(name = "STUDENT_BASE")
 @JsonAutoDetect
 public class StudentBase extends AbstractEntity {
+
+	private static final long serialVersionUID = 3827515709038662446L;
+
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "STUDENT_BASE_ID")
@@ -59,10 +62,12 @@ public class StudentBase extends AbstractEntity {
 
 	@Column(name = "STUDENT_ID")
 	private String studentId; // '学生编号',
+	
+	@Column(name = "DEGREE")
+	private int degree;			//学历
 
 	@Column(name = "EMAIL")
 	private String email;
-
 
 	@Column(name = "MAJOR_CODE")
 	private String majorCode; // '专业代码',
@@ -176,5 +181,12 @@ public class StudentBase extends AbstractEntity {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
+
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
 }

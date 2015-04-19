@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
+import cn.lhfei.fu.common.constant.ConstantCode;
 import cn.lhfei.identity.web.model.UserSession;
 
 /**
@@ -48,17 +49,29 @@ public abstract class AbstractController {
 	}
 	
 	/**
+	 * 操作成功编码 -- [-0]
+	 */
+	protected static final String SUCCESS = "0";
+	
+	/**
+	 * 操作编码编码 -- [-1]
+	 */
+	protected static final String FAILUE = "-1";
+	
+	/**
+	 * 下拉框默认值  <tt> "全选|-1" </tt>
+	 */
+	protected static final String COMBOBOX_DEFAULT_VALUE = "-1";
+	
+	/**
 	 * User session key
 	 */
 	public static final String USER_SESSION = "USER_SESSION";
 	
-	protected static String CLASS_NAME = "className";		//'班级名称'
-	
-	
-	protected static final String SUCCESS = "0";
-	
-	protected static final String FAILUE = "-1";
-	
+	/**
+	 * 班级名称
+	 */
+	protected static String CLASS_NAME = ConstantCode.BJMC_CODE; 
 	
 	/**
 	 * 作业审批状态
@@ -69,18 +82,18 @@ public abstract class AbstractController {
 	/**
 	 * 学年
 	 */
-	protected static final String XN = "XN";
+	protected static final String XN = ConstantCode.XN_CODE;
 	
 	/**
 	 * 学期
 	 * 
 	 */
-	protected static final String XQ = "XQ";
+	protected static final String XQ = ConstantCode.XQ_CODE;
 	
 	/**
 	 * 教师当前学年教授的全部班级
 	 */
-	protected static final String CLASS = "CLASS";
+	protected static final String CLASS = ConstantCode.BJ_CODE;
 	
 	/**
 	 * 当前教学学年、学期
@@ -91,22 +104,16 @@ public abstract class AbstractController {
 	/**
 	 * 全部课程列表
 	 */
-	protected static final String COURSE = "KC";
+	protected static final String COURSE = ConstantCode.KC_CODE;
 	
 	/**
 	 * 用户类型
 	 */
-	protected static final String USER_TYPE = "userType";
+	protected static final String USER_TYPE = ConstantCode.YHLX_CODE;
 	
 	/**
 	 * 用户<tt>ID</tt>
 	 */
-	protected static final String USER_ID = "userId";
-	
-	/**
-	 * 下拉框默认值  <tt> "全选|-1" </tt>
-	 */
-	protected static final String COMBOBOX_DEFAULT_VALUE = "-1";
-	
+	protected static final String USER_ID = ConstantCode.YHID_CODE;
 	
 }

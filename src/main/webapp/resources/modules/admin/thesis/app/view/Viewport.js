@@ -1,18 +1,18 @@
-Ext.define('hwork.view.Viewport', {
+Ext.define('thesis.view.Viewport', {
     extend: 'Ext.container.Viewport',
 
     layout: 'border',
     items: [{
-    	id: 'hwGrid',
-    	itemId: '_hwGrid',
+    	id: 'thesisGrid',
+    	itemId: '_thesisGrid',
         region: 'center',
-        xtype: 'hwGrid',
+        xtype: 'thesisGrid',
         split:true
     },{
-    	id: 'hwSearchForm',
-    	itemId: '_hwSearchForm',
+    	id: 'thesisSearchForm',
+    	itemId: '_thesisSearchForm',
         region: 'north',
-        xtype: 'hwSearchForm',
+        xtype: 'thesisSearchForm',
         split:true
     }]
 });

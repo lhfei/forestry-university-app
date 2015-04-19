@@ -15,6 +15,9 @@
  */
 package cn.lhfei.fu.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +36,29 @@ import cn.lhfei.fu.test.BaseTestSuite;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/application-context.xml")
-public class HomeworkDataBuildFactoryTest extends BaseTestSuite {
+public class ExcelDataBuildFactoryTest extends BaseTestSuite {
 
 	@Test
 	public void importHomework() throws Exception {
 		String filePath = "E:\\Webapp_workspace\\webapps_agent\\forestry-university-app\\src\\test\\resource\\excel\\2014-2015_0331.xlsx";
 		
-		homeworkDataBuildFactory.importDataByExcel(filePath);
-		
-		
+		homeworkDataBuildFactory.importDataByExcel(filePath, null);
 	}
+	
+	@Test
+	public void importThesis() throws Exception {
+		String filePath = "E:\\Webapp_workspace\\webapps_agent\\forestry-university-app\\src\\test\\resource\\excel\\论文模板-本科.xls";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("degree", 0);
+		
+		thesisDataBuildFactory.importDataByExcel(filePath, params);
+	}
+	
 	
 	@Autowired
 	private DataBuildFactory homeworkDataBuildFactory;
+	
+	@Autowired
+	private DataBuildFactory thesisDataBuildFactory;
 }

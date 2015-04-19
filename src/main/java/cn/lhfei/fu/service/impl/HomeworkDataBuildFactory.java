@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -52,7 +53,7 @@ public class HomeworkDataBuildFactory implements DataBuildFactory {
 	 * @see cn.lhfei.fu.service.DataBuildFactory#importDataByExcel(java.lang.String)
 	 */
 	@Override
-	public boolean importDataByExcel(String filePath) throws Exception {
+	public boolean importDataByExcel(String filePath , Map<String, Object> params) throws Exception {
 		InputStream inp = new FileInputStream(filePath);
 
 		Workbook wb = WorkbookFactory.create(inp);

@@ -8,7 +8,7 @@ Ext.require([
     'Ext.layout.container.Border'
 ]);
 
-Ext.define('hwork.view.UploadWin', {
+Ext.define('thesis.view.UploadWin', {
 	extend: 'Ext.window.Window',
 	alias: 'widget.uploadWin',
 	

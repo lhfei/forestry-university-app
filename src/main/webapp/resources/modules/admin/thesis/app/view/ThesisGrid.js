@@ -1,31 +1,43 @@
 /**
  * 
  */
-Ext.define('hwork.view.HWGrid', {
+Ext.define('thesis.view.ThesisGrid', {
 	extend: 'Ext.grid.Panel',
-	alias: 'widget.hwGrid',
+	alias: 'widget.thesisGrid',
 	
 	frame: true,
 	autoWidth: true,
 	autoHeight: true,
 	
 	//title: 'FileList',
-	store: 'HWStore',
+	store: 'ThesisStore',
 	
 	//selType: 'checkboxmodel',
 
     columns: [
         {header: '序号', xtype: 'rownumberer', width: 40, sortable: false, locked: true }, 
         {header: 'ID',  dataIndex: 'baseId',  flex: 1, align: 'center', hidden: true},
-        {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center'},
-        {header: '学期', dataIndex: 'semester', flex: 1, align: 'center'},
-        {header: '课程名称', dataIndex: 'courseName', flex: 2, align: 'center'},
-        {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
-        {header: '作业名称', dataIndex: 'name', flex: 2, align: 'center'},
+        {header: 'ID',  dataIndex: 'studentBaseId',  flex: 1, align: 'center', hidden: true},
         {header: '学生名称', dataIndex: 'studentName', flex: 1, align: 'center'},
-        {header: '学生编号', dataIndex: 'studentId', flex: 1, align: 'center', hidden: true},
+        {header: '班级名称', dataIndex: 'className', flex: 1, align: 'center'},
+        {header: '论文标题', dataIndex: 'thesisTitle', flex: 2, align: 'center'},
+        {header: '论文来源', dataIndex: 'origin', flex: 1, align: 'center'},
+        {header: '论文类别', dataIndex: 'thesisType', flex: 1, align: 'center'},
+        {header: '教师姓名', dataIndex: 'teacherName', flex: 2, align: 'center'},
+        {header: '指导教师职称', dataIndex: 'teacherTitle', flex: 1, align: 'center'},
+        {header: '英文标题', dataIndex: 'thesisEnTitle', flex: 2, align: 'center'},
+        
+        {header: '学生编号', dataIndex: 'studentId', flex: 1, align: 'center', hidden: true},        
+        {header: '学科阶段', dataIndex: 'degree', flex: 1, align: 'center', hidden: true},
+        {header: '论文成绩', dataIndex: 'score', flex: 1, align: 'center', hidden: true},
+        {header: '学年', dataIndex: 'academicYear', flex: 1, align: 'center', hidden: true},
+        {header: '学期', dataIndex: 'semester', flex: 1, align: 'center' , hidden: true},
+        {header: '教师编号', dataIndex: 'teacherId', flex: 2, align: 'center', hidden: true},
+        {header: '操作时间', dataIndex: 'operationTime', flex: 2, align: 'center', hidden: true},
+        {header: '操作类型', dataIndex: 'actionType', flex: 2, align: 'center', hidden: true},
+
         {
-        	header: '作业状态', 
+        	header: '论文状态', 
         	dataIndex: 'status', 
         	flex: 1, 
         	align: 'center',
@@ -62,7 +74,7 @@ Ext.define('hwork.view.HWGrid', {
             	xtype: 'button',
             	id: 'startCtrl',
                 iconCls: 'icon-upload',
-                tooltip: '上传作业附件',
+                tooltip: '上传论文附件',
                 action: 'start',
                 hidden: true,
                 scope: this
@@ -70,31 +82,12 @@ Ext.define('hwork.view.HWGrid', {
             	xtype: 'button',
             	id: 'startCtrl',
                 iconCls: 'icon-download',
-                tooltip: '预览作业附件',
+                tooltip: '下载论文附件',
                 action: 'start',
                 scope: this
             }]
         },
-        
-        /*{
-        	header: '作业状态', 
-        	dataIndex: 'status', 
-        	flex: 1, 
-        	align: 'center',
-        	renderer :  function(val) {
-                if (val > 0) {
-                    return '<span style="color:green;">' + val + '</span>';
-                } else if (val < 0) {
-                    return '<span style="color:red;">' + val + '</span>';
-                }
-                return val;
-            }
-        },*/
-        {header: '专业名称', dataIndex: 'majorName', flex: 1, align: 'center', hidden: true},
-        {header: '专业编号', dataIndex: 'majorCode', flex: 1, align: 'center', hidden: true},
-        {header: '教师姓名', dataIndex: 'teacherName', flex: 1, align: 'center', hidden: true},
-        {header: '教师编号', dataIndex: 'teacherCode', flex: 1, align: 'center', hidden: true},
-        {header: '课程编号', dataIndex: 'courseCode', flex: 1, align: 'center', hidden: true},
+        {header: '论文描述', dataIndex: 'description', flex: 1, align: 'center', hidden: true},
         {header: '操作时间', dataIndex: 'operationTime', flex: 1, align: 'center', hidden: true},
         {header: '创建时间', dataIndex: 'createTime', flex: 1, align: 'center', hidden: true},
         {header: '最近修改时间', dataIndex: 'modifyTime', flex: 1, align: 'center', hidden: true}
@@ -104,7 +97,7 @@ Ext.define('hwork.view.HWGrid', {
 		this.dockedItems = [{
             xtype: 'pagingtoolbar',
             dock:'bottom',
-            store: 'HWStore',
+            store: 'ThesisStore',
             displayInfo: true,
             displayMsg: 'Displaying contacts {0} - {1} of {2}',
             emptyMsg: "No contacts to display"

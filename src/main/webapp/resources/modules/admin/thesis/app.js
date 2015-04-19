@@ -1,5 +1,5 @@
 Ext.application({
-    name: 'hwork',
+    name: 'thesis',
 
     appFolder: '../resources/modules/admin/thesis/app',
     // All the paths for custom classes
@@ -9,7 +9,7 @@ Ext.application({
 
     // Define all the controllers that should initialize at boot up of your application
     controllers: [
-        'HWController'
+        'ThesisController'
     ],
     
     autoCreateViewport: true

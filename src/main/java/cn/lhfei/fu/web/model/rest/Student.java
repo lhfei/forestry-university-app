@@ -60,10 +60,17 @@ public class Student implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+	public int getDegree() {
+		return degree;
+	}
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
 	private Integer id;
 	private String name; // 学生姓名
 	private String gender; // '性别， 枚举值包括[男（0）女（1）]
 	private String studentId; // '学生编号',
 	private String className; // '班级名称'
+	private int degree;		//学历: 本科0|硕士1|博士2
 }

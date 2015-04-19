@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cn.lhfei.fu.common.constant;
 
-
 /**
- * 论文类别</p>
+ * 论文来源</p>
  * 
  * <blockquote>
  *	<table border=0 cellspacing=3 cellpadding=0 summary="论文类别字典" >
@@ -28,14 +26,24 @@ package cn.lhfei.fu.common.constant;
  * 			<th align=center>数值类型</th>
  * 		</tr>
  * 		<tr bgcolor="#eeeeff" align="center">
- * 			<td><code>设计</code></td>
- * 			<td><code>0</code></td>
- * 			<td><code>Intenger</code></td>
+ * 			<td><code>科研</code></td>
+ * 			<td><code>1</code></td>
+ * 			<td><code>String</code></td>
  * 		</tr>
  * 		<tr bgcolor="#eeeeff" align="center">
- * 			<td><code>论文</code></td>
- * 			<td><code>1</code></td>
- * 			<td><code>Intenger</code></td>
+ * 			<td><code>生产</code></td>
+ * 			<td><code>2</code></td>
+ * 			<td><code>String</code></td>
+ * 		</tr>
+ * 		<tr bgcolor="#eeeeff" align="center">
+ * 			<td><code>模拟</code></td>
+ * 			<td><code>3</code></td>
+ * 			<td><code>String</code></td>
+ * 		</tr>
+ * 		<tr bgcolor="#eeeeff" align="center">
+ * 			<td><code>其它</code></td>
+ * 			<td><code>0</code></td>
+ * 			<td><code>String</code></td>
  * 		</tr>
 
  * 	</table>
@@ -45,41 +53,51 @@ package cn.lhfei.fu.common.constant;
  *
  * @author Hefei Li
  *
- * @since Nov 24, 2014
+ * @since Apr 16, 2015
  */
 
-public enum ThesisCategoryEnum implements AbstractDictEnum<String> {
+public enum ThesisOriginEnum implements AbstractDictEnum<String> {
+	/**
+	 * 科研（1）生产（2） 模拟（3）其它（0）
+	 */
+	KY("1", "\u79d1\u7814"),
 	
 	/**
-	 * 设计
+	 * 科研（1）生产（2） 模拟（3）其它（0）
 	 */
-	SJ("0", "\u8bbe\u8ba1"), 
+	SC("2", "\u751f\u4ea7"),
 	
 	/**
-	 * 论文
+	 * 科研（1）生产（2） 模拟（3）其它（0）
 	 */
-	LW("1", "\u8bba\u6587");
-
-	ThesisCategoryEnum(String code, String label) {
+	MN("3", "\u6a21\u62df"),
+	
+	/**
+	 * 科研（1）生产（2） 模拟（3）其它（0）
+	 */
+	QT("0", "\u5176\u5b83");
+	
+	ThesisOriginEnum(String code, String label) {
 		this.code = code;
 		this.label = label;
 	}
-	
+
 	/**
 	 * 数据库<tt>KEY</tt>值
 	 */
-	public static final String ENUM_KEY = "LWLB";
-
+	public static final String ENUM_KEY = "LWLY";
+	
 	private String code;
 	private String label;
-
+	
 	@Override
 	public String getLabel(String code) {
-		return label;
+		return this.label;
 	}
 
 	@Override
 	public String getCode() {
 		return this.code;
 	}
+
 }

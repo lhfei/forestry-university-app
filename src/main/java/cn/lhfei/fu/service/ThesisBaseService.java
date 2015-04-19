@@ -15,6 +15,11 @@
  */
 package cn.lhfei.fu.service;
 
+import java.util.List;
+
+import cn.lhfei.fu.orm.domain.ThesisBase;
+import cn.lhfei.fu.web.model.ThesisBaseModel;
+
 /**
  * @version 1.0.0
  *
@@ -25,4 +30,41 @@ package cn.lhfei.fu.service;
 
 public interface ThesisBaseService {
 
+	/**
+	 * 导入论文
+	 * @param filePath
+	 * @return
+	 * @throws Exception
+	 */
+	boolean importThesisBasek(String filePath) throws Exception;
+	
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	List<ThesisBaseModel> getThesis(ThesisBaseModel model) throws Exception;
+	
+	Integer countThesis(ThesisBaseModel model) throws Exception;
+	
+	/**
+	 * @param thesis
+	 * @return
+	 * @throws Exception
+	 */
+	boolean save(ThesisBase thesis) throws Exception;
+	
+	/**
+	 * @param model
+	 * @param userType
+	 * @return
+	 * @throws Exception
+	 */
+	boolean update(ThesisBaseModel model, String userType) throws Exception;
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	boolean updateThesis(ThesisBaseModel model)  throws IllegalArgumentException ;
 }

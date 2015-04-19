@@ -28,6 +28,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.lhfei.fu.common.constant.ApproveStatusEnum;
 import cn.lhfei.fu.common.constant.ConstantCode;
+import cn.lhfei.fu.common.constant.ThesisCategoryEnum;
+import cn.lhfei.fu.common.constant.ThesisOriginEnum;
 import cn.lhfei.fu.orm.domain.Combobox;
 import cn.lhfei.fu.orm.domain.TeachingPeriods;
 import cn.lhfei.fu.orm.persistence.ClassBaseDAO;
@@ -192,6 +194,87 @@ public class ComboboxServiceImplTest {
 		comboboxService.batchUpdateTeacherIdByName();
 	}
 
+	/**
+	 *  初始化论文来源
+	 */
+	@Test
+	public void createThesisOrigin() {
+		String key = ThesisOriginEnum.ENUM_KEY;
+		String desc = "论文来源";
+		
+		Combobox box = new Combobox();
+		box.setKey(key);
+		box.setLabel(ThesisOriginEnum.KY.getLabel(ThesisOriginEnum.KY.getCode()));
+		box.setCode(ThesisOriginEnum.KY.getCode());
+		box.setDesc(desc);
+		
+		Combobox box1 = new Combobox();
+		box1.setKey(key);
+		box1.setLabel(ThesisOriginEnum.SC.getLabel(ThesisOriginEnum.SC.getCode()));
+		box1.setCode(ThesisOriginEnum.SC.getCode());
+		box1.setDesc(desc);
+		
+		Combobox box2 = new Combobox();
+		box2.setKey(key);
+		box2.setLabel(ThesisOriginEnum.MN.getLabel(ThesisOriginEnum.MN.getCode()));
+		box2.setCode(ThesisOriginEnum.MN.getCode());
+		box2.setDesc(desc);
+		
+		Combobox box3 = new Combobox();
+		box3.setKey(key);
+		box3.setLabel(ThesisOriginEnum.QT.getLabel(ThesisOriginEnum.QT.getCode()));
+		box3.setCode(ThesisOriginEnum.QT.getCode());
+		box3.setDesc(desc);
+		
+		comboboxService.createCombobox(box);
+		comboboxService.createCombobox(box1);
+		comboboxService.createCombobox(box2);
+		comboboxService.createCombobox(box3);
+	}
+	
+	/**
+	 *  初始化论文类别
+	 */
+	@Test
+	public void createThesisCategory() {
+		
+		String key = ThesisCategoryEnum.ENUM_KEY;
+		
+		String desc = "论文来源";
+		
+		Combobox box = new Combobox();
+		box.setKey(key);
+		box.setLabel(ThesisCategoryEnum.SJ.getLabel(ThesisCategoryEnum.SJ.getCode()));
+		box.setCode(ThesisCategoryEnum.SJ.getCode());
+		box.setDesc(desc);
+		
+		Combobox box1 = new Combobox();
+		box1.setKey(key);
+		box1.setLabel(ThesisCategoryEnum.LW.getLabel(ThesisCategoryEnum.LW.getCode()));
+		box1.setCode(ThesisCategoryEnum.LW.getCode());
+		box1.setDesc(desc);
+		
+		comboboxService.createCombobox(box);
+		comboboxService.createCombobox(box1);
+	}
+	
+	@Test
+	public void getThesisOrigin() {
+		String key = ThesisOriginEnum.ENUM_KEY;
+		List<Combobox> originList = comboboxService.getCombobo(key);
+		for(Combobox box : originList){
+			log.info("Label: {}, Code: {}, Key: {}, Desc: {}", box.getLabel(), box.getCode(), box.getKey(), box.getDesc());
+		}
+	}
+	
+	@Test
+	public void getThesisCategory() {
+		String key = ThesisCategoryEnum.ENUM_KEY;
+		List<Combobox> originList = comboboxService.getCombobo(key);
+		for(Combobox box : originList){
+			log.info("Label: {}, Code: {}, Key: {}, Desc: {}", box.getLabel(), box.getCode(), box.getKey(), box.getDesc());
+		}
+	}
 	
 	@Autowired
 	private ComboboxService comboboxService;

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.TeacherBaseModel;
+import cn.lhfei.fu.web.model.ThesisBaseModel;
 
 /**
  * @version 1.0.0
@@ -27,7 +29,6 @@ import cn.lhfei.fu.web.model.HomeworkBaseModel;
  *
  * @since Dec 18, 2014
  */
-
 public interface ITeacherMapper {
 
 	List<HomeworkBaseModel> getLatestHomework() throws Exception;
@@ -43,4 +44,20 @@ public interface ITeacherMapper {
 	List<HomeworkBaseModel> readHomework(HomeworkBaseModel model);
 	
 	void updateArachive(Map<String, Object> map) throws Exception;
+	
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // 论文管理. -- End														++++++++++
+	// ///////////////////////////////////////////////////////////////////////////////
+	
+	List<ThesisBaseModel> getThesis(ThesisBaseModel model);
+	
+	Integer countThesis(ThesisBaseModel model);
+	
+	void updateThesis(ThesisBaseModel model) throws Exception ;
+	
+	TeacherBaseModel findTeacherByTeacherId(String teacherId);
+	
+	void updateTeacherTitle(Map<String, String> map) throws Exception;
+	
 }

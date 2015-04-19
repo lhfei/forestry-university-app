@@ -51,8 +51,16 @@ public interface ComboboxService {
 	 */
 	List<ThesisOrigin> getThesisOrigin();
 	
+	/**
+	 * @param search
+	 * @return
+	 */
 	List<Combobox> getCombobo(ISearch search);
 	
+	/**
+	 * @param key
+	 * @return
+	 */
 	List<Combobox> getCombobo(String key);
 	
 	/**
@@ -86,11 +94,22 @@ public interface ComboboxService {
 	 */
 	List<Combobox> getClassByAdmin();
 	
+	/**
+	 * @param combobox
+	 */
 	void createCombobox(Combobox combobox);
 	
 	
+	/**
+	 * @param ids
+	 * @return
+	 */
 	boolean deleteApproveStatus(Integer[] ids);
 	
+	/**
+	 * @param ids
+	 * @return
+	 */
 	boolean deleteThesisOrigin(Integer[] ids);
 	
 	/**

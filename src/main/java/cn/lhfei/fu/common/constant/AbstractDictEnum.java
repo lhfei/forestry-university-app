@@ -30,7 +30,7 @@ package cn.lhfei.fu.common.constant;
 
 public interface AbstractDictEnum<T> {
 
-	String getLabel(int code);
+	String getLabel(T code);
 	
 	T getCode();
 }

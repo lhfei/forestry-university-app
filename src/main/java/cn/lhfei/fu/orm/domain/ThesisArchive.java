@@ -33,6 +33,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "THESIS_ARCHIVE")
 public class ThesisArchive extends AbstractEntity {
+
+	private static final long serialVersionUID = 6003134215086924444L;
+
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "THESIS_ARCHIVE_ID")

@@ -9,10 +9,10 @@
         url: "../admin/homeworkIndex.do",
         leaf: true
     },{
-        id: 'ifeng/videoList.do',
+        id: '../admin/thesisIndex.do',
         text: '论文列表',
         iconCls: "tree-leaf",
-        url: "ifeng/videoList.do",
+        url: "../admin/thesisIndex.do",
         leaf: true
     }]
 },{
@@ -27,7 +27,7 @@
 		leaf: true	
 	},{
 		id: '../admin/courseCof.do',
-		text: '课程设置',
+		text: '课程作业设置',
 		iconCls: 'tree-leaf',
 		url: '../admin/courseCof.do',
 		leaf: true	

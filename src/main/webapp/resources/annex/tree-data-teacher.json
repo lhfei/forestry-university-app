@@ -9,11 +9,11 @@
     	url: "../teacher/homeworkIndex.do",
     	leaf: true
     },{
-    	id: "../thesis/index.do",
-    	text: "论文列表",
-    	iconCls: "tree-leaf",
-    	url: "../thesis/index.do",
-    	leaf: true
+    	id: '../admin/thesisIndex.do',
+        text: '论文列表',
+        iconCls: "tree-leaf",
+        url: "../admin/thesisIndex.do",
+        leaf: true
     }]
 },{
 	text: "个人设置",

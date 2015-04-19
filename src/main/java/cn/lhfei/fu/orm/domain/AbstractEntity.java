@@ -37,6 +37,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @MappedSuperclass
 @JsonAutoDetect
 public abstract class AbstractEntity implements Serializable{
+
+	private static final long serialVersionUID = 6665024999352531475L;
+
 	@Column(name="CREATE_TIME")
 	private Date createTime;
 	

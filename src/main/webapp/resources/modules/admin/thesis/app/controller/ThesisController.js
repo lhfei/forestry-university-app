@@ -5,8 +5,38 @@ Ext.require([
     'Ext.form.field.File',
     'Ext.form.field.Number',
     'Ext.form.Panel',
-    'Ext.window.MessageBox'
+    'Ext.window.MessageBox'/*,
+    'Ext.ux.GridComboBoxList',
+    'Ext.ux.GridComboBox'*/
 ]);
+
+
+var combo_thesisType = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 'combo_thesisType',
+    fieldLabel: '论文类型',
+    padding: '5 5 5 5',
+    labelWidth:  60,
+    forceSelection: true
+});
+
+var combo_origin = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 'combo_origin',
+    fieldLabel: '论文来源',
+    padding: '5 5 5 5',
+    labelWidth:  60,
+    forceSelection: true
+});
+
+var combo_teacher = Ext.create('Ext.form.field.ComboBox', {
+    typeAhead: true,
+    transform: 'combo_teacher',
+    fieldLabel: '指导老师',
+    padding: '5 5 5 5',
+    labelWidth:  60,
+    forceSelection: true
+});
 
 var tpl,
 	downloadWin,
@@ -26,7 +56,7 @@ var tpl,
 	    autoHeight: true,
 	    frame: true,
 	    //title: 'File Upload Form',
-	    bodyPadding: '20 10 0',
+	    bodyPadding: '5 25 5 25',
 	    border: false,
 	    defaults: {
 	        anchor: '100%',
@@ -37,18 +67,32 @@ var tpl,
 	
 	    items: [{
 	        xtype: 'textfield',
-	        fieldLabel: '作业名称',
-	        name: 'name',
-	        readOnly: true
+	        fieldLabel: '论文标题',
+	        emptyText: '默认为附件名称',
+	        name: 'thesisTitle',
+	        readOnly: false
 	    },{
+	        xtype: 'textfield',
+	        fieldLabel: '英文标题',
+	        name: 'thesisEnTitle',
+	        readOnly: false
+	    },
+	    	combo_thesisType,
+	    	
+	    	combo_origin,
+	    	
+	    	combo_teacher,
+	    {
 	        xtype: 'textfield',
 	        fieldLabel: '学生编号',
 	        name: 'studentId',
+	        hidden: true,
 	        readOnly: true
 	    },{
 	        xtype: 'textfield',
 	        fieldLabel: '学生姓名',
 	        name: 'studentName',
+	        hidden: true,
 	        readOnly: true
 	    },{// 附件1
 	        xtype: 'filefield',
@@ -106,23 +150,13 @@ var tpl,
 	        }
 	    },{
 	        xtype: 'textfield',
-	        fieldLabel: '作业主键',
+	        fieldLabel: '论文主键',
 	        name: 'baseId',
 	        hidden: true
 	    },{
 	        xtype: 'textfield',
 	        fieldLabel: '学年',
 	        name: 'academicYear',
-	        hidden: true
-	    },{
-	        xtype: 'textfield',
-	        fieldLabel: '学期',
-	        name: 'semester',
-	        hidden: true
-	    },{
-	        xtype: 'textfield',
-	        fieldLabel: '课程名称',
-	        name: 'courseName',
 	        hidden: true
 	    },{
 	        xtype: 'textfield',
@@ -139,10 +173,9 @@ var tpl,
 	            var form = me.up('form').getForm();
 	            if(form.isValid()){
 	                form.submit({
-	                    url: '../teacher/updateHomework.do',
+	                    url: '../admin/updateThesis.do',
 	                    waitMsg: '正在上传...',
 	                    success: function(fp, o) {
-	                        //msg('Success', tpl.apply(o.result));
 	                    	var response = o.result
 	                    	if(response.success){
 	                    		Ext.MessageBox.alert('Status', '上传成功!');
@@ -202,19 +235,19 @@ var tpl,
 
 	}); 
 	
-Ext.define('hwork.controller.HWController', {
+Ext.define('thesis.controller.ThesisController', {
 	extend: 'Ext.app.Controller',
 	
-	stores: ['HWStore'],
-	models: ['HWModel'],
-	views: ['HWGrid', 
-	        'HWSearchForm',
+	stores: ['ThesisStore'],
+	models: ['ThesisModel'],
+	views: ['ThesisGrid', 
+	        'ThesisSearchForm',
 	        'UploadWin'],
 	
 	refs: [
-        {ref: 'hwGrid', selector: 'hwGrid'},
-        {ref: 'hwSearchForm', selector: 'hwSearchForm'},
-        {ref: 'hwStore', selector: 'hwStore'},
+        {ref: 'thesisGrid', selector: 'thesisGrid'},
+        {ref: 'thesisSearchForm', selector: 'thesisSearchForm'},
+        {ref: 'thesisStore', selector: 'thesisStore'},
         {ref: 'uploadWin', selector: 'uploadWin'}
 	],
 	
@@ -222,22 +255,22 @@ Ext.define('hwork.controller.HWController', {
 		var me = this;
 		
 		// attach 'beforeload' event into HWStore 
-		Ext.getStore('HWStore').addListener('beforeload', this.doBefore, this);
+		Ext.getStore('ThesisStore').addListener('beforeload', this.doBefore, this);
 		
 		this.control({
-			'viewport > hwGrid': {
+			'viewport > thesisGrid': {
 				itemdblclick: this.editTask
 			},
 			
-			'hwSearchForm button[action=doSearch]': {
+			'thesisSearchForm button[action=doSearch]': {
 				click: this.doSearch
 			},
 			
-			'hwSearchForm button[action=doReset]': {
+			'thesisSearchForm button[action=doReset]': {
 				click: this.doReset
 			},
 			
-			'hwGrid actioncolumn': {
+			'thesisGrid actioncolumn': {
 				click: this.completeTask
 			},
 			
@@ -250,41 +283,41 @@ Ext.define('hwork.controller.HWController', {
 	
 	doBefore: function(store, operation, eOpts){
 		var searchForm,
-			hwGrid,
+			thesisGrid,
 			store,
 			searchModel;	//search form items.
 	
-		searchForm = this.getHwSearchForm();
-	 	hwGrid = this.getHwGrid();
-		store = this.getHWStoreStore();
+		searchForm = this.getThesisSearchForm();
+	 	thesisGrid = this.getThesisGrid();
+		store = this.getThesisStoreStore();
 		
 		searchModel = searchForm.getValues();
 		
 		store.getProxy().setExtraParam('academicYear', searchModel.academicYear);
-		store.getProxy().setExtraParam('semester', searchModel.semester);
-		store.getProxy().setExtraParam('courseName', searchModel.courseName);
 		store.getProxy().setExtraParam('className', searchModel.className);		
-		store.getProxy().setExtraParam('name', ''+searchModel.name);
+		store.getProxy().setExtraParam('thesisType', searchModel.thesisType);
+		store.getProxy().setExtraParam('origin', searchModel.origin);
+		store.getProxy().setExtraParam('degree', searchModel.degree);
 		store.getProxy().setExtraParam('status', ''+searchModel.status);
-		store.getProxy().setExtraParam('studentId', ''+searchModel.studentId);
 		store.getProxy().setExtraParam('studentName', ''+searchModel.studentName);
+		
 	},
 
 	doReset: function() {
-		var form = this.getHwSearchForm().getForm();
+		var form = this.getThesisSearchForm().getForm();
 		
 		form.reset();
 	},
 	
 	doSearch: function() {
-		this.getHWStoreStore().loadPage(1);
+		this.getThesisStoreStore().loadPage(1);
 	},
 	
 	completeTask: function(view,cell,row,col,e){
 		var tabPanel = parent.Ext.getCmp('centerPanel')//parent.Ifeng.view.MainPanel;
         var m = e.getTarget().className.match(/\bicon-(\w+)\b/);
-        var record = this.getHwGrid().getStore().getAt(row).data;
-        var mm =  this.getHWStoreStore();
+        var record = this.getThesisGrid().getStore().getAt(row).data;
+        var mm =  this.getThesisStoreStore();
         
         var approveButtonIsValid = (record.status != '1');
         
@@ -302,7 +335,7 @@ Ext.define('hwork.controller.HWController', {
                 	
                 	if(!uploadWin){
                 		uploadWin = Ext.create('Ext.window.Window', {
-                			title: '<b>上传作业附件</b>',
+                			title: '<b>上传论文附件</b>',
                 			header: {
                 				titlePosition: 2,
                 				titleAlign: 'center'
@@ -310,7 +343,7 @@ Ext.define('hwork.controller.HWController', {
                 			maximizable: true,
                 			modal: true,
                 			closeAction: 'hide',
-                			width: 520,
+                			width: 650,
                 			height: 400,
                 			tools: [{type: 'pin'}],
                 			layout: {
@@ -326,13 +359,10 @@ Ext.define('hwork.controller.HWController', {
                 	var form = uploadForm.getForm();
                 	form.setValues({ 
                 		baseId: record.baseId,
-                		name: record.name,
                 		studentId: record.studentId,
                 		studentName: record.studentName,
-                		academicYear: record.academicYear,
-                		semester: record.semester,
-                		courseName: record.courseName,
-                		className: record.className
+                		className: record.className,
+                		academicYear: record.academicYear
                 	});
                 	
                     break;
@@ -345,17 +375,17 @@ Ext.define('hwork.controller.HWController', {
                 	
                 	$.ajax({
                 		async: false,
-                		url: '../teacher/preloadImg.do?homeworkBaseId=' +record.baseId+ '&studentId=' +record.studentId,
+                		url: '../admin/preload.do?thesisBaseId=' +record.baseId+ '&studentId=' +record.studentId,
                 		method: 'get',
                 		success: function (response){
         					if(response.success){
         						archiveTotal = response.total;
         						archives = response.data;
         						
-        						archiveHTML += '<h1>作业名称: ['+record.name+'] -- 附件总张数: [' +archiveTotal+ '张]</h1>';
+        						archiveHTML += '<h1>论文标题: ['+record.thesisTitle+'] -- 附件总张数: [' +archiveTotal+ '张]</h1>';
         						
         						for(var i=0; i<archiveTotal; i++) {
-        							archiveHTML += '<h3>附件['+i+']: '+archives[i].archiveName+'</h3> <p><img src="../teacher/downloadImg.do?id='+archives[i].id+ '" style="width: 720px; height: 280px" /></p>';
+        							archiveHTML += '<h3>附件['+i+']: '+archives[i].archiveName+' </h3>&nbsp; <a href="../admin/downloadArchive.do?id='+archives[i].id+ '"> 下载 </a>';
         						}
         					}
         				}
@@ -415,7 +445,7 @@ Ext.define('hwork.controller.HWController', {
                 			handler: function(){
                 				for(var i = 0; i < archiveTotal; i++) {
         							//document.location.href = '../teacher/downloadImg.do?id='+archives[i].id;
-                					window.open('../teacher/downloadImg.do?id='+archives[i].id, "_blank", "toolbar=no, scrollbars=no, resizable=no");
+                					window.open('../admin/downloadArchive.do?id='+archives[i].id, "_blank", "toolbar=no, scrollbars=no, resizable=no");
         						}
                 			}
                 		},{

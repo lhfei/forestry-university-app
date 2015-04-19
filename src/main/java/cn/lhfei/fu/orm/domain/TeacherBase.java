@@ -38,6 +38,8 @@ import cn.lhfei.fu.common.constant.UserTypeEnum;
 @Table(name = "TEACHER_BASE")
 public class TeacherBase extends AbstractEntity {
 
+	private static final long serialVersionUID = 2040838649464103635L;
+
 	@Id
 	@javax.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "TEACHER_BASE_ID")
@@ -63,6 +65,9 @@ public class TeacherBase extends AbstractEntity {
 	
 	@Column(name = "USER_TYPE")
 	private String userType = UserTypeEnum.TEACHER.getCode();
+	
+	@Column(name = "TEACHER_TITLE")
+	private String teacherTitle;
 
 	public Integer getId() {
 		return id;
@@ -126,5 +131,13 @@ public class TeacherBase extends AbstractEntity {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+
+	public String getTeacherTitle() {
+		return teacherTitle;
+	}
+
+	public void setTeacherTitle(String teacherTitle) {
+		this.teacherTitle = teacherTitle;
 	}
 }

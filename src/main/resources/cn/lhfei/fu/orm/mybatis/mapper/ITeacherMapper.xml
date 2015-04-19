@@ -355,8 +355,9 @@
 				               sb.student_id,
 				               sb.name as studentName,
 				               sb.class_name
-				          from student_base sb
-				          left join (
+				          FROM STUDENT_BASE sb
+				          
+				          LEFT JOIN (
 				                    
 				                    SELECT hb.homework_base_id as baseId,
 				                            hb.hw_name          as homeWork,
@@ -455,6 +456,286 @@
 	      FROM HOMEWORK_BASE hb	
 	</select>
 	
+	<!-- =======================================================================
+			****	Thesis Configuration.									****
+	 ======================================================================= -->
+	
+	<sql id="thesis_base_column">
+		tb.THESIS_BASE_ID as baseId,
+		tb.ACADEMIC_YEAR  as academicYear,
+		tb.SEMESTER       as semester,
+		tb.CLASS_NAME     as className,
+		tb.TEACHER_NAME   as teacherName,
+		tb.TEACHER_ID     as teacherId,
+		tb.student_id,
+		tb.student_name,
+		tb.TEACHER_TITLE  as teacherTitle,
+		tb.ORIGIN         as origin,
+		tb.THESIS_TITLE   as thesisTitle,
+		tb.THESIS_EN_TITLE as thesisEnTitle,
+		tb.THESIS_TYPE    as thesisType,
+		tb.DEGREE         as degree,
+		tb.score		  as score,
+		tb.DESC_INFO      as description,
+		tb.OPERATION_TIME as operationTime,
+		tb.ACTION_TYPE    as actionType,
+		tb.MODIFY_TIME    as modifyTime,
+		tb.CREATE_TIME    as createTime,
+		tb.EXTEND         as extend,
+		tb.EXTEND1        as extend1
+	</sql>
+	
+	<sql id="get_thesis_where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="teacherId != null  and teacherId != ''">
+				tb.TEACHER_ID = #{teacherId}
+			</if>
+			
+			<if test="studentId != null  and studentId != ''">
+				tb.STUDENT_ID = #{studentId}
+			</if>
+			
+			<if test="academicYear != null and academicYear != '-1'">
+				AND tb.ACADEMIC_YEAR = #{academicYear}
+			</if>
+			
+			<if test="className != null and className != '-1'">
+				AND tb.CLASS_NAME = #{className}
+			</if>
+			
+			<if test="thesisType != null and thesisType != '-1'">
+				AND tb.THESIS_TYPE =  #{thesisType}
+			</if>
+			
+			<if test="origin != null and origin != '-1'">
+				AND tb.ORIGIN =  #{origin}
+			</if>
+			
+			<if test="degree != null and degree != -1">
+				AND tb.DEGREE =  #{degree}
+			</if>
+			
+			<if test="thesisTitle != null and thesisTitle != ''">
+				AND tb.THESIS_TITLE like  #{thesisTitle}
+			</if>
+			
+		</trim>	
+	</sql>
+
+	<select id="getThesis_backup" resultType="thesisBaseModel" parameterType="thesisBaseModel">
+		SELECT * FROM 
+		(
+			SELECT ROWNUM row_num, A.* FROM 
+			(
+				SELECT  hk.baseId,
+						hk.studentId,
+						hk.academicYear,
+						hk.semester,
+						hk.className,
+						hk.teacherName,
+						hk.teacherId,
+						hk.teacherTitle,
+						hk.origin,
+						hk.thesisTitle,
+						hk.thesisEnTitle,
+						hk.degree,
+						hk.thesisType,
+						hat.status ,
+						hk.score,
+						hk.description,
+						hk.operationTime,
+						hk.actionType,
+						hk.modifyTime,
+						hk.createTime,
+						hk.extend,
+						hk.extend1
+				
+				  FROM (SELECT thesis.*,
+							   sb.STUDENT_ID as studentId,
+							   sb.NAME as studentName,
+							   sb.CLASS_NAME
+				          FROM STUDENT_BASE sb
+				          
+				          LEFT JOIN (			                    
+								SELECT <include refid="thesis_base_column" />
+								
+								FROM THESIS_BASE tb 
+				                      
+									<include refid="get_thesis_where_condition"/> 
+							) thesis
+				        
+				            ON sb.CLASS_NAME = thesis.className
+				        
+							where sb.CLASS_NAME in
+				               (SELECT  tb.CLASS_NAME
+				                  FROM THESIS_BASE tb 
+				              	  <include refid="get_thesis_where_condition"/>
+				               ) 
+	
+				               <if test="studentId != null and studentId != ''">
+					               AND sb.studentId = #{studentId}
+				               </if>
+				               
+				               <if test="studentName != null and studentName != ''">
+					               AND sb.NAME LIKE  #{studentName}
+				               </if>			               
+				        ) hk
+				
+				  LEFT JOIN 
+					(
+						SELECT ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS
+						FROM THESIS_ARCHIVE ha
+						GROUP BY ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS
+					)hat
+					
+					ON hk.baseId = hat.THESIS_BASE_ID
+					AND hk.studentId = hat.STUDENT_ID
+				    
+				    <if test="status != null and status != -1">
+						WHERE hat.status = #{status}
+					</if>
+				
+				 ORDER BY hk.academicYear DESC, hk.semester DESC, hk.className, hk.studentId, hk.studentName
+			) A
+			
+			WHERE ROWNUM &lt;= #{end}
+		)
+		
+		WHERE ROW_NUM &gt; #{pageNum}	
+	</select>
+	
+	<select id="getThesis" resultType="thesisBaseModel" parameterType="thesisBaseModel">
+		SELECT * FROM 
+		(
+			SELECT ROWNUM row_num, A.* FROM 
+			(
+				select tr.status,
+				       tb.THESIS_BASE_ID  as baseId,
+				       tb.ACADEMIC_YEAR   as academicYear,
+				       tb.SEMESTER        as semester,
+				       tb.CLASS_NAME      as className,
+				       tb.TEACHER_NAME    as teacherName,
+				       tb.TEACHER_ID      as teacherId,
+				       tb.TEACHER_TITLE   as teacherTitle,
+				       tb.ORIGIN          as origin,
+				       tb.THESIS_TITLE    as thesisTitle,
+				       tb.THESIS_EN_TITLE as thesisEnTitle,
+				       tb.THESIS_TYPE     as thesisType,
+				       tb.DEGREE          as degree,
+				       tb.SCORE           as score,
+				       tb.STUDENT_NAME    as studentName,
+				       tb.STUDENT_ID      as studentId,
+				       tb.DESC_INFO       as description,
+				       tb.OPERATION_TIME  as operationTime,
+				       tb.ACTION_TYPE     as actionType,
+				       tb.MODIFY_TIME     as modifyTime,
+				       tb.CREATE_TIME     as createTime,
+				       tb.EXTEND          as extend,
+				       tb.EXTEND1         as extend1
+				  FROM THESIS_BASE tb
+				
+				  LEFT JOIN
+				
+				 (SELECT ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS
+				    FROM THESIS_ARCHIVE ha
+				   GROUP BY ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS) tr
+				
+				    ON tb.THESIS_BASE_ID = tr.THESIS_BASE_ID
+				   
+				   	AND tb.STUDENT_ID = tr.STUDENT_ID
+				   	
+				   	<include refid="get_thesis_where_condition"/>
+				
+				 ORDER BY tb.ACADEMIC_YEAR DESC, tb.SEMESTER DESC, tb.CLASS_NAME, tb.STUDENT_ID, tb.STUDENT_NAME
+			) A
+			
+			WHERE ROWNUM &lt;= #{end}
+		)
+		
+		WHERE ROW_NUM &gt; #{pageNum}	
+	</select>
 	
 	
+	<select id="countThesis" resultType="int" parameterType="thesisBaseModel">
+		SELECT COUNT(*) 
+		
+		FROM
+		
+			(
+				select tr.status,
+				       tb.THESIS_BASE_ID  as baseId,
+				       tb.ACADEMIC_YEAR   as academicYear,
+				       tb.SEMESTER        as semester,
+				       tb.CLASS_NAME      as className,
+				       tb.TEACHER_NAME    as teacherName,
+				       tb.TEACHER_ID      as teacherId,
+				       tb.TEACHER_TITLE   as teacherTitle,
+				       tb.ORIGIN          as origin,
+				       tb.THESIS_TITLE    as thesisTitle,
+				       tb.THESIS_EN_TITLE as thesisEnTitle,
+				       tb.THESIS_TYPE     as thesisType,
+				       tb.DEGREE          as degree,
+				       tb.SCORE           as score,
+				       tb.STUDENT_NAME    as studentName,
+				       tb.STUDENT_ID      as studentId,
+				       tb.DESC_INFO       as description,
+				       tb.OPERATION_TIME  as operationTime,
+				       tb.ACTION_TYPE     as actionType,
+				       tb.MODIFY_TIME     as modifyTime,
+				       tb.CREATE_TIME     as createTime,
+				       tb.EXTEND          as extend,
+				       tb.EXTEND1         as extend1
+				  FROM THESIS_BASE tb
+				
+				  LEFT JOIN
+				
+				 (SELECT ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS
+				    FROM THESIS_ARCHIVE ha
+				   GROUP BY ha.THESIS_BASE_ID, ha.STUDENT_ID, ha.STATUS) tr
+				
+				    ON tb.THESIS_BASE_ID = tr.THESIS_BASE_ID
+				   
+				   	AND tb.STUDENT_ID = tr.STUDENT_ID
+				   	
+				   	<include refid="get_thesis_where_condition"/>
+			) 		
+	</select>
+	
+	<update id="updateThesis" parameterType="thesisBaseModel">
+		UPDATE THESIS_BASE tb
+		
+		SET 
+			tb.THESIS_TITLE = #{thesisTitle}, 
+			tb.THESIS_EN_TITLE = #{thesisEnTitle},
+			tb.THESIS_TYPE = #{thesisType},
+			tb.ORIGIN = #{origin},
+			tb.TEACHER_NAME = #{teacherName},
+			tb.TEACHER_ID   = #{teacherId},
+			tb.TEACHER_TITLE = #{teacherTitle}
+			
+		WHERE tb.THESIS_BASE_ID = #{baseId}
+	
+	</update>
+	
+	<select id="findTeacherByTeacherId" parameterType="string" resultType="teacherBaseModel" >
+		SELECT 	tb.TEACHER_ID as teacherId, 
+		
+				tb.TEACHER_NAME as teacherName,
+				
+				tb.TEACHER_TITLE as teacherTitle
+				
+		FROM TEACHER_BASE tb
+		
+		WHERE tb.TEACHER_ID = #{teacherId}
+	
+	</select>
+	
+	<update id="updateTeacherTitle" parameterType="map">
+		UPDATE TEACHER_BASE
+		
+		SET TEACHER_TITLE = #{teacherTitle}
+			
+		WHERE TEACHER_ID = #{teacherId}
+	</update>
+
 </mapper>

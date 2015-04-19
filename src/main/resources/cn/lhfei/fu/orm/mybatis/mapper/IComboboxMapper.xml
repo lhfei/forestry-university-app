@@ -4,6 +4,7 @@
 
 <mapper namespace="cn.lhfei.fu.orm.mybatis.mapper.IComboboxMapper">
 	
+	<cache />
 	
 	<!-- 获取教师当前学年教授的全部班级 -->
 	<select id="getClassByTeacher" parameterType="map" resultType="combobox">
@@ -19,7 +20,6 @@
 				and hb.TEACHER_ID = #{teacherId}
 				
 		   	</if>
-		   
 
 		order by label asc
 	</select>

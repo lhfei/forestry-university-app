@@ -62,8 +62,13 @@ public enum OperationTypeEnum implements AbstractDictEnum<Integer> {
 	 */
 	XJ(5, "\u65b0\u5efa");
 	
+	/**
+	 * 数据库<tt>KEY</tt>值
+	 */
+	public static final String ENUM_KEY = "CZLX";
+	
 	@Override
-	public String getLabel(int code) {
+	public String getLabel(Integer code) {
 		return label;
 	}
 

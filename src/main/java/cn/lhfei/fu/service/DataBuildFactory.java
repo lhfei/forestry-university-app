@@ -15,6 +15,8 @@
  */
 package cn.lhfei.fu.service;
 
+import java.util.Map;
+
 /**
  * @version 1.0.0
  *
@@ -33,5 +35,5 @@ public interface DataBuildFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	boolean importDataByExcel(String filePath) throws Exception;
+	boolean importDataByExcel(String filePath, Map<String, Object> params) throws Exception;
 }

@@ -13,23 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.lhfei.fu.service;
-
-import java.util.List;
-
-import cn.lhfei.fu.orm.domain.TeacherBase;
+package cn.lhfei.fu.common.constant;
 
 /**
  * @version 1.0.0
  *
  * @author Hefei Li
  *
- * @since Jan 7, 2015
+ * @since Apr 18, 2015
  */
 
-public interface TeacherService {
-
-	List<TeacherBase> findAll();
+public enum DegreeEnum implements AbstractDictEnum<Integer> {
 	
-	void updateTeacherTitle(String teacherId, String teacherTitle) throws Exception;
+	/**
+	 * \u672c\u79d1
+	 */
+	BK("\u672c\u79d1", 0),
+	
+	/**
+	 * \u7855\u58eb
+	 */
+	SS("\u7855\u58eb", 1),
+	
+	/**
+	 * \u535a\u58eb
+	 */
+	BS("\u535a\u58eb", 2);
+	
+	DegreeEnum(String label, Integer code){
+		this.label = label;
+		this.code  = code;
+	}
+
+	@Override
+	public String getLabel(Integer code) {
+		return label;
+	}
+
+	@Override
+	public Integer getCode() {
+		return code;
+	}
+	
+	private String label;
+	private Integer code;
+
 }

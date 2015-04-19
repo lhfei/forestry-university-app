@@ -31,7 +31,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="HOMEWORK_ARCHIVE")
 public class HomeworkArchive extends AbstractEntity {
-	
+
+	private static final long serialVersionUID = -5471199968941040537L;
+
 	@Id
 	@javax.persistence.GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="HOMEWORK_ARCHIVE_ID")

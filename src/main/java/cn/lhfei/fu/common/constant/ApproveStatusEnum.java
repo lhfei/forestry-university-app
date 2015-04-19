@@ -48,7 +48,7 @@ public enum ApproveStatusEnum implements AbstractDictEnum<Integer> {
 	WTG(3, "\u672a\u901a\u8fc7");
 	
 	@Override
-	public String getLabel(int code) {
+	public String getLabel(Integer code) {
 		return label;
 	}
 
@@ -58,7 +58,7 @@ public enum ApproveStatusEnum implements AbstractDictEnum<Integer> {
 	}
 	
 	
-	ApproveStatusEnum(int code, String label) {
+	ApproveStatusEnum(Integer code, String label) {
 		this.code = code;
 		this.label = label;
 	}
@@ -66,6 +66,10 @@ public enum ApproveStatusEnum implements AbstractDictEnum<Integer> {
 	private int code;
 	private String label;
 	
+	/**
+	 * 数据库<tt>KEY</tt>值
+	 */
+	public static final String ENUM_KEY = "ZYZT";
 	public static final String DESCRIPTION = "\u4f5c\u4e1a\u5ba1\u6279\u72b6\u6001";
 	
 	/**
