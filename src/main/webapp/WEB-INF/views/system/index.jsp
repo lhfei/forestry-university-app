@@ -8,7 +8,11 @@
 	<title>${globalTitle }</title>
 	
 	<link rel="stylesheet" type="text/css" href="${basePath}/resources/css/base.css">
+	
+	<script type="text/javascript" src="${basePath }/resources/modules/system/BrowserUtil.js"></script>
 	<script type="text/javascript" src="${basePath }/resources/modules/system/login.js"></script>
+	
+	
 </head>
 <body style="background-color:#73A0CC;">
 

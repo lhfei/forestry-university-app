@@ -35,6 +35,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			
+			<mvc:exclude-mapping path="/help.html" />
 			<mvc:exclude-mapping path="/system/login.do" />
 			<mvc:exclude-mapping path="/teacher/downloadImg.do" />
 			<mvc:exclude-mapping path="/admin/thesisRead.do" />

@@ -137,9 +137,26 @@ Ext.require([
 	       	}
 	    }]
 	});
-	
+
 Ext.onReady(function() {
     Ext.QuickTips.init();
+    
+    var _browser = BrowserUtil()
+    
+    if(_browser.version < 6){
+    	
+    	var r = confirm('您当前正在使用的浏览器为: ' +_browser.name
+    			+ ', 其内核版本低于6!\r\n将无法访问改系统!请升级您的浏览器或重新设置浏览器内核版本.'
+    			+ '\r\n 系统为您准备了一个简单设置浏览器内线的帮助页，请您确认是否前往查看?');
+    	
+    	
+    	if(r == true) {
+    		window.open('../help.html', "_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no")
+    	}
+    	
+    	return false;
+    }
+    
     
     win.show();
 
