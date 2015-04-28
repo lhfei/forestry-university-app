@@ -688,6 +688,28 @@ public class AdminController extends AbstractController {
 	// // 论文管理. -- End														++++++++++
 	// ///////////////////////////////////////////////////////////////////////////////
 	
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // 模板下载. -- Start													++++++++++
+	// ///////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/nongraduateFor", method = RequestMethod.GET)
+	public ModelAndView nongraduateFor() {
+		ModelAndView view = new ModelAndView("admin/template/nongraduateFor");
+		
+		return view;
+	}	
+	
+	@RequestMapping(value = "/graduateFor", method = RequestMethod.GET)
+	public ModelAndView graduateFor() {
+		ModelAndView view = new ModelAndView("admin/template/graduateFor");
+		
+		return view;
+	}	
+	
+	// ///////////////////////////////////////////////////////////////////////////////
+	// // 模板下载. -- End														++++++++++
+	// ///////////////////////////////////////////////////////////////////////////////	
+	
 	@Autowired
 	private CourseService courseService;
 	

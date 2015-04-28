@@ -65,6 +65,9 @@ public class StudentBase extends AbstractEntity {
 	
 	@Column(name = "DEGREE")
 	private int degree;			//学历
+	
+	@Column(name = "GRADE")
+	private String grade;
 
 	@Column(name = "EMAIL")
 	private String email;
@@ -189,4 +192,13 @@ public class StudentBase extends AbstractEntity {
 	public void setDegree(int degree) {
 		this.degree = degree;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	
 }

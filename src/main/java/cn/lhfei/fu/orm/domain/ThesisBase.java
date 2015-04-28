@@ -76,7 +76,7 @@ public class ThesisBase extends AbstractEntity {
 	@Column(name = "TEACHER_NAME")
 	private String teacherName; // 教师姓名
 	
-	@Column(name = "DEGREE")
+	@Column(name = "DEGREE")	
 	private int degree;			//学历
 	
 	@Column(name = "ACADEMIC_YEAR")

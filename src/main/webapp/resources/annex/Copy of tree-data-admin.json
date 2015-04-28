@@ -55,7 +55,51 @@
 		"url": "../admin/graduateFor.do",
 		"leaf": true				
 	}]
-}]
+},{
+	"text": "数据导入",
+	"iconCls": "tree-trunk",
+	"expanded": true,
+	"children": [{
+		"text": "学生基本信息导入",
+		"leaf": false,
+		"expanded": true,
+		"children":[{
+			"id": "../admin/nongraduateInfo.do",
+			"text": "本科生信息导入",
+			"iconCls": "tree-leaf",
+			"url": "../admin/nongraduateInfo.do",
+			"leaf": true	
+		},{
+			"id": "../admin/graduateInfo.do",
+			"text": "研究生信息导入",
+			"iconCls": "tree-leaf",
+			"url": "../admin/graduateInfo.do",
+			"leaf": true		
+		}]
+	},{
+		"text": "作业论文导入",
+		"leaf": false,
+		"expanded": true,
+		"children":[{
+			"id": "../admin/nongraduateHw.do",
+			"text": "本科生作业导入",
+			"iconCls": "tree-leaf",
+			"url": "../admin/nongraduateHw.do",
+			"leaf": true	
+		},{
+			"id": "../admin/nongraduateThedis.do",
+			"text": "本科生论文导入",
+			"iconCls": "tree-leaf",
+			"url": "../admin/nongraduateThedis.do",
+			"leaf": true		
+		},{
+			"id": "../admin/graduateThedis.do",
+			"text": "研究生论文导入",
+			"iconCls": "tree-leaf",
+			"url": "../admin/graduateThedis.do",
+			"leaf": true		
+		}]
+	}]
 },{
 	"text": "个人设置",
 	"iconCls": "tree-trunk",
