@@ -170,6 +170,30 @@ public class StudentBaseModel extends AbstractPaginationModel implements
 		this.aliasName = aliasName;
 	}
 
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
 	private Integer id;
 	
 	@JsonSerialize(using=JsonDateSerializer.class)
@@ -182,5 +206,8 @@ public class StudentBaseModel extends AbstractPaginationModel implements
 	private String majorName; // '专业名称'
 	private String className; // '班级名称'
 	private String aliasName; //
+	private int degree;			//学历
+	private String grade;
+	private String userType;
 
 }

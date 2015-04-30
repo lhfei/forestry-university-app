@@ -18,7 +18,10 @@ package cn.lhfei.fu.orm.mybatis.mapper;
 import java.util.List;
 
 import cn.lhfei.fu.web.model.HomeworkBaseModel;
+import cn.lhfei.fu.web.model.StudentBaseModel;
 import cn.lhfei.fu.web.model.TeacherBaseModel;
+import cn.lhfei.fu.web.model.ThesisBaseModel;
+import cn.lhfei.identity.web.model.UserModel;
 
 /**
  * @version 1.0.0
@@ -36,4 +39,27 @@ public interface IExcelFactoryMapper {
 	List<TeacherBaseModel> getTeacher();
 	
 	void updateTeacherId(TeacherBaseModel model);
+	
+	/**
+	 * 导入学生
+	 * @param list
+	 */
+	void importStudent(List<StudentBaseModel> list);
+	
+	
+	/**
+	 * 导入系统用户
+	 * 
+	 * @param list
+	 */
+	void importSysUser(List<UserModel> list);
+	
+	
+	/**
+	 * 导入学生论文
+	 * 
+	 * @param list
+	 */
+	void importThesis(List<ThesisBaseModel> list);
+	
 }

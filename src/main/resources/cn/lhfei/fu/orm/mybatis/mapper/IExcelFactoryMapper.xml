@@ -34,5 +34,56 @@
 		
 		WHERE hb.teacher_name = #{teacherName}
 	</update>
+	
+	
+	<insert id="importStudent" parameterType="list" useGeneratedKeys="false">
+		<selectKey resultType="long" keyProperty="STUDENT_BASE_ID" order="BEFORE"> 
+            SELECT SEQ_STUDENT_BASE.NEXTVAL FROM DUAL 
+        </selectKey> 
+	
+		
+		INSERT INTO STUDENT_BASE (STUDENT_BASE_ID, BIRTHDAY, NAME , STUDENT_ID, GENDER, EMAIL, ALIAS_NAME, USER_TYPE, MODIFY_TIME, CREATE_TIME, CLASS_NAME, MAJOR_CODE, MAJOR_NAME, DEGREE, GRADE )
+		
+			SELECT  SEQ_STUDENT_BASE.NEXTVAL, A.*  FROM ( 
+		
+			<foreach collection="list" item="model" index="index"  separator="UNION ALL" > 
+				SELECT          
+		            #{model.birthday}, #{model.name}, #{model.studentId}, #{model.gender}, #{model.email}, #{model.aliasName}, #{model.userType}, #{model.modifyTime}, #{model.createTime}, #{model.className}, #{model.majorCode}, #{model.majorName}, #{model.degree}, #{model.grade}
+		        FROM DUAL
+		    </foreach>) A
+	</insert>
+	
+	<insert id="importSysUser" parameterType="list" useGeneratedKeys="false">
+		<selectKey resultType="long" keyProperty="ID" order="BEFORE"> 
+            SELECT SEQ_SYS_USER.NEXTVAL FROM DUAL 
+        </selectKey> 
+	
+		INSERT INTO SYS_USER (ID, ROLE_ID, USER_ID, USER_NAME, GENDER, BIRTHDAY, USER_TYPE, PASS_WORD, EMAIL, ALIAS_NAME, SIGN_TIME, MODIFY_TIME, CREATE_TIME)
+		
+			SELECT SEQ_SYS_USER.NEXTVAL, A.*  FROM ( 
+			
+			<foreach collection="list" item="model" separator="UNION ALL"> 
+		        SELECT           
+		           #{model.roleId}, #{model.userId}, #{model.userName}, #{model.gender}, #{model.birthday}, #{model.userType}, #{model.passWord}, #{model.email}, #{model.aliasName}, #{model.signTime}, #{model.modifyTime}, #{model.createTime}
+				FROM DUAL
+		    </foreach>) A
+	</insert>
+	
+	
+	<insert id="importThesis" parameterType="list" useGeneratedKeys="false">
+		<selectKey resultType="long" keyProperty="THESIS_BASE_ID" order="BEFORE"> 
+            SELECT SEQ_THESIS_BASE.NEXTVAL FROM DUAL 
+        </selectKey> 
+		INSERT INTO THESIS_BASE (THESIS_BASE_ID, TEACHER_NAME, TEACHER_ID, ORIGIN, THESIS_TITLE, OPERATION_TIME, ACTION_TYPE, THESIS_TYPE,MODIFY_TIME, CREATE_TIME, DESC_INFO, ACADEMIC_YEAR, CLASS_NAME, THESIS_EN_TITLE, TEACHER_TITLE, DEGREE, STUDENT_ID, STUDENT_NAME  )
+		
+			SELECT SEQ_THESIS_BASE.NEXTVAL, A.*  FROM ( 
+		
+			<foreach collection="list" item="model" separator="UNION ALL"> 
+		        SELECT           
+		    		#{model.teacherName}, #{model.teacherId}, #{model.origin}, #{model.thesisTitle}, #{model.operationTime}, #{model.actionType}, #{model.thesisType}, #{model.modifyTime}, #{model.createTime}, #{model.description}, #{model.academicYear},  #{model.className}, #{model.thesisEnTitle}, #{model.teacherTitle}, #{model.degree}, #{model.studentId}, #{model.studentName}
+		        FROM DUAL
+		    </foreach>) A
+		
+	</insert>
 
 </mapper>
