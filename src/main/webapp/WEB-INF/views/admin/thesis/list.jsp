@@ -94,7 +94,7 @@
 			<select id="s_degree" name="degree" >
 				<option value="-1" selected>全部状态</option>
 				<option value="0">本科</option>
-				<option value="1">硕士</option>
+				<option value="1">研究生</option>
 			</select>
 		</div>	
 		

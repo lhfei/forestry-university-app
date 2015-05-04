@@ -98,18 +98,17 @@ public class UserServiceImplTest {
 		
 		User user = new User();
 		user.setAliasName("admin");
-		
+		user.setUserId("10000001");
+		user.setUserName("系统管理员");
+		user.setUserType(UserTypeEnum.ADMIN.getCode());
 		user.setEmail("admin@163.com");
-		user.setCreateTime(date);
 		user.setGender(1);
-		user.setModifyTime(date);
 		user.setPassWord(SecurityUtils.toMd5("admin"));
 		user.setRole(role);
 		
+		user.setModifyTime(date);
+		user.setCreateTime(date);
 		user.setSignTime(date);
-		user.setUserId("10000000");
-		user.setUserName("系统管理员");
-		user.setUserType(UserTypeEnum.ADMIN.getCode());
 		
 		userService.saveOrUpdate(user);
 	}
