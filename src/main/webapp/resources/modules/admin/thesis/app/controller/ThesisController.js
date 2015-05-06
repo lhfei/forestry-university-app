@@ -299,6 +299,7 @@ Ext.define('thesis.controller.ThesisController', {
 		store.getProxy().setExtraParam('origin', searchModel.origin);
 		store.getProxy().setExtraParam('degree', searchModel.degree);
 		store.getProxy().setExtraParam('status', ''+searchModel.status);
+		store.getProxy().setExtraParam('studentId', ''+searchModel.studentId);
 		store.getProxy().setExtraParam('studentName', ''+searchModel.studentName);
 		
 	},

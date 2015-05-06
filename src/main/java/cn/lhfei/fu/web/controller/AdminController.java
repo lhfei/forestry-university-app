@@ -545,7 +545,7 @@ public class AdminController extends AbstractController {
 			@RequestParam(value = "origin", required = false)String origin,
 			@RequestParam(value = "degree", required = false)int degree,
 			@RequestParam(value = "status", required = false)int status,
-			@RequestParam(value = "thesisTitle", required = false)String thesisTitle,
+			@RequestParam(value = "studentId", required = false)String studentId,
 			@RequestParam(value = "studentName", required = false)String studentName,
 			@RequestParam("start")int start,
 			@RequestParam("page")int page,
@@ -557,9 +557,9 @@ public class AdminController extends AbstractController {
 		ThesisBaseModel thesisModel = new ThesisBaseModel();
 		
 		if(userSession != null){
-			if(null != thesisTitle && thesisTitle.trim().length() > 0){
+			/*if(null != thesisTitle && thesisTitle.trim().length() > 0){
 				thesisTitle = "%" +thesisTitle.trim()+ "%";
-			} 
+			}*/ 
 			if(null != studentName && studentName.trim().length() > 0){
 				studentName = "%" +studentName.trim()+ "%";
 			} 
@@ -571,11 +571,11 @@ public class AdminController extends AbstractController {
 			thesisModel.setDegree(degree);
 			thesisModel.setStatus(status);
 			thesisModel.setStudentName(studentName);
-			thesisModel.setThesisTitle(thesisTitle);
+			thesisModel.setStudentId(studentId);
 			thesisModel.setPageNum(start);
 			thesisModel.setPageSize(limit);
 			
-			// very impotent!
+			// very important!
 			String userType = userSession.getUser().getUserType();
 			
 			if(UserTypeEnum.ADMIN.getCode().equals(userType)){

@@ -117,9 +117,9 @@ Ext.define('thesis.view.ThesisSearchForm', {
         items: [{
             xtype: 'textfield',
             labelWidth: 60,
-            fieldLabel: '论文标题',
+            fieldLabel: '学生编号',
             anchor: '100%',
-            name: 'thesisTitle'
+            name: 'studentId'
         },{
         	xtype: 'textfield',
             labelWidth: 60,

@@ -499,9 +499,9 @@
 				AND tb.ACADEMIC_YEAR = #{academicYear}
 			</if>
 			
-			<if test="className != null and className != '-1'">
+			<!-- <if test="className != null and className != '-1'">
 				AND tb.CLASS_NAME = #{className}
-			</if>
+			</if> -->
 			
 			<if test="thesisType != null and thesisType != '-1'">
 				AND tb.THESIS_TYPE =  #{thesisType}
@@ -515,8 +515,8 @@
 				AND tb.DEGREE =  #{degree}
 			</if>
 			
-			<if test="thesisTitle != null and thesisTitle != ''">
-				AND tb.THESIS_TITLE like  #{thesisTitle}
+			<if test="studentName != null and studentName != ''">
+				AND tb.STUDENT_NAME like  #{studentName}
 			</if>
 			
 		</trim>	
