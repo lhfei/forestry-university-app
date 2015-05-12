@@ -351,8 +351,8 @@
 					<artifactId>cobertura-maven-plugin</artifactId>
 					<version>2.6</version>
 					<configuration>
+						<encoding>UTF-8</encoding>
 						<formats>
-							<encoding>UTF-8</encoding>
 							<format>html</format>
 							<format>xml</format>
 						</formats>
