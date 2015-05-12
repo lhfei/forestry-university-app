@@ -88,7 +88,7 @@
 			<artifactId>spring-oxm</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
-		
+
 		<!-- Spring BATCH -->
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
@@ -326,7 +326,7 @@
 			<version>3.7-beta3</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>forestry-university-app</finalName>
 		<pluginManagement>
@@ -342,7 +342,7 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
 						<includes>
-							<include>**/*Tests.java</include>
+							<include>**/*Test.java</include>
 						</includes>
 					</configuration>
 				</plugin>
@@ -351,7 +351,7 @@
 					<artifactId>cobertura-maven-plugin</artifactId>
 					<version>2.6</version>
 					<configuration>
-						<encoding>UTF-8</encoding>
+						<encoding>${project.build.sourceEncoding}</encoding>
 						<formats>
 							<format>html</format>
 							<format>xml</format>
@@ -360,6 +360,61 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.4</version>
+				<configuration>
+					<outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+					<reportPlugins>
+						<!-- Checkstyle -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>2.13</version>
+							<configuration>
+								<format>xml</format>
+								<configLocation>src/main/resources/config/checkstyle/checkstyle.xml</configLocation>
+							</configuration>
+						</plugin>
+						
+						<!-- PMD -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-pmd-plugin</artifactId>
+							<version>3.3</version>
+							<configuration>
+								<format>xml</format>
+								<targetJdk>${java.version}</targetJdk>
+								<aggregate>true</aggregate>
+								<rulesets>
+									<ruleset>src/main/resources/config/pmd/pmd-rules.xml</ruleset>
+								</rulesets>
+								<minimumTokens>20</minimumTokens>
+								<ignoreIdentifiers>true</ignoreIdentifiers>
+							</configuration>
+						</plugin>
+						
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+							<version>3.0.0</version>
+							<configuration>
+								<effort>Max</effort>
+								<xmlOutput>true</xmlOutput>
+							</configuration>
+						</plugin>
+						
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
+	<reporting>
+		<plugins>
+
+		</plugins>
+	</reporting>
 </project>
